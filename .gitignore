@@ -1,0 +1,24 @@
+*.DS_STORE
+
+# Intellij
+.idea
+*.iml
+
+# Build directory
+node_modules/
+node/
+npm-debug.log
+npm-debug.log.*
+
+# Hide our secret env.json File
+env.json
+
+# Test reports
+reports/**
+selenium-debug.log
+screenshots/**
+
+# Don't include auto-generated index.html
+src/main/resources/templates/index.html
+src/main/resources/static/license/frontend_licenses.json
+src/main/resources/static/js/**
