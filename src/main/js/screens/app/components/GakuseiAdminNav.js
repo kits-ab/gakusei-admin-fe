@@ -15,7 +15,7 @@ export class GakuseiAdminNav extends React.Component {
           <Navbar.Brand>
             <Link to="/">
               <span>
-                <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
+                <img height="100%" src="./src/main/resources/static/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
                 Gakusei Admin
               </span>
             </Link>

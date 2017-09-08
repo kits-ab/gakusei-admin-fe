@@ -20,7 +20,7 @@ const getEntries = function () {
   }
   return { main: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:7777'
+    'webpack-dev-server/client?http://localhost:7778'
   ] };
 };
 
@@ -48,24 +48,18 @@ module.exports = {
   entry: getEntries,
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
-  // devServer: For running a local web server on localhost:7777
-  // it will proxy back to localhost:8080 for api requests
+  // devServer: For running a local web server on localhost:7778
+  // it will proxy back to localhost:8090 for api requests
   devServer: {
     hot: true,
     open: true,
-    port: 7777,
+    port: 7778,
     host: 'localhost',
     stats: 'normal',
     historyApiFallback: true,
     proxy: {
-      '/icons/**': 'http://localhost:8080',
-      '/css/**': 'http://localhost:8080',
-      '/img/**': 'http://localhost:8080',
-      '/auth': 'http://localhost:8080',
-      '/logout': 'http://localhost:8080',
-      '/username': 'http://localhost:8080',
       '/api/*': {
-        target: 'http://localhost:8080/',
+        target: 'http://localhost:8090/',
         secure: false
       }
     }
