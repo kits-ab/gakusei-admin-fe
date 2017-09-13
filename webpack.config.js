@@ -66,6 +66,17 @@ module.exports = function () {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
           exclude: /(node_modules|bower_components|\.spec\.js)/
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: 'img/[name].[hash].[ext]'
+              }
+            }
+          ]
         }
       ]
     },

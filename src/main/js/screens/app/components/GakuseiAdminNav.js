@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Utility from '../../../shared/util/Utility';
+import logo from '../../../../resources/static/img/logo/temp_gakusei_logo3.png';
 
 export const Reducers = [];
 
@@ -15,7 +16,7 @@ export class GakuseiAdminNav extends React.Component {
           <Navbar.Brand>
             <Link to="/">
               <span>
-                <img height="100%" src="./src/main/resources/static/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
+                <img height="100%" src={logo} alt="Gakusei logo" />
                 Gakusei Admin
               </span>
             </Link>
