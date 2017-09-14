@@ -59,12 +59,12 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api/*': {
-        target: 'http://localhost:8080/',
+        target: 'http://localhost:8090/',
         secure: false
       },
-      '/auth': 'http://localhost:8080/',
-      '/username': 'http://localhost:8080/',
-      '/logout': 'http://localhost:8080/',
+      '/auth': 'http://localhost:8090/',
+      '/username': 'http://localhost:8090/',
+      '/logout': 'http://localhost:8090/',
     }
   },
   plugins: [
