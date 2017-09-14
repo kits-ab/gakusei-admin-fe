@@ -1,3 +1,3 @@
-import loginScreen from './loginScreen';
+import LoginScreen from './loginScreen';
 
-export default loginScreen;
+export default LoginScreen;

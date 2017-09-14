@@ -37,4 +37,15 @@ export default class Utility {
       (Object.assign({}, ...Utility.generateActionCreatorsFromReducer(reducerNames))),
     );
   }
+
+  // ----------------
+  // FORM-RELATED
+
+  static getFormData(form) {
+    return Object.keys(form.target).map(key => (
+      form.target[key].value ?
+      `${encodeURIComponent(form.target[key].name)}=${encodeURIComponent(form.target[key].value)}`
+      : null
+      )).filter(val => val);
+  }
 }
