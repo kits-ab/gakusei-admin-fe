@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
 
+import getCSRF from '../util/CSRFToken';
+
 export default function authService() {
     const urlAuth = '/username';
     const urlLogIn = '/auth';
@@ -19,6 +21,7 @@ export default function authService() {
                 headers: {
                     Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                    'X-XSRF-TOKEN': getCSRF(),
                 },
             });
         },
@@ -27,7 +30,7 @@ export default function authService() {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
-                    'X-XSRF-TOKEN': ''
+                    'X-XSRF-TOKEN': getCSRF(),
                 },
             });
         },
