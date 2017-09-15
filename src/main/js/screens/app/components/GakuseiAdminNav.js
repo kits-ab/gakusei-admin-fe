@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Utility from '../../../shared/util/Utility';
 // import logo from '../../../../resources/static/img/logo/temp_gakusei_logo3.png';
 
@@ -17,7 +18,7 @@ export class GakuseiAdminNav extends React.Component {
             <Link to="/">
               <span>
                 <img height="100%" src="" alt="Gakusei logo" />
-                Gakusei Admin
+                Gakusei Admin 
               </span>
             </Link>
           </Navbar.Brand>
@@ -29,22 +30,32 @@ export class GakuseiAdminNav extends React.Component {
               <NavItem>Om Gakusei</NavItem>
             </LinkContainer>
           </Nav>
+         { this.props.session.loggedIn ? 
          <Nav pullRight>
-           <LinkContainer to="/login">
-             <NavItem>Logga in </NavItem>
-           </LinkContainer>
            <LinkContainer to="/admin-panel">
              <NavItem>Admin panel</NavItem>
            </LinkContainer>
            <LinkContainer to="/log-out">
              <NavItem>Logga ut</NavItem>
            </LinkContainer>
-         </Nav>}
+         </Nav> 
+         :
+         <Nav pullRight>
+           <LinkContainer to="/login">
+             <NavItem>Logga in </NavItem>
+           </LinkContainer>
+         </Nav>
+         }
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
 
-export default Utility.superConnect(this, Reducers)(withRouter(GakuseiAdminNav));
+function mapStateToProps(state) {
+  return {
+      session: state.authSession,
+  };
+}
 
+export default connect(mapStateToProps, null)(GakuseiAdminNav);

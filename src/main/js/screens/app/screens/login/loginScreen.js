@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, Grid, Row, Col, Form, FormGroup, FormControl, Button,
     ButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { setSession, tryUserLogin } from '../../../../shared/actions/authActions';
+import { setSession, tryUserLogin, clearSession } from '../../../../shared/actions/authActions';
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -13,6 +13,10 @@ class LoginScreen extends React.Component {
         };
         this.onInputChange = this.onInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.clearSession();
     }
 
     onInputChange(event) {
@@ -72,9 +76,10 @@ class LoginScreen extends React.Component {
                                         label="login"
                                         bsStyle="primary"
                                         name="login"
-                                        disabled={!this.state.username || !this.state.password}
+                                        disabled={!this.state.username || !this.state.password
+                                            || this.props.session.waiting}
                                         >
-                                        Logga in
+                                        {this.props.session.waiting ? 'Väntar på svar...' : 'Logga in'}
                                     </Button>
                                 </ButtonGroup>
                             </FormGroup>
@@ -99,6 +104,9 @@ function mapDispatchToProps(dispatch) {
         },
         setSession: (session) => {
             dispatch(setSession(session));
+        },
+        clearSession: () => {
+            dispatch(clearSession());
         }
     };
 }

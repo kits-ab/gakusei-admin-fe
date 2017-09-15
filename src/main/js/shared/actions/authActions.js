@@ -4,7 +4,7 @@ import Utility from '../../shared/util/Utility';
 export const SET_AUTH_SESSION = 'SET_AUTH_SESSION';
 export const CLEAR_AUTH_SESSION = 'CLEAR_AUTH_SESSION';
 export const REJECT_AUTH_REQUEST = 'REJECT_AUTH_REQUEST';
-
+export const WAITING_ON_RESPONSE = 'WAITING_ON_RESPONSE';
 
 class AuthError extends Error {
     constructor(msg) { 
@@ -43,6 +43,12 @@ export function validAuthentication(session) {
     return ret;
 }
 
+export function setWaiting() {
+    return {
+        type: WAITING_ON_RESPONSE,
+    };
+}
+
 export function requestUserSession() {
     return function (dispatch) {
         authService().get().then((response) => {
@@ -69,6 +75,7 @@ export function requestUserSession() {
 
 export function tryUserLogin(data, history) {
     return function (dispatch) {
+        dispatch(setWaiting());
         const formBody = (typeof data === 'string' ? data : Utility.getFormData(data).join('&'));
         authService().log_in(formBody).then((response) => {
             switch (response.status) {
