@@ -25,25 +25,30 @@ export class GakuseiAdminNav extends React.Component {
         <Navbar.Collapse>
           <Nav>
             <LinkContainer to="/about">
-              <NavItem>Om Gakusei</NavItem>
+              <NavItem className="about">Om Gakusei</NavItem>
             </LinkContainer>
           </Nav>
-         { this.props.session.loggedIn ? 
-         <Nav pullRight>
-           <LinkContainer to="/admin-panel">
-             <NavItem>Admin panel</NavItem>
-           </LinkContainer>
-           <LinkContainer to="/log-out">
-             <NavItem>Logga ut</NavItem>
-           </LinkContainer>
-         </Nav> 
-         :
-         <Nav pullRight>
-           <LinkContainer to="/login">
-             <NavItem>Logga in </NavItem>
-           </LinkContainer>
-         </Nav>
-         }
+          <Nav pullRight>
+            <LinkContainer to="/login">
+              <NavItem>Logga in </NavItem>
+            </LinkContainer>
+          </Nav>
+          { this.props.session.loggedIn ?
+            <Nav pullRight>
+              <LinkContainer to="/admin-panel">
+                <NavItem>Admin panel</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/log-out">
+                <NavItem>Logga ut</NavItem>
+              </LinkContainer>
+            </Nav>
+            :
+            <Nav pullRight>
+              <LinkContainer to="/login">
+                <NavItem>Logga in </NavItem>
+              </LinkContainer>
+            </Nav>
+          }
         </Navbar.Collapse>
       </Navbar>
     );
