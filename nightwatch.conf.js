@@ -10,9 +10,6 @@ module.exports = {
   src_folders: [
     'src/test/e2e'// Where you are storing your Nightwatch e2e tests
   ],
-  custom_commands_path: [
-    'src/test/e2e/custom-commands'
-  ],
   page_objects_path: [
     'src/test/e2e/page-objects'
   ],
@@ -28,7 +25,7 @@ module.exports = {
   },
   test_settings: {
     default: {
-      launch_url: 'http://localhost:7777',
+      launch_url: 'http://localhost:7778',
       screenshots: {
         enabled: true, // if you want to keep screenshots
         path: './screenshots' // save screenshots here
