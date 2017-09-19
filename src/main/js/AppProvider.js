@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Switch } from 'react-router'; // Router,
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { anchorate } from 'anchorate';
 import { persistStore } from 'redux-persist';
 
@@ -45,7 +44,7 @@ export default class AppProvider extends React.Component {
   render() {
     if (this.state.rehydrated) {
       return (<Provider store={this.props.store}>
-        <Router onUpdate={onUpdate} history={this.props.history}>
+        <BrowserRouter onUpdate={onUpdate}>
           <div>
             <Route component={GakuseiAdminNav}/>
             <Route path="/about" component={aboutScreen} />
@@ -53,7 +52,7 @@ export default class AppProvider extends React.Component {
             <Route path="/log-out" component={requireAuthentication(LogoutScreen)} />
             <Route path="/admin-panel" component={requireAuthentication(AdminPanelScreen)} />
           </div>
-        </Router>
+        </BrowserRouter>
       </Provider>);
     }
     return null;

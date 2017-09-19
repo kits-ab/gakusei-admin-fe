@@ -11,7 +11,7 @@ class AdminPanelScreen extends React.Component {
     render() {
         return (
             <Grid>
-                <h2>Välkommen till Admin panelen!</h2>
+                <h2>Välkommen till Adminpanelen!</h2>
                 <h3>Inloggad som: {this.props.session.username}</h3>
             </Grid>
         );

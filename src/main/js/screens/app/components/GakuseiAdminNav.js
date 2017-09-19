@@ -1,11 +1,9 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Utility from '../../../shared/util/Utility';
-// import logo from '../../../../resources/static/img/logo/temp_gakusei_logo3.png';
+import logo from '../../../../resources/static/img/logo/temp_gakusei_logo3.png';
 
 export const Reducers = [];
 
@@ -17,7 +15,7 @@ export class GakuseiAdminNav extends React.Component {
           <Navbar.Brand>
             <Link to="/">
               <span>
-                <img height="100%" src="" alt="Gakusei logo" />
+                <img height="100%" src={logo} alt="Gakusei logo" />
                 Gakusei Admin 
               </span>
             </Link>
