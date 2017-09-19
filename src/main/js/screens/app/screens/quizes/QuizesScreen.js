@@ -2,24 +2,52 @@ import React from 'react';
 import { Alert, Grid, Row, Col, Form, FormGroup, FormControl, Button,
     ButtonGroup, Panel, ButtonToolbar } from 'react-bootstrap';
 
+import quizService from '../../../../shared/services/quizService';
+
 class QuizesScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            quizes: [
-                { id: 1, name: 'Quiz namn 1', description: 'Mycket bra quiz, skapad för professionella spelare. Varning: Extremt svårt, får din hjärna att koka.' },
-                { id: 2, name: 'Quiz namn 2', description: 'Annu bättre quiz. Lyssna inte på vad som sägs ovan, detta är quizen för dig!' }
-            ],
+            quizes: [],
             search: '',
+            offset: 0,
         };
 
         this.onInputChange = this.onInputChange.bind(this);
+    }
+
+    componentWillMount() {
+        this.getQuizes('', 0);
     }
 
     onInputChange(event) {
         this.setState({
             [event.target.name]: event.target.value,
         });
+        this.getQuizes(event.target.value, 0);
+    }
+
+    getQuizes(searchPattern, offset) {
+        quizService().get_all(searchPattern, offset).then((response) => {
+            switch (response.status) {
+                case 200:
+                    response.text().then((text) => {
+                        try {
+                            const data = JSON.parse(text);
+                            this.setState({
+                                quizes: data,
+                            });
+                        } catch (err) { 
+                            this.setState({
+                                quizes: [],
+                            });
+                        }
+                    });
+                    break;
+                default:
+                    throw new Error();
+            }
+        }).catch((err) => {});
     }
 
     render() {
@@ -34,6 +62,15 @@ class QuizesScreen extends React.Component {
                     onChange={this.onInputChange}
                     />
                 <br/>
+                {
+                    this.state.quizes.length === 0 
+                    ?
+                    <Alert bsStyle="warning" >
+                        <strong>Inga quiz-ar hittades!</strong>
+                    </Alert>
+                    :
+                    null
+                }
                 {this.state.quizes.map(quiz => (
                     <QuizBox key={quiz.id} quiz={quiz} />
                 ))}

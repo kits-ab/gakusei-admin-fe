@@ -52,7 +52,7 @@ export default class AppProvider extends React.Component {
             <Route path="/login" component={requireAuthentication(LoginScreen)} />
             <Route path="/log-out" component={requireAuthentication(LogoutScreen)} />
             <Route path="/admin-panel" component={requireAuthentication(AdminPanelScreen)} />
-            <Route path="/quizes" component={QuizesScreen} />
+            <Route path="/quizes" component={requireAuthentication(QuizesScreen)} />
           </div>
         </BrowserRouter>
       </Provider>);
