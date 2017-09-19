@@ -4,6 +4,7 @@ import getCSRF from '../util/CSRFToken';
 
 export default function quizService() {
     const urlQuizes = '/api/quizes/';
+    const urlCreateQuiz = '/api/quiz/create/';
 
     return {
         get_all(searchPattern, offset) {
@@ -13,6 +14,17 @@ export default function quizService() {
             }
             return fetch(url, {
                 credentials: 'same-origin',
+            });
+        },
+        create(data) {
+            return fetch(urlCreateQuiz, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'X-XSRF-TOKEN': getCSRF(),
+                },
             });
         },
     };
