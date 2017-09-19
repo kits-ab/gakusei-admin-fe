@@ -61,7 +61,10 @@ module.exports = {
       '/api/*': {
         target: 'http://localhost:8090/',
         secure: false
-      }
+      },
+      '/auth': 'http://localhost:8080/',
+      '/username': 'http://localhost:8080/',
+      '/logout': 'http://localhost:8080/',
     }
   },
   plugins: [
