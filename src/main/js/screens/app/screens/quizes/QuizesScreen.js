@@ -36,12 +36,22 @@ class QuizesScreen extends React.Component {
                     response.text().then((text) => {
                         try {
                             const data = JSON.parse(text);
-                            this.setState({
-                                quizes: data,
-                            });
+                            if (offset > 0) {
+                                let ls = this.state.quizes.slice();
+                                this.setState({
+                                    quizes: ls.concat(data),
+                                    offset,
+                                });
+                            } else {
+                                this.setState({
+                                    quizes: data,
+                                    offset,
+                                });
+                            }
                         } catch (err) { 
                             this.setState({
                                 quizes: [],
+                                offset,
                             });
                         }
                     });
@@ -63,6 +73,11 @@ class QuizesScreen extends React.Component {
             });
             this.getQuizes('', 0);
         } 
+    }
+
+    handeLoadMore() {
+        const offset = this.state.offset + 1;
+        this.getQuizes(this.state.search, offset);
     }
 
     render() {
@@ -103,7 +118,10 @@ class QuizesScreen extends React.Component {
                         label="load"
                         bsStyle="primary"
                         name="load"
-                        disabled={this.state.quizes.length < 10}
+                        disabled={
+                            (this.state.quizes.length - (10 * this.state.offset)) < 10
+                            }
+                        onClick={() => this.handeLoadMore()}
                         >
                         Ladda in fler
                     </Button>
