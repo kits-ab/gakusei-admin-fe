@@ -8,10 +8,8 @@ const BINPATH = './node_modules/nightwatch/bin/';
 // we use a nightwatch.conf.js file so we can include comments and helper functions
 module.exports = {
   src_folders: [
-    'src/test/e2e'// Where you are storing your Nightwatch e2e tests
-  ],
-  custom_commands_path: [
-    'src/test/e2e/custom-commands'
+    'src/test/e2e', // Where you are storing your Nightwatch e2e tests
+    'src/test/unit' // Where you are storing your Nightwatch unit tests
   ],
   page_objects_path: [
     'src/test/e2e/page-objects'
@@ -28,7 +26,7 @@ module.exports = {
   },
   test_settings: {
     default: {
-      launch_url: 'http://localhost:7777',
+      launch_url: 'http://localhost:7778',
       screenshots: {
         enabled: true, // if you want to keep screenshots
         path: './screenshots' // save screenshots here
@@ -43,7 +41,8 @@ module.exports = {
           driver: 'ALL',
           performance: 'ALL'
         }
-      }
+      },
+      exclude: 'src/test/unit/*'
     },
     chrome: {
       desiredCapabilities: {
@@ -57,7 +56,16 @@ module.exports = {
         chromeOptions: {
           args: ['incognito']
         }
-      }
+      },
+      exclude: 'src/test/unit/*'
+    },
+    unittests: {
+      selenium: {
+        start_process: false, // disable browser automation for the unit tests
+        start_session: false
+      },
+      filter: 'src/test/unit/*', // only unit tests
+      exclude: '' // reset by setting it to empty, to not exclude the unit tests
     }
   }
 };

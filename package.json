@@ -14,7 +14,10 @@
     "compile": "webpack --progress --profile --colors --hide-modules",
     "compile:production": "cross-env NODE_ENV=production webpack --colors --hide-modules",
     "start": "webpack-dev-server",
-    "test": "",
+    "test": "npm start & npm run alltests",
+    "alltests": "node nightwatch.conf.js && npm run e2etests && npm run unittests",
+    "e2etests": "./node_modules/.bin/nightwatch",
+    "unittests": "./node_modules/.bin/nightwatch --env unittests",
     "test:saucelabs": ""
   },
   "repository": {
