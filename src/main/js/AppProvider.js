@@ -14,6 +14,7 @@ import LoginScreen from './screens/app/screens/login';
 import LogoutScreen from './screens/app/screens/logout';
 import GakuseiAdminNav from './screens/app/components/GakuseiAdminNav';
 import AdminPanelScreen from './screens/app/screens/admin-panel';
+import userScreen from './screens/app/screens/users';
 
 function onUpdate() {
   anchorate(); // To have href's that can scroll to page sections
@@ -51,6 +52,7 @@ export default class AppProvider extends React.Component {
             <Route path="/login" component={requireAuthentication(LoginScreen)} />
             <Route path="/log-out" component={requireAuthentication(LogoutScreen)} />
             <Route path="/admin-panel" component={requireAuthentication(AdminPanelScreen)} />
+            <Route path="/users" component={requireAuthentication(userScreen)} />
           </div>
         </BrowserRouter>
       </Provider>);
