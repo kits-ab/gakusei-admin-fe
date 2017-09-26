@@ -8,7 +8,6 @@ import { persistStore } from 'redux-persist';
 
 import requireAuthentication from './shared/components/AuthenticatedComponent';
 
-import appScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
 import LoginScreen from './screens/app/screens/login';
 import LogoutScreen from './screens/app/screens/logout';

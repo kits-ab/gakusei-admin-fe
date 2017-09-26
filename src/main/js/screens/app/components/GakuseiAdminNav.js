@@ -15,12 +15,12 @@ export class GakuseiAdminNav extends React.Component {
           <Navbar.Brand>
             <Link to="/">
               <span>
-                <img height="100%" src={logo} alt="Gakusei logo" />
+                <img height="100%" src={logo} alt="Gakusei logo"/>
                 Gakusei Admin 
               </span>
             </Link>
           </Navbar.Brand>
-          <Navbar.Toggle />
+          <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
@@ -33,7 +33,7 @@ export class GakuseiAdminNav extends React.Component {
               <NavItem>Logga in </NavItem>
             </LinkContainer>
           </Nav>
-          { this.props.session.loggedIn ?
+          {this.props.session.loggedIn ?
             <Nav pullRight>
               <LinkContainer to="/admin-panel">
                 <NavItem>Admin panel</NavItem>
@@ -57,7 +57,7 @@ export class GakuseiAdminNav extends React.Component {
 
 function mapStateToProps(state) {
   return {
-      session: state.authSession,
+    session: state.authSession,
   };
 }
 

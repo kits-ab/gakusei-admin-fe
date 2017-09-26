@@ -24,10 +24,10 @@ const indexRoot = document.getElementById('index_root');
 function doRender() {
   ReactDOM.render(
     <AppContainer>
-      <AppProvider store={store} history={history} />
+      <AppProvider store={ store } history={ history }/>
     </AppContainer>,
-  indexRoot
-);
+    indexRoot
+  );
 }
 
 doRender();
