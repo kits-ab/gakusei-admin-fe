@@ -28,11 +28,6 @@ export class GakuseiAdminNav extends React.Component {
               <NavItem className="about">Om Gakusei</NavItem>
             </LinkContainer>
           </Nav>
-          <Nav pullRight>
-            <LinkContainer to="/login">
-              <NavItem>Logga in </NavItem>
-            </LinkContainer>
-          </Nav>
           { this.props.session.loggedIn ?
             <Nav pullRight>
               <LinkContainer to="/admin-panel">
