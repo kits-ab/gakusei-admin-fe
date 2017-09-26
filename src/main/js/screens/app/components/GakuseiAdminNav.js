@@ -33,6 +33,9 @@ export class GakuseiAdminNav extends React.Component {
               <LinkContainer to="/admin-panel">
                 <NavItem>Admin panel</NavItem>
               </LinkContainer>
+              <LinkContainer to="/users">
+                <NavItem>User panel</NavItem>
+              </LinkContainer>
               <LinkContainer to="/log-out">
                 <NavItem>Logga ut</NavItem>
               </LinkContainer>
