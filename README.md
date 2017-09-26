@@ -1,5 +1,6 @@
 # gakusei-admin-fe #
 ### Testing ###
-To start the dev server and run all tests, execute "npm run test".
+* First make sure the frontend is running, if not, execute `npm start`.
+* To run all tests (e2e + unit), execute `npm run test`.
 
 For documentation on how to write unit and e2e tests using Nightwatch, visit http://nightwatchjs.org/guide.
