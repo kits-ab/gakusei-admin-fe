@@ -12,7 +12,8 @@ export default function quizService() {
         url = url.concat('/', searchPattern);
       }
       return fetch(url, {
-        credentials: 'same-origin',
+        method: 'GET',
+        credentials: 'same-origin'
       });
     },
     create(data) {
