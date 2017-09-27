@@ -223,7 +223,6 @@ class CreateQuiz extends React.Component {
   }
 
   render() {
-    let quiz = this.props.quiz;
     return (
       <Panel>
         <h3>Skapa en ny quiz</h3>

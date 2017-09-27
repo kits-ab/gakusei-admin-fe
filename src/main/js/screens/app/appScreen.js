@@ -1,7 +1,6 @@
 /* global frontend_global_data */
 
 import React from 'react';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 
 import GakuseiAdminNav from './components/GakuseiAdminNav';
 
