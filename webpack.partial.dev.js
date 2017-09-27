@@ -59,7 +59,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api/*': {
-        target: 'http://localhost:8080/',
+        target: 'http://localhost:8090/',
         secure: false
       },
       '/auth': 'http://localhost:8080/',
