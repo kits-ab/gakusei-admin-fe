@@ -3,21 +3,20 @@ import 'whatwg-fetch';
 import getCSRF from '../util/CSRFToken';
 
 export default function quizService() {
-  const urlQuizes = '/api/quizes/';
-  const urlCreateQuiz = '/api/quiz/create/';
+  const baseQuizUrl = '/api/quizes';
 
   return {
-      let url = urlQuizes.concat(offset, '/');
     getAll(searchPattern, offset) {
+      let url = baseQuizUrl.concat('/', offset);
       if (searchPattern.length > 0) {
-        url = url.concat(searchPattern, '/');
+        url = url.concat('/', searchPattern);
       }
       return fetch(url, {
         credentials: 'same-origin',
       });
     },
     create(data) {
-      return fetch(urlCreateQuiz, {
+      return fetch(baseQuizUrl, {
         method: 'POST',
         body: JSON.stringify(data),
         credentials: 'same-origin',
