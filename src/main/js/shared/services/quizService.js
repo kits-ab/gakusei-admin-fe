@@ -7,8 +7,8 @@ export default function quizService() {
   const urlCreateQuiz = '/api/quiz/create/';
 
   return {
-    get_all(searchPattern, offset) {
       let url = urlQuizes.concat(offset, '/');
+    getAll(searchPattern, offset) {
       if (searchPattern.length > 0) {
         url = url.concat(searchPattern, '/');
       }

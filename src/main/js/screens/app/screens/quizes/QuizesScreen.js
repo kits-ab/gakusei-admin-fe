@@ -32,7 +32,7 @@ class QuizesScreen extends React.Component {
   }
 
   getQuizes(searchPattern, offset) {
-    quizService().get_all(searchPattern, offset).then((response) => {
+    quizService().getAll(searchPattern, offset).then((response) => {
       switch (response.status) {
         case 200:
           response.text().then((text) => {
@@ -188,8 +188,8 @@ class CreateQuiz extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(data) {
-    data.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     const obj = { name: this.state.name, description: this.state.description };
     quizService().create(obj).then((response) => {
       if (response.status === 200) {
