@@ -27,5 +27,15 @@ export default function quizService() {
         },
       });
     },
+    delete(id) {
+      let url = baseQuizUrl.concat('/', id);
+      return fetch(url, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    }
   };
 }

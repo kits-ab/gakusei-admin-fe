@@ -18,6 +18,7 @@ class QuizesScreen extends React.Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.handleCreateQuiz = this.handleCreateQuiz.bind(this);
+    this.handleDeleteQuiz = this.handleDeleteQuiz.bind(this);
   }
 
   componentWillMount() {
@@ -83,6 +84,12 @@ class QuizesScreen extends React.Component {
     this.getQuizes(this.state.search, offset);
   }
 
+  handleDeleteQuiz(deletedQuizId) {
+    this.setState(prevState => ({
+      quizes: prevState.quizes.filter(quiz => quiz.id !== deletedQuizId)
+    }));
+  }
+
   render() {
     return (
       <Grid>
@@ -114,7 +121,7 @@ class QuizesScreen extends React.Component {
             null
         }
         {this.state.quizes.map(quiz => (
-          <QuizBox key={quiz.id} quiz={quiz}/>
+          <QuizBox key={quiz.id} quiz={quiz} handleDeleteQuiz={this.handleDeleteQuiz}/>
         ))}
         <ButtonGroup vertical block>
           <Button
@@ -141,9 +148,18 @@ class QuizBox extends React.Component {
     super(props);
     this.state = {
       showButtons: false,
+      quizDeleted: false,
+      deleteAlertVisible: true
     };
 
+    this.onInputChange = this.onInputChange.bind(this);
     this.mouseEnter = this.mouseEnter.bind(this);
+  }
+
+  onInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   }
 
   mouseEnter() {
@@ -154,23 +170,51 @@ class QuizBox extends React.Component {
     this.setState({ showButtons: false });
   }
 
+  handleDeleteQuiz(id) {
+    this.props.handleDeleteQuiz(id);
+  }
+
+  deleteQuiz(id) {
+    quizService().delete(id).then((response) => {
+      if (response.status === 200) {
+        this.setState({
+          quizDeleted: true
+        });
+      } else {
+        throw new Error();
+      }
+    }).catch((err) => {
+      this.setState({
+        error: 'Något fick fel'
+      });
+    });
+  }
+
   render() {
     let quiz = this.props.quiz;
     return (
-      <Panel
-        onMouseEnter={this.mouseEnter}
-        onMouseLeave={this.mouseExit}>
-        <h3>{quiz.name}</h3>
-        <p>{quiz.description}</p>
-        {this.state.showButtons ?
-          <ButtonToolbar>
-            <Button bsStyle="primary">Visa</Button>
-            <Button bsStyle="danger">Ta bort</Button>
-          </ButtonToolbar>
-          :
-          null
-        }
-      </Panel>
+      <div>
+        {this.state.quizDeleted ? (
+          <Alert bsStyle="info" onDismiss={() => this.handleDeleteQuiz(quiz.id) }>
+            <strong>{quiz.name}</strong> har raderats.
+          </Alert>
+        ) : (
+          <Panel
+            onMouseEnter={this.mouseEnter}
+            onMouseLeave={this.mouseExit}>
+            <h3>{quiz.name}</h3>
+            <p>{quiz.description}</p>
+            {this.state.showButtons ?
+              <ButtonToolbar>
+                <Button bsStyle="primary">Visa</Button>
+                <Button bsStyle="danger" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
+              </ButtonToolbar>
+              :
+              null
+              }
+          </Panel>
+        )}
+      </div>
     );
   }
 }
