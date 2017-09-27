@@ -192,7 +192,7 @@ class CreateQuiz extends React.Component {
     event.preventDefault();
     const obj = { name: this.state.name, description: this.state.description };
     quizService().create(obj).then((response) => {
-      if (response.status === 200) {
+      if (response.status === 201) {
         this.props.callParent(true);
       } else {
         throw new Error();
