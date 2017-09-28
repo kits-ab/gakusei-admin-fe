@@ -32,8 +32,10 @@ class UserPanel extends React.Component {
                         <Modal.Title> {this.props.user.username} </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p> Username: {this.props.user.username} </p>
-                        <p> Role: {userUtils().stringifyRole(this.props.user.role)} </p>
+                        <Panel>
+                            <h3> Username: {this.props.user.username} </h3>
+                            <h3> Role: {userUtils().stringifyRole(this.props.user.role)} </h3>
+                        </Panel>
                         <ProgressTable progressList={this.props.user.progressTrackingList} />
                         <EventTable events={this.props.user.events} />
                     </Modal.Body>
