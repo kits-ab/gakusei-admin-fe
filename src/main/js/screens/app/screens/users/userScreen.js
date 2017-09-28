@@ -22,7 +22,7 @@ class userScreen extends React.Component {
             <Grid>
                 { 
                     this.state.users.map(user => (
-                        <UserModal user={user} />
+                        <UserPanel user={user} />
                     ))
                 }
             
@@ -62,7 +62,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, null)(userScreen);
 
-class UserModal extends React.Component {
+class UserPanel extends React.Component {
     constructor(props) {
         super(props);
 
