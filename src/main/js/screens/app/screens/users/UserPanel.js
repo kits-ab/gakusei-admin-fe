@@ -1,6 +1,5 @@
 import React from 'react';
-import { Alert, Grid, Row, Col, Form, FormGroup, FormControl, Button,
-    ButtonGroup, Panel, ButtonToolbar, Modal, Table } from 'react-bootstrap';
+import { Button, Panel, ButtonToolbar, Modal, Table } from 'react-bootstrap';
 
 class UserPanel extends React.Component {
     constructor(props) {
