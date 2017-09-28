@@ -24,7 +24,7 @@ class EventTable extends React.Component {
                     </thead>
                     <tbody>
                         {this.props.events.map(event => (
-                            <tr>
+                            <tr key={event.id} >
                                 <td> {event.id} </td>
                                 <td> {userUtils().timestampToDate(event.timestamp)} </td>
                                 <td> {event.gamemode} </td>
