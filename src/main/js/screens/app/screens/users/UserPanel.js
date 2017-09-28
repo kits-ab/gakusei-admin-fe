@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Panel, ButtonToolbar, Modal, Table } from 'react-bootstrap';
+import { Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Panel, ButtonToolbar, Modal, Table } from 'react-bootstrap';
+import { Panel, Table } from 'react-bootstrap';
 
 class ProgressTable extends React.Component {
     constructor(props) {
