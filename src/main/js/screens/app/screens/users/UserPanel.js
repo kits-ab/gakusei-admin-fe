@@ -33,8 +33,8 @@ class UserPanel extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Panel>
-                            <h3> Username: {this.props.user.username} </h3>
-                            <h3> Role: {userUtils().stringifyRole(this.props.user.role)} </h3>
+                            <h4> <strong> Username: </strong> {this.props.user.username} </h4>
+                            <h4> <strong> Role: </strong> {userUtils().stringifyRole(this.props.user.role)} </h4>
                         </Panel>
                         <ProgressTable progressList={this.props.user.progressTrackingList} />
                         <EventTable events={this.props.user.events} />
@@ -53,6 +53,10 @@ class UserPanel extends React.Component {
 
     closeModal() {
         this.setState({ showModal: false });
+    }
+
+    deleteUser() {
+
     }
 }
 
