@@ -1,6 +1,8 @@
 import React from 'react';
 import { Panel, Table } from 'react-bootstrap';
 
+import userUtils from './userUtils';
+
 class ProgressTable extends React.Component {
     constructor(props) {
         super(props);
@@ -26,18 +28,13 @@ class ProgressTable extends React.Component {
                                 <td> {progress.nuggetID} </td>
                                 <td> {progress.correctCount} </td>
                                 <td> {progress.incorrectCount} </td>
-                                <td> {this.timestampToDate(progress.latestTimestamp)} </td>
+                                <td> {userUtils().timestampToDate(progress.latestTimestamp)} </td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
             </Panel>
         );
-    }
-
-    timestampToDate(timestamp) {
-        let date = new Date(timestamp);
-        return date.toLocaleString('sv');
     }
 }
 
