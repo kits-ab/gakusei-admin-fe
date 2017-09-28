@@ -3,6 +3,7 @@ import { Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
+import userUtils from './userUtils';
 
 class UserPanel extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class UserPanel extends React.Component {
     render() {
         return (
                 <div>
-                <Panel header={this.createHeader(this.props.user)} >
+                <Panel header={userUtils().createHeader(this.props.user)} >
                     <ButtonToolbar>
                         <Button bsStyle='primary' onClick={this.openModal} > Show info </Button>
                         <Button bsStyle='warning'> Reset password </Button>
@@ -32,7 +33,7 @@ class UserPanel extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         <p> Username: {this.props.user.username} </p>
-                        <p> Role: {this.stringifyRole(this.props.user.role)} </p>
+                        <p> Role: {userUtils().stringifyRole(this.props.user.role)} </p>
                         <ProgressTable progressList={this.props.user.progressTrackingList} />
                         <EventTable events={this.props.user.events} />
                     </Modal.Body>
@@ -42,26 +43,6 @@ class UserPanel extends React.Component {
                 </Modal>
             </div>
         );
-    }
-
-    timestampToDate(timestamp) {
-        let date = new Date(timestamp);
-        return date.toLocaleString('sv');
-    }
-
-    createHeader(user) {
-        return `${this.stringifyRole(user.role)} : ${user.username}`;
-    }
-
-    stringifyRole(role) {
-        switch (role) {
-            case 'ROLE_USER':
-                return 'User';
-            case 'ROLE_ADMIN':
-                return 'Admin';
-            default:
-                return 'Null';
-        }
     }
 
     openModal() {
