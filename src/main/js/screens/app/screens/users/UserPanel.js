@@ -11,20 +11,22 @@ class UserPanel extends React.Component {
 
         this.state = {
             showModal: false,
+            confirmDelete: false,
         };
 
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
     }
 
     render() {
         return (
-                <div>
+            <div>
                 <Panel header={userUtils().createHeader(this.props.user)} >
                     <ButtonToolbar>
                         <Button bsStyle='primary' onClick={this.openModal} > Show info </Button>
-                        <Button bsStyle='warning'> Reset password </Button>
-                        <Button bsStyle='danger'> Delete </Button>
+                        <Button bsStyle='warning' > Reset password </Button>
+                        <Button bsStyle='danger' onClick={this.deleteUser} > {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
                     </ButtonToolbar>
                 </Panel>
                 <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large" aria-labelledby="contained-modal-title-lg">
@@ -56,7 +58,11 @@ class UserPanel extends React.Component {
     }
 
     deleteUser() {
-
+        if (!this.state.confirmDelete) {
+            this.setState({ confirmDelete: true });
+        } else {
+            window.alert(`${this.props.user.username} deleted!`);
+        }
     }
 }
 
