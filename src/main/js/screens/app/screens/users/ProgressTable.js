@@ -23,7 +23,7 @@ class ProgressTable extends React.Component {
                     </thead>
                     <tbody>
                         {this.props.progressList.map(progress => (
-                            <tr>
+                            <tr key={progress.id} >
                                 <td> {progress.id} </td>
                                 <td> {progress.nuggetID} </td>
                                 <td> {progress.correctCount} </td>
