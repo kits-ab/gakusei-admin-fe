@@ -1,6 +1,8 @@
 import React from 'react';
 import { Panel, Table } from 'react-bootstrap';
 
+import userUtils from './userUtils';
+
 class EventTable extends React.Component {
     constructor(props) {
         super(props);
@@ -24,7 +26,7 @@ class EventTable extends React.Component {
                         {this.props.events.map(event => (
                             <tr>
                                 <td> {event.id} </td>
-                                <td> {this.timestampToDate(event.timestamp)} </td>
+                                <td> {userUtils().timestampToDate(event.timestamp)} </td>
                                 <td> {event.gamemode} </td>
                                 <td> {event.type} </td>
                                 <td> {event.data} </td>
@@ -35,11 +37,6 @@ class EventTable extends React.Component {
                 </Table>
             </Panel>
         );
-    }
-
-    timestampToDate(timestamp) {
-        let date = new Date(timestamp);
-        return date.toLocaleString('sv');
     }
 }
 
