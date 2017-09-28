@@ -22,7 +22,7 @@ class userScreen extends React.Component {
             <Grid>
                 { 
                     this.state.users.map(user => (
-                        <UserPanel user={user} />
+                        <UserPanel key={user.username} user={user} />
                     ))
                 }
             
