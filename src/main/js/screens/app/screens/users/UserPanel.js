@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, Panel, ButtonToolbar, Modal, Table } from 'react-bootstrap';
 
+import ProgressTable from './ProgressTable';
+import EventTable from './EventTable';
+
 class UserPanel extends React.Component {
     constructor(props) {
         super(props);
@@ -30,56 +33,8 @@ class UserPanel extends React.Component {
                     <Modal.Body>
                         <p> Username: {this.props.user.username} </p>
                         <p> Role: {this.stringifyRole(this.props.user.role)} </p>
-                        <Panel collapsible header='Progress'>
-                            <Table striped bordered>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>nuggetID</th>
-                                        <th>Correct answers</th>
-                                        <th>Incorrect answers</th>
-                                        <th>Latest timestamp</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.user.progressTrackingList.map(progress => (
-                                        <tr>
-                                            <td> {progress.id} </td>
-                                            <td> {progress.nuggetID} </td>
-                                            <td> {progress.correctCount} </td>
-                                            <td> {progress.incorrectCount} </td>
-                                            <td> {this.timestampToDate(progress.latestTimestamp)} </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Panel>
-                        <Panel collapsible header='Events'>
-                            <Table striped bordered>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Timestamp</th>
-                                        <th>Gamemode</th>
-                                        <th>Type</th>
-                                        <th>Data</th>
-                                        <th>nuggetID</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.user.events.map(event => (
-                                        <tr>
-                                            <td> {event.id} </td>
-                                            <td> {this.timestampToDate(event.timestamp)} </td>
-                                            <td> {event.gamemode} </td>
-                                            <td> {event.type} </td>
-                                            <td> {event.data} </td>
-                                            <td> {event.nuggetId} </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Panel>
+                        <ProgressTable progressList={this.props.user.progressTrackingList} />
+                        <EventTable events={this.props.user.events} />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.closeModal} > Close </Button>
