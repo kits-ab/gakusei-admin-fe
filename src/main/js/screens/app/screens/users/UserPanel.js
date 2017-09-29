@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
@@ -24,7 +24,9 @@ class UserPanel extends React.Component {
         return (
             <div>
                 {this.state.deleted ? 
-                <Panel header={`${this.props.user.username} was deleted`} bsStyle='info' /> 
+                    <Alert bsStyle='info'>
+                        <strong>{this.props.user.username}</strong> was deleted.
+                    </Alert>
                 :
                 <div>
                     <Panel header={userUtils().createHeader(this.props.user)} >
