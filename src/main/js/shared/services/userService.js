@@ -11,5 +11,14 @@ export default function userService() {
                 credentials: 'same-origin',
             });
         },
+
+        search(searchString) {
+            let url = urlUsers.concat('/', searchString);
+
+            return fetch(url, {
+                credentials: 'same-origin',
+            });
+        }
+
     };
 }
