@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, SplitButton, MenuItem } from 'react-bootstrap';
+import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, SplitButton, MenuItem, Panel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
@@ -27,6 +27,7 @@ class userScreen extends React.Component {
     render() {
         return (
             <Grid>
+                <Panel header='Search' bsStyle='primary' >
                 <Form horizontal onSubmit={this.performSearch} >
                     <FormGroup controlId='formSearchName' >
                         <Col componentClass={ControlLabel} sm={2} >
@@ -57,6 +58,8 @@ class userScreen extends React.Component {
                         </Col>
                     </FormGroup>
                 </Form>
+                </Panel>
+                <hr />
                 {this.state.users.map(user => (
                         <UserPanel key={user.username} user={user} />
                 ))}
