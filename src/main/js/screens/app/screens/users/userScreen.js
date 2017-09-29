@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, SplitButton, MenuItem, Panel } from 'react-bootstrap';
+import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, SplitButton, MenuItem, Panel, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
@@ -60,6 +60,15 @@ class userScreen extends React.Component {
                 </Form>
                 </Panel>
                 <hr />
+                {this.state.users.length === 0
+                    ?
+                    <Alert bsStyle='info' >
+                        No users found
+                    </Alert>
+                    :
+                    null
+                }
+
                 {this.state.users.map(user => (
                         <UserPanel key={user.username} user={user} />
                 ))}
