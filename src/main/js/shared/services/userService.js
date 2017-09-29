@@ -18,7 +18,16 @@ export default function userService() {
             return fetch(url, {
                 credentials: 'same-origin',
             });
-        }
+        },
+
+        delete(username) {
+            let url = urlUsers.concat('/', username);
+
+            return fetch(url, {
+                method: 'DELETE',
+                credentials: 'same-origin',
+            });
+        },
 
     };
 }
