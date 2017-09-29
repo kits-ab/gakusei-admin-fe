@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col } from 'react-bootstrap';
+import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, SplitButton, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
@@ -13,17 +13,21 @@ class userScreen extends React.Component {
         this.state = {
             users: [],
             searchString: '',
+            selectedRoleKey: 0,
+            selectedRole: 'All users',
         };
 
         this.getUsers();
 
         this.onSearchStringChange = this.onSearchStringChange.bind(this);
+        this.saveEventKey = this.saveEventKey.bind(this);
+        this.performSearch = this.performSearch.bind(this);
     }
         
     render() {
         return (
             <Grid>
-                <Form horizontal>
+                <Form horizontal onSubmit={this.performSearch} >
                     <FormGroup controlId='formSearchName' >
                         <Col componentClass={ControlLabel} sm={2} >
                             Username
@@ -38,12 +42,16 @@ class userScreen extends React.Component {
                             Role
                         </Col>
                         <Col sm={10} >
-                            <FormControl type='text' name='roleSearch' placeholder='Role' />
+                            <SplitButton title={this.state.selectedRole} id='roleSelect' onSelect={this.saveEventKey} >
+                                <MenuItem eventKey='0'> All roles </MenuItem>
+                                <MenuItem eventKey='1'> Users </MenuItem>
+                                <MenuItem eventKey='2'> Administrators </MenuItem>
+                            </SplitButton>
                         </Col>
                     </FormGroup>
                     <FormGroup>
                         <Col smOffset={2} sm={10} >
-                            <Button>
+                            <Button type='submit' >
                                 Search
                             </Button>
                         </Col>
@@ -54,6 +62,26 @@ class userScreen extends React.Component {
                 ))}
             </Grid>
         );
+    }
+
+    saveEventKey(eventKey) {
+        this.setState({ selectedRoleKey: eventKey, selectedRole: this.eventKeyToString(eventKey) });
+    }
+
+    eventKeyToString(key) {
+        switch (key) {
+            case '1':
+                return 'Users';
+            case '2':
+                return 'Administrators';
+            default:
+                return 'All users';
+        }
+    }
+
+    performSearch(e) {
+        e.preventDefault();
+        this.search(this.state.searchString);
     }
 
     onSearchStringChange(event) {
@@ -67,7 +95,7 @@ class userScreen extends React.Component {
                     response.text().then((text) => {
                         try {
                             const data = JSON.parse(text);
-                            window.console.log(data);
+                            this.setState({ users: data });
                         } catch (err) {
                             window.console.log(err);
                         }
