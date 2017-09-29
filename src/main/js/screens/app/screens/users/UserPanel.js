@@ -4,6 +4,7 @@ import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
 import userUtils from './userUtils';
+import userService from '../../../../shared/services/userService';
 
 class UserPanel extends React.Component {
     constructor(props) {
@@ -70,7 +71,14 @@ class UserPanel extends React.Component {
         if (!this.state.confirmDelete) {
             this.setState({ confirmDelete: true });
         } else {
-            this.setState({ deleted: true });
+            userService().delete(this.props.user.username).then((response) => {
+                switch (response.status) {
+                    case 200:
+                        this.setState({ deleted: true });
+                        break;
+                    default:
+                }
+            }).catch((err) => {});
         }
     }
 }
