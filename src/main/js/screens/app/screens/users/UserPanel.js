@@ -38,7 +38,7 @@ class UserPanel extends React.Component {
                     </Panel>
                     <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large" aria-labelledby="contained-modal-title-lg">
                         <Modal.Header closeButton>
-                            <Modal.Title> {this.props.user.username} </Modal.Title>
+                            <Modal.Title> <strong>Account:</strong> {this.props.user.username} </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Panel>
