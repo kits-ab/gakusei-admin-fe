@@ -15,9 +15,8 @@ class userScreen extends React.Component {
             searchString: '',
             selectedRoleKey: 0,
             selectedRole: 'All users',
+            showSearchAlert: false,
         };
-
-        this.getUsers();
 
         this.onSearchStringChange = this.onSearchStringChange.bind(this);
         this.saveEventKey = this.saveEventKey.bind(this);
@@ -60,7 +59,7 @@ class userScreen extends React.Component {
                 </Form>
                 </Panel>
                 <hr />
-                {this.state.users.length === 0
+                {this.state.showSearchAlert
                     ?
                     <Alert bsStyle='info' >
                         No users found
@@ -107,7 +106,7 @@ class userScreen extends React.Component {
                     response.text().then((text) => {
                         try {
                             const data = JSON.parse(text);
-                            this.setState({ users: data });
+                            this.setState({ users: data, showSearchAlert: (data.length === 0) });
                         } catch (err) {
                             window.console.log(err);
                         }
