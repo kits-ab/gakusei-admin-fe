@@ -57,7 +57,7 @@ class QuizForm extends React.Component {
     return (
       <Panel>
         <h3>Skapa en ny quiz</h3>
-        <Form onSubmit={this.handleSubmit}>
+        <Form id="createForm" onSubmit={this.handleSubmit}>
           <FormGroup>
             <FormControl
               type="text"

@@ -99,7 +99,7 @@ class QuizesScreen extends React.Component {
             <QuizForm callParent={this.handleCreateQuiz}/>
             :
             <p>
-              <Button bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa en ny</Button><br/>
+              <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa en ny</Button><br/>
             </p>
         }
         <FormControl
