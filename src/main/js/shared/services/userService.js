@@ -29,5 +29,12 @@ export default function userService() {
             });
         },
 
+        resetPassword(user) {
+            return fetch(urlUsers, {
+                credentials: 'same-origin',
+                body: user,
+            });
+        },
+
     };
 }
