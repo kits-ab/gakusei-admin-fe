@@ -19,6 +19,8 @@ class UserPanel extends React.Component {
 
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
+        this.closePassModal = this.closePassModal.bind(this);
+        this.openPassModal = this.openPassModal.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
     }
 
@@ -34,7 +36,7 @@ class UserPanel extends React.Component {
                     <Panel header={userUtils().createHeader(this.props.user)} >
                         <ButtonToolbar>
                             <Button bsStyle='primary' onClick={this.openModal} > Show info </Button>
-                            <Button bsStyle='warning' > Reset password </Button>
+                            <Button bsStyle='warning' onClick={this.openPassModal} > Reset password </Button>
                             <Button bsStyle='danger' onClick={this.deleteUser} > {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
                         </ButtonToolbar>
                     </Panel>
@@ -52,6 +54,17 @@ class UserPanel extends React.Component {
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.closeModal} > Close </Button>
+                        </Modal.Footer>
+                    </Modal>
+                    <Modal show={this.state.showPassModal} onHide={this.closePassModal} >
+                        <Modal.Header closeButton >
+                            <Modal.Title> Reset password </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p> Works! </p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.closePassModal} > Close </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
