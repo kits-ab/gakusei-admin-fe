@@ -11,6 +11,7 @@ class UserPanel extends React.Component {
         super(props);
 
         this.state = {
+            showPassModal: false,
             showModal: false,
             confirmDelete: false,
             deleted: false,
@@ -65,6 +66,14 @@ class UserPanel extends React.Component {
 
     closeModal() {
         this.setState({ showModal: false });
+    }
+
+    openPassModal() {
+        this.setState({ showPassModal: true });
+    }
+
+    closePassModal() {
+        this.setState({ showPassModal: false });
     }
 
     deleteUser() {
