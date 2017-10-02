@@ -51,7 +51,7 @@ class userScreen extends React.Component {
                     </FormGroup>
                     <FormGroup>
                         <Col smOffset={2} sm={10} >
-                            <Button type='submit' >
+                            <Button type='submit' bsStyle='primary' >
                                 Search
                             </Button>
                         </Col>
