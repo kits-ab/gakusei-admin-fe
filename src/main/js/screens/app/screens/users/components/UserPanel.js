@@ -3,8 +3,8 @@ import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
-import userUtils from './userUtils';
-import userService from '../../../../shared/services/userService';
+import userUtils from '../utility/userUtils';
+import userService from '../../../../../shared/services/userService';
 
 class UserPanel extends React.Component {
     constructor(props) {
@@ -77,9 +77,21 @@ class UserPanel extends React.Component {
                         this.setState({ deleted: true });
                         break;
                     default:
+                        throw new Error();
                 }
             }).catch((err) => {});
         }
+    }
+
+    resetPassword(user) {
+        userService().resetPassword(user).then((response) => {
+            switch (response.status) {
+                case 200:
+                    break;
+                default:
+                    throw new Error();
+            }
+        }).catch((err) => {});
     }
 }
 

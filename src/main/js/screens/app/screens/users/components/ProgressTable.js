@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel, Table } from 'react-bootstrap';
 
-import userUtils from './userUtils';
+import userUtils from '../utility/userUtils';
 
 class ProgressTable extends React.Component {
     constructor(props) {
