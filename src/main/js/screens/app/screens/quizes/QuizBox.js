@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Panel, ButtonToolbar } from 'react-bootstrap';
+import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
 
@@ -10,11 +10,14 @@ class QuizBox extends React.Component {
     this.state = {
       showButtons: false,
       quizDeleted: false,
-      deleteAlertVisible: true
+      deleteAlertVisible: true,
+      viewQuiz: false,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.mouseEnter = this.mouseEnter.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   onInputChange(event) {
@@ -51,6 +54,14 @@ class QuizBox extends React.Component {
     });
   }
 
+  openModal() {
+    this.setState({ viewQuiz: true });
+  }
+
+  closeModal() {
+    this.setState({ viewQuiz: false });
+  }
+
   render() {
     let quiz = this.props.quiz;
     return (
@@ -60,21 +71,32 @@ class QuizBox extends React.Component {
             <strong>{quiz.name}</strong> har raderats.
           </Alert>
         ) : (
-          <Panel
-            id={quiz.name}
-            onMouseEnter={this.mouseEnter}
-            onMouseLeave={this.mouseExit}>
-            <h3>{quiz.name}</h3>
-            <p>{quiz.description}</p>
-            {this.state.showButtons ?
-              <ButtonToolbar>
-                <Button bsStyle="primary">Visa</Button>
-                <Button bsStyle="danger" name="delete" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
-              </ButtonToolbar>
-              :
-              null
-            }
-          </Panel>
+          <div>
+            <Panel
+              id={quiz.name}
+              onMouseEnter={this.mouseEnter}
+              onMouseLeave={this.mouseExit}>
+              <h3>{quiz.name}</h3>
+              <p>{quiz.description}</p>
+              {this.state.showButtons ?
+                <ButtonToolbar>
+                  <Button bsStyle="primary" onClick={this.openModal}>Visa</Button>
+                  <Button bsStyle="danger" name="delete" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
+                </ButtonToolbar>
+                :
+                null
+              }
+            </Panel>
+            <Modal show={this.state.viewQuiz} onHide={this.closeModal}>
+              <Modal.Header closeButton>
+                <Modal.Title><strong>Quiz: </strong> {quiz.name}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <h4><strong>Namn: </strong> {quiz.name}</h4>
+                  <h4><strong>Beskrivning: </strong> {quiz.description}</h4>
+              </Modal.Body>
+            </Modal>
+          </div>
         )}
       </div>
     );
