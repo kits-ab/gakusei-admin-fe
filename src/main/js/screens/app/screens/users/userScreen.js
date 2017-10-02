@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
 import userService from '../../../../shared/services/userService';
-import UserPanel from './UserPanel';
+import UserPanel from './components/UserPanel';
 
 class userScreen extends React.Component {
     constructor(props) {
