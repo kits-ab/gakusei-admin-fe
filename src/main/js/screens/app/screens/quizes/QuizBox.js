@@ -61,6 +61,7 @@ class QuizBox extends React.Component {
           </Alert>
         ) : (
           <Panel
+            id={quiz.name}
             onMouseEnter={this.mouseEnter}
             onMouseLeave={this.mouseExit}>
             <h3>{quiz.name}</h3>
@@ -68,7 +69,7 @@ class QuizBox extends React.Component {
             {this.state.showButtons ?
               <ButtonToolbar>
                 <Button bsStyle="primary">Visa</Button>
-                <Button bsStyle="danger" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
+                <Button bsStyle="danger" name="delete" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
               </ButtonToolbar>
               :
               null
