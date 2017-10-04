@@ -92,15 +92,31 @@ class userScreen extends React.Component {
 
     performSearch(e) {
         e.preventDefault();
-        this.search(this.state.searchString);
+
+        const key = this.state.selectedRoleKey;
+        let role = '';
+        if (key === '1') {
+            role = 'ROLE_USER';
+        } else if (key === '2') {
+            role = 'ROLE_ADMIN';
+        } else {
+            role = 'NO_ROLE_PROVIDED';
+        }
+
+        let processedSearch = this.state.searchString;
+        if (processedSearch === '') {
+            processedSearch = 'NO_SEARCHSTRING_PROVIDED';
+        }
+
+        this.search(processedSearch, role);
     }
 
     onSearchStringChange(event) {
         this.setState({ searchString: event.target.value });
     }
 
-    search(searchString) {
-        userService().search(searchString).then((response) => {
+    search(searchString, role) {
+        userService().searchWithRole(searchString, role).then((response) => {
             switch (response.status) {
                 case 200:
                     response.text().then((text) => {
