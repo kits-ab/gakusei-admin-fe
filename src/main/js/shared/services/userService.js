@@ -31,8 +31,13 @@ export default function userService() {
 
         resetPassword(user) {
             return fetch(urlUsers, {
+                method: 'PUT',
                 credentials: 'same-origin',
                 body: user,
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'X-XSRF-TOKEN': getCSRF(),
+                },
             });
         },
 
