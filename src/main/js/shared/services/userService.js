@@ -29,6 +29,14 @@ export default function userService() {
             });
         },
 
+        searchWithRole(searchString, role) {
+            let url = urlUsers.concat('/', searchString, '/', role);
+
+            return fetch(url, {
+                credentials: 'same-origin',
+            });
+        },
+
         resetPassword(user) {
             return fetch(urlUsers, {
                 method: 'PUT',
