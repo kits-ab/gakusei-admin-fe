@@ -78,7 +78,7 @@ class QuizesScreen extends React.Component {
     }
   }
 
-  handeLoadMore() {
+  handleLoadMore() {
     const offset = this.state.offset + 1;
     this.getQuizes(this.state.search, offset);
   }
@@ -130,7 +130,7 @@ class QuizesScreen extends React.Component {
             disabled={
               (this.state.quizes.length - (10 * this.state.offset)) < 10
             }
-            onClick={() => this.handeLoadMore()}
+            onClick={() => this.handleLoadMore()}
           >
             Ladda in fler
           </Button>
