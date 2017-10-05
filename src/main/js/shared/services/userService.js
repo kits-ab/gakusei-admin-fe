@@ -38,7 +38,9 @@ export default function userService() {
         },
 
         resetPassword(user) {
-            return fetch(urlUsers, {
+            let url = urlUsers.concat('/', 'password');
+
+            return fetch(url, {
                 method: 'PUT',
                 credentials: 'same-origin',
                 body: user,
