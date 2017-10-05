@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Col, Alert, Button, Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
@@ -15,6 +15,8 @@ class UserPanel extends React.Component {
             showModal: false,
             confirmDelete: false,
             deleted: false,
+            password: '',
+            validPassword: false,
         };
 
         this.closeModal = this.closeModal.bind(this);
@@ -22,6 +24,8 @@ class UserPanel extends React.Component {
         this.closePassModal = this.closePassModal.bind(this);
         this.openPassModal = this.openPassModal.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
+        this.submitPassword = this.submitPassword.bind(this);
+        this.handlePasswordInput = this.handlePasswordInput.bind(this);
     }
 
     render() {
@@ -61,7 +65,23 @@ class UserPanel extends React.Component {
                             <Modal.Title> Reset password </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <p> Works! </p>
+                            <Form horizontal onSubmit={this.submitPassword}>
+                                <FormGroup controlId='newPassword' >
+                                    <Col componentClass={ControlLabel} sm={3} >
+                                        New password
+                                    </Col>
+                                    <Col sm={9} >
+                                        <FormControl type='text' name='password' placeholder='New password' onChange={this.handlePasswordInput} />
+                                    </Col>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Col smOffset={3} sm={9} >
+                                        <Button type='submit' bsStyle='primary' disabled={!this.state.validPassword} >
+                                            Submit
+                                        </Button>
+                                    </Col>
+                                </FormGroup>
+                            </Form>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.closePassModal} > Close </Button>
@@ -86,7 +106,17 @@ class UserPanel extends React.Component {
     }
 
     closePassModal() {
-        this.setState({ showPassModal: false });
+        this.setState({ showPassModal: false, password: '', validPassword: false });
+    }
+
+    handlePasswordInput(e) {
+        this.setState({ password: e.target.value, validPassword: e.target.value.length !== 0 });
+    }
+
+    submitPassword(e) {
+        e.preventDefault();
+        this.closePassModal();
+        this.resetPassword();
     }
 
     deleteUser() {
@@ -105,8 +135,18 @@ class UserPanel extends React.Component {
         }
     }
 
-    resetPassword(user) {
-        userService().resetPassword(user).then((response) => {
+    resetPassword() {
+        let newUser = {
+            username: this.props.user.username,
+            password: this.state.password,
+            role: this.props.user.role,
+            events: this.props.user.events,
+            progressTrackingList: this.props.user.progressTrackingList,
+            usersLessons: this.props.user.usersLessons,
+        };
+        window.console.log(JSON.stringify(newUser));
+        window.console.log(newUser);
+        userService().resetPassword(JSON.stringify(newUser)).then((response) => {
             switch (response.status) {
                 case 200:
                     break;
