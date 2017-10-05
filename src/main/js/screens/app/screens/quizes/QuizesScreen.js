@@ -15,23 +15,20 @@ class QuizesScreen extends React.Component {
       showCreate: false,
     };
 
-    this.onInputChange = this.onInputChange.bind(this);
-    this.handleCreateQuiz = this.handleCreateQuiz.bind(this);
-    this.handleDeleteQuiz = this.handleDeleteQuiz.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.getQuizes('', 0);
   }
 
-  onInputChange(event) {
+  onInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
     this.getQuizes(event.target.value, 0);
   }
 
-  getQuizes(searchPattern, offset) {
+  getQuizes = (searchPattern, offset) => {
     quizService().getAll(searchPattern, offset).then((response) => {
       switch (response.status) {
         case 200:
@@ -65,7 +62,7 @@ class QuizesScreen extends React.Component {
     });
   }
 
-  handleCreateQuiz(ifnew) {
+  handleCreateQuiz = (ifnew) => {
     this.setState({
       showCreate: false,
     });
@@ -78,12 +75,12 @@ class QuizesScreen extends React.Component {
     }
   }
 
-  handleLoadMore() {
+  handleLoadMore = () => {
     const offset = this.state.offset + 1;
     this.getQuizes(this.state.search, offset);
   }
 
-  handleDeleteQuiz(deletedQuizId) {
+  handleDeleteQuiz = (deletedQuizId) => {
     this.setState(prevState => ({
       quizes: prevState.quizes.filter(quiz => quiz.id !== deletedQuizId)
     }));
@@ -130,7 +127,7 @@ class QuizesScreen extends React.Component {
             disabled={
               (this.state.quizes.length - (10 * this.state.offset)) < 10
             }
-            onClick={() => this.handleLoadMore()}
+            onClick={() => this.handleLoadMore}
           >
             Ladda in fler
           </Button>

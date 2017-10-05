@@ -13,13 +13,9 @@ class QuizBox extends React.Component {
       deleteAlertVisible: true,
       viewQuiz: false,
     };
-
-    this.mouseEnter = this.mouseEnter.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
-  mouseEnter() {
+  mouseEnter = () => {
     this.setState({ showButtons: true });
   }
 
@@ -27,11 +23,11 @@ class QuizBox extends React.Component {
     this.setState({ showButtons: false });
   }
 
-  handleDeleteQuiz(id) {
+  handleDeleteQuiz = (id) => {
     this.props.handleDeleteQuiz(id);
   }
 
-  deleteQuiz(id) {
+  deleteQuiz = (id) => {
     quizService().delete(id).then((response) => {
       if (response.status === 200) {
         this.setState({
@@ -47,11 +43,11 @@ class QuizBox extends React.Component {
     });
   }
 
-  openModal() {
+  openModal = () => {
     this.setState({ viewQuiz: true });
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ viewQuiz: false });
   }
 

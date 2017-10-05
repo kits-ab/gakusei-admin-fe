@@ -14,12 +14,9 @@ class QuizForm extends React.Component {
       description: '',
       error: null,
     };
-
-    this.onInputChange = this.onInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     const obj = { name: this.state.name, description: this.state.description };
     quizService().create(obj).then((response) => {
@@ -35,7 +32,7 @@ class QuizForm extends React.Component {
     });
   }
 
-  renderErrorMsg() {
+  renderErrorMsg = () => {
     if (this.state.error != null) {
       return (
         <Alert bsStyle="danger">
@@ -47,7 +44,7 @@ class QuizForm extends React.Component {
     return '';
   }
 
-  onInputChange(event) {
+  onInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
