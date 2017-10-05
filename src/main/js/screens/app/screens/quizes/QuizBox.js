@@ -14,16 +14,9 @@ class QuizBox extends React.Component {
       viewQuiz: false,
     };
 
-    this.onInputChange = this.onInputChange.bind(this);
     this.mouseEnter = this.mouseEnter.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  onInputChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
   }
 
   mouseEnter() {
