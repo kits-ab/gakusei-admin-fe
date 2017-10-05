@@ -27,7 +27,7 @@ class QuizForm extends React.Component {
       }
     }).catch((err) => {
       this.setState({
-        error: 'Något fick fel',
+        error: 'Kunde inte skapa quiz',
       });
     });
   }
@@ -91,7 +91,7 @@ class QuizForm extends React.Component {
                 name="cancel"
                 onClick={() => this.props.callParent(false)}
               >
-                Ångra
+                Avbryt
               </Button>
             </ButtonGroup>
           </FormGroup>
