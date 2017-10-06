@@ -12,6 +12,7 @@ class UserPanel extends React.Component {
 
         this.state = {
             showPassModal: false,
+            showRoleModal: false,
             showModal: false,
             confirmDelete: false,
             deleted: false,
@@ -23,6 +24,8 @@ class UserPanel extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.closePassModal = this.closePassModal.bind(this);
         this.openPassModal = this.openPassModal.bind(this);
+        this.closeRoleModal = this.closeRoleModal.bind(this);
+        this.openRoleModal = this.openRoleModal.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
@@ -41,6 +44,7 @@ class UserPanel extends React.Component {
                         <ButtonToolbar>
                             <Button bsStyle='primary' onClick={this.openModal} > Show info </Button>
                             <Button bsStyle='warning' onClick={this.openPassModal} > Reset password </Button>
+                            <Button bsStyle='warning' onClick={this.openRoleModal} > Change role </Button>
                             <Button bsStyle='danger' onClick={this.deleteUser} > {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
                         </ButtonToolbar>
                     </Panel>
@@ -87,6 +91,17 @@ class UserPanel extends React.Component {
                             <Button onClick={this.closePassModal} > Close </Button>
                         </Modal.Footer>
                     </Modal>
+                    <Modal show={this.state.showRoleModal} onHide={this.closeRoleModal} >
+                        <Modal.Header closeButton >
+                            <Modal.Title> Change role </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p> Change me! </p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.closeRoleModal} > Close </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
                 }
             </div>
@@ -107,6 +122,14 @@ class UserPanel extends React.Component {
 
     closePassModal() {
         this.setState({ showPassModal: false, password: '', validPassword: false });
+    }
+
+    openRoleModal() {
+        this.setState({ showRoleModal: true });
+    }
+
+    closeRoleModal() {
+        this.setState({ showRoleModal: false });
     }
 
     handlePasswordInput(e) {
@@ -147,6 +170,27 @@ class UserPanel extends React.Component {
         window.console.log(JSON.stringify(newUser));
         window.console.log(newUser);
         userService().resetPassword(JSON.stringify(newUser)).then((response) => {
+            switch (response.status) {
+                case 200:
+                    break;
+                default:
+                    throw new Error();
+            }
+        }).catch((err) => {});
+    }
+
+    changeRole(newRole) {
+        let oldUser = this.props.user;
+        let newUser = {
+            username: oldUser.username,
+            password: oldUser.password,
+            role: newRole,
+            events: oldUser.events,
+            progressTrackingList: oldUser.progressTrackingList,
+            usersLessons: oldUser.usersLessons,
+        };
+
+        userService().changeRole(JSON.stringify(newUser)).then((response) => {
             switch (response.status) {
                 case 200:
                     break;
