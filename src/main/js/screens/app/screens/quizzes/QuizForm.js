@@ -32,14 +32,13 @@ class QuizForm extends React.Component {
     });
   }
 
-  renderErrorMsg = () => {
-    return (
-      <Alert bsStyle="danger">
-        <strong>Ett fel upptäcktes!</strong>
-        <p>{this.state.error}</p>
-      </Alert>
-    );
-  }
+  renderErrorMsg = () => (
+    <Alert bsStyle="danger">
+      <strong>Ett fel upptäcktes!</strong>
+      <p>{this.state.error}</p>
+    </Alert>
+  );
+
 
   onInputChange = (event) => {
     this.setState({
