@@ -51,5 +51,19 @@ export default function userService() {
             });
         },
 
+        changeRole(user) {
+            let url = urlUsers.concat('/', 'role');
+
+            return fetch(url, {
+                method: 'PUT',
+                credentials: 'same-origin',
+                body: user,
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'X-XSRF-TOKEN': getCSRF(),
+                },
+            });
+        },
+
     };
 }
