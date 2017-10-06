@@ -13,7 +13,7 @@ class AdminPanelScreen extends React.Component {
       <Grid>
         <h2>Välkommen till Adminpanelen!</h2>
         <h3>Inloggad som: { this.props.session.username }</h3>
-        <Link to="/quizes">Länk till quiz sidan</Link>
+        <Link to="/quizzes">Länk till quiz sidan</Link>
       </Grid>
     );
   }

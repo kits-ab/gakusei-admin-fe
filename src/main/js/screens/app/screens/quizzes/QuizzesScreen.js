@@ -5,7 +5,7 @@ import quizService from '../../../../shared/services/quizService';
 import QuizBox from './QuizBox';
 import QuizForm from './QuizForm';
 
-class QuizesScreen extends React.Component {
+class QuizzesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -137,5 +137,5 @@ class QuizesScreen extends React.Component {
   }
 }
 
-export default QuizesScreen;
+export default QuizzesScreen;
 
