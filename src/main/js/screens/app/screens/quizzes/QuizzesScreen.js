@@ -9,7 +9,7 @@ class QuizzesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quizes: [],
+      quizzes: [],
       search: '',
       offset: 0,
       showCreate: false,
@@ -18,37 +18,37 @@ class QuizzesScreen extends React.Component {
   }
 
   componentWillMount = () => {
-    this.getQuizes('', 0);
+    this.getQuizzes('', 0);
   }
 
   onInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    this.getQuizes(event.target.value, 0);
+    this.getQuizzes(event.target.value, 0);
   }
 
-  getQuizes = (searchPattern, offset) => {
+  getQuizzes = (searchPattern, offset) => {
     quizService().getAll(searchPattern, offset).then((response) => {
       if (response.status === 200) {
         response.text().then((text) => {
           try {
             const data = JSON.parse(text);
             if (offset > 0) {
-              let ls = this.state.quizes.slice();
+              let ls = this.state.quizzes.slice();
               this.setState({
-                quizes: ls.concat(data),
+                quizzes: ls.concat(data),
                 offset,
               });
             } else {
               this.setState({
-                quizes: data,
+                quizzes: data,
                 offset,
               });
             }
           } catch (err) {
             this.setState({
-              quizes: [],
+              quizzes: [],
               offset,
             });
           }
@@ -70,24 +70,24 @@ class QuizzesScreen extends React.Component {
       this.setState({
         search: '',
       });
-      this.getQuizes('', 0);
+      this.getQuizzes('', 0);
     }
   }
 
   handleLoadMore = () => {
     const offset = this.state.offset + 1;
-    this.getQuizes(this.state.search, offset);
+    this.getQuizzes(this.state.search, offset);
   }
 
   handleDeleteQuiz = (deletedQuizId) => {
     this.setState(prevState => ({
-      quizes: prevState.quizes.filter(quiz => quiz.id !== deletedQuizId)
+      quizzes: prevState.quizzes.filter(quiz => quiz.id !== deletedQuizId)
     }));
   }
 
   renderMsg = (type) => {
     switch (type) {
-      case 'no quizes':
+      case 'no quizzes':
         return (
           <Alert bsStyle="warning">
             <strong>Inga quiz-ar hittades!</strong>
@@ -130,9 +130,9 @@ class QuizzesScreen extends React.Component {
           onChange={this.onInputChange}
         />
         <br/>
-        {this.state.quizes.length === 0 ? this.renderMsg('no quizes') : null}
+        {this.state.quizzes.length === 0 ? this.renderMsg('no quizzes') : null}
         {this.state.error ? this.renderMsg('error') : null}
-        {this.state.quizes.map(quiz => (
+        {this.state.quizzes.map(quiz => (
           <QuizBox key={quiz.id} quiz={quiz} handleDeleteQuiz={this.handleDeleteQuiz}/>
         ))}
         <ButtonGroup vertical block>
@@ -141,7 +141,7 @@ class QuizzesScreen extends React.Component {
             bsStyle="primary"
             name="load"
             disabled={
-              (this.state.quizes.length - (10 * this.state.offset)) < 10
+              (this.state.quizzes.length - (10 * this.state.offset)) < 10
             }
             onClick={() => this.handleLoadMore}
           >
