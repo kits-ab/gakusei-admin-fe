@@ -23,7 +23,7 @@ class EventTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.events.map(event => (
+                        {this.props.events.sort((a, b) => b.timestamp - a.timestamp).map(event => (
                             <tr key={event.id} >
                                 <td> {event.id} </td>
                                 <td> {userUtils().timestampToDate(event.timestamp)} </td>
