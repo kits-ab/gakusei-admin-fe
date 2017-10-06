@@ -14,7 +14,6 @@ class QuizzesScreen extends React.Component {
       offset: 0,
       showCreate: false,
     };
-
   }
 
   componentWillMount = () => {
