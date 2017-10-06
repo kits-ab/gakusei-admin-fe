@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Alert, Button, Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
+import { DropdownButton, MenuItem, Col, Alert, Button, Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
@@ -17,6 +17,7 @@ class UserPanel extends React.Component {
             confirmDelete: false,
             deleted: false,
             password: '',
+            newRole: this.props.user.role,
             validPassword: false,
         };
 
@@ -29,6 +30,8 @@ class UserPanel extends React.Component {
         this.deleteUser = this.deleteUser.bind(this);
         this.submitPassword = this.submitPassword.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
+        this.submitRoleChange = this.submitRoleChange.bind(this);
+        this.saveRoleSelect = this.saveRoleSelect.bind(this);
     }
 
     render() {
@@ -93,10 +96,16 @@ class UserPanel extends React.Component {
                     </Modal>
                     <Modal show={this.state.showRoleModal} onHide={this.closeRoleModal} >
                         <Modal.Header closeButton >
-                            <Modal.Title> Change role </Modal.Title>
+                            <Modal.Title> Change role : {this.props.user.username} </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <p> Change me! </p>
+                            <ButtonToolbar>
+                                <DropdownButton title={this.state.newRole} id='roleChange' onSelect={this.saveRoleSelect} >
+                                    <MenuItem eventKey='ROLE_USER' > ROLE_USER </MenuItem>
+                                    <MenuItem eventKey='ROLE_ADMIN' > ROLE_ADMIN </MenuItem>
+                                </DropdownButton>
+                                <Button onClick={this.submitRoleChange} bsStyle='primary' > Set new role </Button>
+                            </ButtonToolbar>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.closeRoleModal} > Close </Button>
@@ -140,6 +149,14 @@ class UserPanel extends React.Component {
         e.preventDefault();
         this.closePassModal();
         this.resetPassword();
+    }
+
+    submitRoleChange() {
+        this.changeRole(this.state.newRole);
+    }
+
+    saveRoleSelect(eventKey) {
+        this.setState({ newRole: eventKey });
     }
 
     deleteUser() {
