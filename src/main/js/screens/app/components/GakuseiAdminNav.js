@@ -23,26 +23,37 @@ export class GakuseiAdminNav extends React.Component {
           <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to="/about">
-              <NavItem className="about">Om Gakusei</NavItem>
-            </LinkContainer>
-          </Nav>
           { this.props.session.loggedIn ?
-            <Nav pullRight>
-              <LinkContainer to="/admin-panel">
-                <NavItem>Admin panel</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/log-out">
-                <NavItem>Logga ut</NavItem>
-              </LinkContainer>
-            </Nav>
+            <div>
+              <Nav>
+                <LinkContainer to="/admin-panel">
+                  <NavItem>Adminpanelen</NavItem>
+                </LinkContainer>
+              </Nav>
+              <Nav>
+                <LinkContainer to="/quizzes">
+                  <NavItem>Quiz</NavItem>
+                </LinkContainer>
+              </Nav>
+              <Nav pullRight>
+                <LinkContainer to="/log-out">
+                  <NavItem>Logga ut</NavItem>
+                </LinkContainer>
+              </Nav>
+            </div>
             :
-            <Nav pullRight>
-              <LinkContainer to="/login">
-                <NavItem>Logga in </NavItem>
-              </LinkContainer>
-            </Nav>
+            <div>
+              <Nav>
+                <LinkContainer to="/about">
+                  <NavItem>Om Gakusei</NavItem>
+                </LinkContainer>
+              </Nav>
+              <Nav pullRight>
+                <LinkContainer to="/login">
+                  <NavItem>Logga in </NavItem>
+                </LinkContainer>
+              </Nav>
+            </div>
           }
         </Navbar.Collapse>
       </Navbar>
