@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, SplitButton, MenuItem, Panel, Alert } from 'react-bootstrap';
+import { Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, DropdownButton, MenuItem, Panel, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
@@ -42,11 +42,11 @@ class userScreen extends React.Component {
                             Role
                         </Col>
                         <Col sm={10} >
-                            <SplitButton title={this.state.selectedRole} id='roleSelect' onSelect={this.saveEventKey} >
+                            <DropdownButton title={this.state.selectedRole} id='roleSelect' onSelect={this.saveEventKey} >
                                 <MenuItem eventKey='0'> All roles </MenuItem>
                                 <MenuItem eventKey='1'> Users </MenuItem>
                                 <MenuItem eventKey='2'> Administrators </MenuItem>
-                            </SplitButton>
+                            </DropdownButton>
                         </Col>
                     </FormGroup>
                     <FormGroup>
