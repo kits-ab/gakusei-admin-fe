@@ -29,33 +29,31 @@ class QuizzesScreen extends React.Component {
 
   getQuizes = (searchPattern, offset) => {
     quizService().getAll(searchPattern, offset).then((response) => {
-      switch (response.status) {
-        case 200:
-          response.text().then((text) => {
-            try {
-              const data = JSON.parse(text);
-              if (offset > 0) {
-                let ls = this.state.quizes.slice();
-                this.setState({
-                  quizes: ls.concat(data),
-                  offset,
-                });
-              } else {
-                this.setState({
-                  quizes: data,
-                  offset,
-                });
-              }
-            } catch (err) {
+      if (response.status === 200) {
+        response.text().then((text) => {
+          try {
+            const data = JSON.parse(text);
+            if (offset > 0) {
+              let ls = this.state.quizes.slice();
               this.setState({
-                quizes: [],
+                quizes: ls.concat(data),
+                offset,
+              });
+            } else {
+              this.setState({
+                quizes: data,
                 offset,
               });
             }
-          });
-          break;
-        default:
-          throw new Error();
+          } catch (err) {
+            this.setState({
+              quizes: [],
+              offset,
+            });
+          }
+        });
+      } else {
+        throw new Error();
       }
     }).catch((err) => {
     });
