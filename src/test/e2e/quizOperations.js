@@ -31,6 +31,7 @@ module.exports = {
       .click('@createButton')
       .click('@cancelButton')
       .assert.visible('@createButton');
+    client.end();
 
   }
   /* The test below works, but since we do not have a working delete test (and h2 is not currently working as it should)
