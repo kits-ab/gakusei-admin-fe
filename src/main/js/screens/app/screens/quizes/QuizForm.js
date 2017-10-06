@@ -12,7 +12,7 @@ class QuizForm extends React.Component {
     this.state = {
       name: '',
       description: '',
-      error: null,
+      error: '',
     };
   }
 
@@ -33,15 +33,12 @@ class QuizForm extends React.Component {
   }
 
   renderErrorMsg = () => {
-    if (this.state.error != null) {
-      return (
-        <Alert bsStyle="danger">
-          <strong>Ett fel upptäcktes!</strong>
-          <p>{this.state.error}</p>
-        </Alert>
-      );
-    }
-    return '';
+    return (
+      <Alert bsStyle="danger">
+        <strong>Ett fel upptäcktes!</strong>
+        <p>{this.state.error}</p>
+      </Alert>
+    );
   }
 
   onInputChange = (event) => {
@@ -74,7 +71,7 @@ class QuizForm extends React.Component {
             />
           </FormGroup>
           <FormGroup>
-            {this.renderErrorMsg()}
+            {!this.state.error ? this.renderErrorMsg : null}
             <ButtonGroup vertical block>
               <Button
                 type="submit"
