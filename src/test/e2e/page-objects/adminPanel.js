@@ -3,6 +3,6 @@ module.exports = {
     return this.api.launchUrl + '/admin-panel';
   },
   elements: {
-    quizzesLink: 'a[href="/quizes"]'
+    quizzesLink: 'a[href="/quizzes"]'
   }
 };

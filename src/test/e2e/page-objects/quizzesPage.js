@@ -1,6 +1,6 @@
 module.exports = {
   url: function() {
-    return this.api.launchUrl + '/quizes';
+    return this.api.launchUrl + '/quizzes';
   },
   elements: {
     createButton: 'button[id=createButton]',
