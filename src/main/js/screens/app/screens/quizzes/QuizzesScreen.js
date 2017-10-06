@@ -13,6 +13,7 @@ class QuizzesScreen extends React.Component {
       search: '',
       offset: 0,
       showCreate: false,
+      error: '',
     };
   }
 
@@ -56,6 +57,7 @@ class QuizzesScreen extends React.Component {
         throw new Error();
       }
     }).catch((err) => {
+      this.setState({ error: 'Kunde inte hämta quiz' });
     });
   }
 
@@ -83,6 +85,30 @@ class QuizzesScreen extends React.Component {
     }));
   }
 
+  renderMsg = (type) => {
+    switch (type) {
+      case 'no quizes':
+        return (
+          <Alert bsStyle="warning">
+            <strong>Inga quiz-ar hittades!</strong>
+          </Alert>
+        );
+      case 'error':
+        return this.renderErrorMsg();
+      default:
+        return this.renderErrorMsg();
+    }
+  }
+
+
+  renderErrorMsg = () => (
+    <Alert bsStyle="danger">
+      <strong>Ett fel upptäcktes!</strong>
+      <p>{this.state.error}</p>
+    </Alert>
+  )
+
+
   render() {
     return (
       <Grid>
@@ -104,15 +130,8 @@ class QuizzesScreen extends React.Component {
           onChange={this.onInputChange}
         />
         <br/>
-        {
-          this.state.quizes.length === 0
-            ?
-            <Alert bsStyle="warning">
-              <strong>Inga quiz-ar hittades!</strong>
-            </Alert>
-            :
-            null
-        }
+        {this.state.quizes.length === 0 ? this.renderMsg('no quizes') : null}
+        {this.state.error ? this.renderMsg('error') : null}
         {this.state.quizes.map(quiz => (
           <QuizBox key={quiz.id} quiz={quiz} handleDeleteQuiz={this.handleDeleteQuiz}/>
         ))}
