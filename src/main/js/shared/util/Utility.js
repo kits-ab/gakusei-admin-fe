@@ -5,13 +5,13 @@ export default class Utility {
 // ----------------
 // REDUX RELATED - Helps return various redux objects
 
-    static generateReducerNamesFromReducer(reducers) {
+  static generateReducerNamesFromReducer(reducers) {
     const result = [];
     reducers.forEach(reducer =>
       Object.keys(reducer.reducers).forEach((x) => {
         result.push(x);
       })
-  );
+    );
     return result;
   }
 
@@ -19,7 +19,7 @@ export default class Utility {
     const result = [];
     reducers.forEach(reducer =>
       result.push(reducer.actionCreators)
-  );
+    );
     return result;
   }
 
@@ -44,8 +44,8 @@ export default class Utility {
   static getFormData(form) {
     return Object.keys(form.target).map(key => (
       form.target[key].value ?
-      `${encodeURIComponent(form.target[key].name)}=${encodeURIComponent(form.target[key].value)}`
-      : null
-      )).filter(val => val);
+        `${encodeURIComponent(form.target[key].name)}=${encodeURIComponent(form.target[key].value)}`
+        : null
+    )).filter(val => val);
   }
 }
