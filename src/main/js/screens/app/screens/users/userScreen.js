@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, DropdownButton, MenuItem, Panel, Alert } from 'react-bootstrap';
+import { Glyphicon, Row, Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, DropdownButton, MenuItem, Panel, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
@@ -62,7 +62,7 @@ class userScreen extends React.Component {
                 {this.state.showSearchAlert
                     ?
                     <Alert bsStyle='info' >
-                        No users found
+                        <Glyphicon glyph='info-sign' /> No users found
                     </Alert>
                     :
                     null
