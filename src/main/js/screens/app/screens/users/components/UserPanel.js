@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownButton, MenuItem, Col, Alert, Button, Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
+import { Glyphicon, DropdownButton, MenuItem, Col, Alert, Button, Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
@@ -48,7 +48,7 @@ class UserPanel extends React.Component {
                             <Button bsStyle='primary' onClick={this.openModal} > Show info </Button>
                             <Button bsStyle='warning' onClick={this.openPassModal} > Reset password </Button>
                             <Button bsStyle='warning' onClick={this.openRoleModal} > Change role </Button>
-                            <Button bsStyle='danger' onClick={this.deleteUser} > {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
+                            <Button bsStyle='danger' onClick={this.deleteUser} > <Glyphicon glyph='alert' /> {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
                         </ButtonToolbar>
                     </Panel>
                     <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large" aria-labelledby="contained-modal-title-lg">
