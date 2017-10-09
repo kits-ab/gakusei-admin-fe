@@ -52,7 +52,7 @@ class userScreen extends React.Component {
                     <FormGroup>
                         <Col smOffset={2} sm={10} >
                             <Button type='submit' bsStyle='primary' >
-                                Search
+                                <Glyphicon glyph='search' /> Search
                             </Button>
                         </Col>
                     </FormGroup>
