@@ -9,7 +9,6 @@ class ProgressTable extends React.Component {
 
         this.state = {
             expanded: false,
-            progress: 'Progress'
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -21,7 +20,7 @@ class ProgressTable extends React.Component {
 
     render() {
         const header = (
-            <div>{this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} <span> Progress </span></div>
+            <div> {this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} Progress </div>
         );
 
         return (
