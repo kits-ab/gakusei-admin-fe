@@ -45,7 +45,7 @@ class UserPanel extends React.Component {
                 <div>
                     <Panel header={userUtils().createHeader(this.props.user)} >
                         <ButtonToolbar>
-                            <Button bsStyle='primary' onClick={this.openModal} > Show info </Button>
+                            <Button bsStyle='primary' onClick={this.openModal} > <Glyphicon glyph='info-sign' /> Show info </Button>
                             <Button bsStyle='warning' onClick={this.openPassModal} > Reset password </Button>
                             <Button bsStyle='warning' onClick={this.openRoleModal} > Change role </Button>
                             <Button bsStyle='danger' onClick={this.deleteUser} > <Glyphicon glyph='alert' /> {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
