@@ -1,16 +1,31 @@
 import React from 'react';
-import { Panel, Table } from 'react-bootstrap';
+import { Glyphicon, Panel, Table } from 'react-bootstrap';
 
 import userUtils from '../utility/userUtils';
 
 class ProgressTable extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            expanded: false,
+            progress: 'Progress'
+        };
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState({ expanded: !this.state.expanded });
     }
 
     render() {
+        const header = (
+            <div>{this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} <span> Progress </span></div>
+        );
+
         return (
-            <Panel collapsible header='Progress'>
+            <Panel collapsible expanded={this.state.expanded} header={header} onClick={this.handleClick}>
                 <Table striped bordered>
                     <thead>
                         <tr>
