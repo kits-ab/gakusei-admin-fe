@@ -62,7 +62,7 @@ module.exports = {
       .assert.visible(showButton)
       .click(showButton)
       .waitForElementVisible('@quizModal')
-      .assert.visible('@closeModalButton')
+      .waitForElementVisible('@closeModalButton')
       .click('@closeModalButton')
       .waitForElementNotPresent('@quizModal');
   },
