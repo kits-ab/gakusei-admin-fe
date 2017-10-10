@@ -1,6 +1,6 @@
 /* Test navigation where auth is required */
 
-import { getAdminUser } from '../e2e-helpers/users';
+import { getAdminUser } from '../../e2e-helpers/users';
 
 module.exports = {
   before: function(client, done) {

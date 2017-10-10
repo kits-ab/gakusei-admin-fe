@@ -1,6 +1,6 @@
 /* Test login */
 
-import { getAdminUser } from '../e2e-helpers/users';
+import { getAdminUser } from '../../e2e-helpers/users';
 import '../../main/js/shared/services/quizService';
 
 let quizName = 'e2etestquiz';
