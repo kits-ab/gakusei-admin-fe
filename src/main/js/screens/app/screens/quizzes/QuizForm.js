@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
+import NuggetForm from './NuggetForm';
 import QuizButtonToolbar from './QuizButtonToolbar';
 
 class QuizForm extends React.Component {
@@ -13,6 +14,13 @@ class QuizForm extends React.Component {
       name: '',
       description: '',
       error: '',
+      idCounter: 0,
+      tmpNuggetIds: [],
+      questions: [],
+      correctAnswers: [],
+      incorrectAnswers: [],
+      nuggetCount: 0,
+      nuggetValidationStates: [],
     };
   }
 
@@ -46,6 +54,52 @@ class QuizForm extends React.Component {
     });
   }
 
+  addNuggetForm = () => {
+    let tmpNuggetIds = this.state.tmpNuggetIds;
+    let questions = this.state.questions;
+    let correctAnswers = this.state.correctAnswers;
+    let incorrectAnswers = this.state.incorrectAnswers;
+    let nuggetValidationStates = this.state.nuggetValidationStates;
+    tmpNuggetIds.push('nugget'.concat(this.state.idCounter.toString()));
+    questions.push('');
+    correctAnswers.push('');
+    incorrectAnswers.push('');
+    nuggetValidationStates.push(false);
+
+    this.setState({
+      idCounter: this.state.idCounter + 1,
+      nuggetCount: this.state.nuggetCount + 1,
+      tmpNuggetIds,
+      questions,
+      correctAnswers,
+      incorrectAnswers,
+      nuggetValidationStates
+    });
+  }
+
+  removeNuggetForm = (id) => {
+    let tmpNuggetIds = this.state.tmpNuggetIds;
+    let questions = this.state.questions;
+    let correctAnswers = this.state.correctAnswers;
+    let incorrectAnswers = this.state.incorrectAnswers;
+    let nuggetValidationStates = this.state.nuggetValidationStates;
+    let i = tmpNuggetIds.indexOf(id);
+    tmpNuggetIds.splice(i, 1);
+    questions.splice(i, 1);
+    correctAnswers.splice(i, 1);
+    incorrectAnswers.splice(i, 1);
+    nuggetValidationStates.splice(i, 1);
+
+    this.setState({
+      nuggetCount: this.state.nuggetCount - 1,
+      tmpNuggetIds,
+      questions,
+      correctAnswers,
+      incorrectAnswers,
+      nuggetValidationStates
+    });
+  }
+
   render() {
     return (
       <Panel>
@@ -69,6 +123,7 @@ class QuizForm extends React.Component {
               onChange={this.onInputChange}
             />
           </FormGroup>
+          {this.createNuggetForms()}
           <FormGroup>
             {!this.state.error ? this.renderErrorMsg : null}
             <Col xs={12} md={12}>
@@ -78,6 +133,21 @@ class QuizForm extends React.Component {
         </Form>
       </Panel>
     );
+  }
+
+  createNuggetForms() {
+    let nuggets = [];
+    for (let i = 0; i < this.state.nuggetCount; i++) {
+      nuggets.push(
+        <NuggetForm
+          key={this.state.tmpNuggetIds[i]}
+          id={this.state.tmpNuggetIds[i]}
+          i={i}
+          removeNuggetForm={this.removeNuggetForm}
+        />
+      );
+    }
+    return nuggets;
   }
 }
 
