@@ -18,7 +18,7 @@ module.exports = {
     setTimeout(function(){
       qp.navigate();
       done();
-    }, 5000);
+    }, 8000); //make sure we wait long enough, sometimes startup is slow
   },
   after: function(client) {
     client.end(); //close browser after test suite
