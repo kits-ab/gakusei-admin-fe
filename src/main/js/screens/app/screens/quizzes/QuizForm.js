@@ -54,6 +54,27 @@ class QuizForm extends React.Component {
     });
   }
 
+  onNuggetInputChange = (fieldName, value, i) => {
+    let values = null;
+    switch (fieldName) {
+      case 'question':
+        values = this.state.questions;
+        break;
+      case 'correctAnswer':
+        values = this.state.correctAnswers;
+        break;
+      case 'incorrectAnswers':
+        values = this.state.incorrectAnswers;
+        break;
+      default:
+        break;
+    }
+
+    values[i] = value;
+    this.setState({
+      [fieldName]: values
+    });
+  }
   addNuggetForm = () => {
     let tmpNuggetIds = this.state.tmpNuggetIds;
     let questions = this.state.questions;
@@ -144,6 +165,7 @@ class QuizForm extends React.Component {
           id={this.state.tmpNuggetIds[i]}
           i={i}
           removeNuggetForm={this.removeNuggetForm}
+          onNuggetInputChange={this.onNuggetInputChange}
         />
       );
     }
