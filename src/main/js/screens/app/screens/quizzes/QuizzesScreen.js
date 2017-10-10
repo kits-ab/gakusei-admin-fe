@@ -34,7 +34,7 @@ class QuizzesScreen extends React.Component {
           try {
             const data = JSON.parse(text);
             if (offset > 0) {
-              let ls = this.state.quizzes.slice();
+              let ls = this.state.quizzes;
               this.setState({
                 quizzes: ls.concat(data),
                 offset,
