@@ -75,6 +75,22 @@ class QuizForm extends React.Component {
       [fieldName]: values
     });
   }
+
+  updateNuggetValidationState = (i, isValid) => {
+    let nuggetValidationStates = this.state.nuggetValidationStates;
+    nuggetValidationStates[i] = isValid;
+    this.setState({
+      nuggetValidationStates
+    });
+  }
+
+  formIsValid = () => {
+    let nuggetStates = this.state.nuggetValidationStates;
+    let quizValid = this.state.name !== '' && this.state.description !== '';
+    let nuggetFormsValid = nuggetStates.length === 0 ? false : nuggetStates.reduce((acc, nuggetValid) => acc && nuggetValid);
+    return quizValid && nuggetFormsValid;
+  }
+
   addNuggetForm = () => {
     let tmpNuggetIds = this.state.tmpNuggetIds;
     let questions = this.state.questions;
@@ -164,6 +180,7 @@ class QuizForm extends React.Component {
           key={this.state.tmpNuggetIds[i]}
           id={this.state.tmpNuggetIds[i]}
           i={i}
+          updateNuggetValidationState={this.updateNuggetValidationState}
           removeNuggetForm={this.removeNuggetForm}
           onNuggetInputChange={this.onNuggetInputChange}
         />
