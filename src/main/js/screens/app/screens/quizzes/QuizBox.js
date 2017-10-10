@@ -48,7 +48,7 @@ class QuizBox extends React.Component {
     return (
       <div>
         {this.state.quizDeleted ? (
-          <Alert bsStyle="info" onDismiss={() => this.handleDeleteQuiz(quiz.id) }>
+          <Alert bsStyle="info" id={`deleteAlert${quiz.name}`} onDismiss={() => this.handleDeleteQuiz(quiz.id) }>
             <strong>{quiz.name}</strong> har raderats.
           </Alert>
         ) : (
