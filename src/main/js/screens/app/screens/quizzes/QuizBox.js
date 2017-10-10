@@ -1,7 +1,8 @@
 import React from 'react';
-import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Alert, Button, Panel, ButtonToolbar } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
+import QuizModal from './QuizModal';
 
 
 class QuizBox extends React.Component {
@@ -76,15 +77,7 @@ class QuizBox extends React.Component {
                 null
               }
             </Panel>
-            <Modal show={this.state.viewQuiz} onHide={this.closeModal}>
-              <Modal.Header closeButton>
-                <Modal.Title><strong>Quiz: </strong> {quiz.name}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                  <h4><strong>Namn: </strong> {quiz.name}</h4>
-                  <h4><strong>Beskrivning: </strong> {quiz.description}</h4>
-              </Modal.Body>
-            </Modal>
+            <QuizModal quiz={quiz} closeModal={this.closeModal} viewQuiz={this.state.viewQuiz}/>
           </div>
         )}
       </div>
