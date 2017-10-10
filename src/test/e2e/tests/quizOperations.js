@@ -24,8 +24,9 @@ module.exports = {
     client.end(); //close browser after test suite
   },
   'Test cancel create new quiz': function(client) {
-    let quizzesPage = client.page.quizzesPage();
-    quizzesPage
+    let qp = client.page.quizzesPage();
+
+    qp
       .waitForElementVisible('body')
       .assert.visible('@createButton')
       .click('@createButton')
