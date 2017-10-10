@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Alert, Form, FormGroup, FormControl, Panel, Col
+  Alert, Form, FormGroup, FormControl, Panel, Col, ControlLabel
 } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
@@ -164,22 +164,32 @@ class QuizForm extends React.Component {
         <h3>Skapa en ny quiz</h3>
         <Form id="createForm" onSubmit={this.handleSubmit}>
           <FormGroup>
-            <FormControl
-              type="text"
-              name="name"
-              placeholder="Ange ett quiznamn"
-              value={this.state.name}
-              onChange={this.onInputChange}
-            />
+            <Col componentClass={ControlLabel} xs={12} md={2}>
+              Namn
+            </Col>
+            <Col xs={12} md={10}>
+              <FormControl
+                type="text"
+                name="name"
+                placeholder="Ange ett quiznamn"
+                value={this.state.name}
+                onChange={this.onInputChange}
+              />
+            </Col>
           </FormGroup>
           <FormGroup>
-            <FormControl
-              type="text"
-              name="description"
-              placeholder="Ange en beskrivning"
-              value={this.state.description}
-              onChange={this.onInputChange}
-            />
+            <Col componentClass={ControlLabel} xs={12} md={2}>
+              Beskrivning
+            </Col>
+            <Col xs={12} md={10}>
+              <FormControl
+                type="text"
+                name="description"
+                placeholder="Ange en beskrivning"
+                value={this.state.description}
+                onChange={this.onInputChange}
+              />
+            </Col>
           </FormGroup>
           {this.createNuggetForms()}
           <FormGroup>
