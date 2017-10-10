@@ -5,6 +5,7 @@ module.exports = {
 
   before: function(client, done) {
     let loginPage = client.page.loginPage();
+    let qp = client.page.quizzesPage();
     let admin = getAdminUser();
     loginPage.navigate();
     loginPage
@@ -15,19 +16,21 @@ module.exports = {
       .click('@loginButton');
 
     setTimeout(function(){
+      qp.navigate();
       done();
     }, 5000);
   },
+  after: function(client) {
+    client.end(); //close browser after test suite
+  },
   'Test cancel create new quiz': function(client) {
     let quizzesPage = client.page.quizzesPage();
-    quizzesPage.navigate();
     quizzesPage
       .waitForElementVisible('body')
       .assert.visible('@createButton')
       .click('@createButton')
       .click('@cancelButton')
       .assert.visible('@createButton');
-    client.end();
 
   'Test create new quiz': function(client) {
     let quizzesPage = client.page.quizzesPage();
