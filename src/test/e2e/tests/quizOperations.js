@@ -51,4 +51,33 @@ module.exports = {
       .click('@submitQuiz')
       .waitForElementVisible(qp.quizBox(quiz.name))
 
+  },
+  'Test show quiz details': function(client) {
+    let qp = client.page.quizzesPage();
+    let quizBox = qp.quizBox(quiz.name);
+    let showButton = qp.showButton(quiz.name);
+
+    qp
+      .waitForElementVisible(quizBox)
+      .assert.visible(showButton)
+      .click(showButton)
+      .waitForElementVisible('@quizModal')
+      .assert.visible('@closeModalButton')
+      .click('@closeModalButton')
+      .waitForElementNotPresent('@quizModal');
+  },
+  'Test delete quiz': function(client) {
+    let qp = client.page.quizzesPage();
+    let quizBox = qp.quizBox(quiz.name);
+    let deleteButton = qp.deleteButton(quiz.name);
+
+    qp
+      .waitForElementVisible(quizBox)
+      .assert.visible(deleteButton)
+      .click(deleteButton)
+      .waitForElementNotPresent(quizBox)
+      .assert.visible(qp.alert(quiz.name))
+      .click(qp.alertCloseButton(quiz.name))
+      .waitForElementNotPresent(quizBox);
+  },
 };
