@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Alert, Form, FormGroup, FormControl, Button,
-  ButtonGroup, Panel
+  Alert, Form, FormGroup, FormControl, Panel, Col
 } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
+import QuizButtonToolbar from './QuizButtonToolbar';
 
 class QuizForm extends React.Component {
   constructor(props) {
@@ -71,25 +71,9 @@ class QuizForm extends React.Component {
           </FormGroup>
           <FormGroup>
             {!this.state.error ? this.renderErrorMsg : null}
-            <ButtonGroup vertical block>
-              <Button
-                type="submit"
-                label="create"
-                bsStyle="primary"
-                name="create"
-                disabled={!this.state.name || !this.state.description}
-              >
-                Skapa
-              </Button>
-              <Button
-                label="cancel"
-                bsStyle="default"
-                name="cancel"
-                onClick={() => this.props.callParent(false)}
-              >
-                Avbryt
-              </Button>
-            </ButtonGroup>
+            <Col xs={12} md={12}>
+              <QuizButtonToolbar addNuggetForm={this.addNuggetForm} formIsValid={this.formIsValid} handleCreateQuiz={this.props.handleCreateQuiz}/>
+            </Col>
           </FormGroup>
         </Form>
       </Panel>
