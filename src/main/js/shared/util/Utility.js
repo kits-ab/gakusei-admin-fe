@@ -48,4 +48,28 @@ export default class Utility {
         : null
     )).filter(val => val);
   }
+
+  // ----------------
+  // QUIZ-RELATED
+
+  static createIncorrectAnswer = answer => (
+    { incorrectAnswer: answer }
+  )
+
+  static createNuggets = (quizId, questions, correctAnswers, incorrectAnswers) => {
+    let nuggets = [];
+    let i;
+    for (i = 0; i < questions.length; i++) {
+      let incAnswers = incorrectAnswers[i].split(',').map(answer => answer.trim()).filter(answer => answer !== '').map(Utility.createIncorrectAnswer); // .map(this.createIncorrectAnswer);
+
+      let nugget = {
+        question: questions[i],
+        correctAnswer: correctAnswers[i],
+        quizRef: quizId,
+        incorrectAnswers: incAnswers,
+      };
+      nuggets.push(nugget);
+    }
+    return nuggets;
+  }
 }

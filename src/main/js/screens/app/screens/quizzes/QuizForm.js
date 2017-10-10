@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
+import Utility from '../../../../shared/util/Utility';
 import NuggetForm from './NuggetForm';
 import QuizButtonToolbar from './QuizButtonToolbar';
 
@@ -29,7 +30,27 @@ class QuizForm extends React.Component {
     const obj = { name: this.state.name, description: this.state.description };
     quizService().create(obj).then((response) => {
       if (response.status === 201) {
-        this.props.callParent(true);
+        response.text().then((text) => {
+          let quiz = JSON.parse(text);
+          let quizNuggets = Utility.createNuggets(quiz.id, this.state.questions, this.state.correctAnswers,
+            this.state.incorrectAnswers);
+          quizService().createQuizNuggets(quizNuggets).then((response2) => {
+            if (response2.status === 201) {
+              response2.text().then((nuggetText) => {
+                let nugget = JSON.parse(nuggetText);
+                this.props.handleCreateQuiz(true);
+              });
+            } else {
+              throw  new Error();
+            }
+          }).catch((err) => {
+            throw new Error();
+          });
+        }).catch((err) => {
+          this.setState({
+            error: 'Kunde inte skapa quizfrågor',
+          });
+        });
       } else {
         throw new Error();
       }
