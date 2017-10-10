@@ -30,7 +30,7 @@ class QuizBox extends React.Component {
       }
     }).catch((err) => {
       this.setState({
-        error: 'Något fick fel'
+        error: 'Något gick fel'
       });
     });
   }

@@ -107,19 +107,19 @@ class QuizzesScreen extends React.Component {
     </Alert>
   )
 
-
   render() {
     return (
       <Grid>
-        <h2>Tillgängliga quiz-ar</h2>
+        <h2>Tillgängliga quiz</h2>
+        <br/>
         {
           this.state.showCreate
             ?
               <QuizForm handleCreateQuiz={this.handleCreateQuiz}/>
             :
-            <p>
-              <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa en ny</Button><br/>
-            </p>
+              <div>
+                <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa nytt quiz</Button>
+              </div>
         }
         <br/>
         <Panel bsStyle="primary" header="Sök">

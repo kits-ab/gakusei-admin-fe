@@ -160,9 +160,8 @@ class QuizForm extends React.Component {
 
   render() {
     return (
-      <Panel>
-        <h3>Skapa en ny quiz</h3>
-        <Form id="createForm" onSubmit={this.handleSubmit}>
+      <Panel header={<h3>Skapa ett nytt quiz</h3>} bsStyle="primary">
+        <Form horizontal id="createForm" onSubmit={this.handleSubmit}>
           <FormGroup>
             <Col componentClass={ControlLabel} xs={12} md={2}>
               Namn
