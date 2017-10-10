@@ -9,19 +9,10 @@ class QuizBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showButtons: false,
       quizDeleted: false,
       deleteAlertVisible: true,
       viewQuiz: false,
     };
-  }
-
-  mouseEnter = () => {
-    this.setState({ showButtons: true });
-  }
-
-  mouseExit = () => {
-    this.setState({ showButtons: false });
   }
 
   handleDeleteQuiz = (id) => {
@@ -68,14 +59,10 @@ class QuizBox extends React.Component {
               onMouseLeave={this.mouseExit}>
               <h3>{quiz.name}</h3>
               <p>{quiz.description}</p>
-              {this.state.showButtons ?
-                <ButtonToolbar>
-                  <Button bsStyle="primary" onClick={this.openModal}>Visa</Button>
-                  <Button bsStyle="danger" name="delete" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
-                </ButtonToolbar>
-                :
-                null
-              }
+              <ButtonToolbar>
+                <Button bsStyle="primary" id={`show${quiz.name}`} onClick={this.openModal}>Visa</Button>
+                <Button bsStyle="danger" id={`delete${quiz.name}`} onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
+              </ButtonToolbar>
             </Panel>
             <QuizModal quiz={quiz} closeModal={this.closeModal} viewQuiz={this.state.viewQuiz}/>
           </div>
