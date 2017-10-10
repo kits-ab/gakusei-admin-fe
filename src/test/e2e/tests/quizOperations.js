@@ -1,5 +1,5 @@
 import { getAdminUser } from '../../e2e-helpers/users';
-let quizName = 'e2etestquiz';
+import * as quiz from '../../testdata/quizdata.json';
 
 module.exports = {
 
@@ -32,16 +32,22 @@ module.exports = {
       .click('@cancelButton')
       .assert.visible('@createButton');
 
+  },
   'Test create new quiz': function(client) {
-    let quizzesPage = client.page.quizzesPage();
-    quizzesPage.navigate();
-    quizzesPage
+    let qp = client.page.quizzesPage();
+
+    qp
       .waitForElementVisible('@createButton')
       .click('@createButton')
       .assert.visible('@createForm')
-      .setValue('@nameInput', quizName)
-      .setValue('@descInput', 'e2etestbeskrivning')
+      .setValue('@nameInput', quiz.name)
+      .setValue('@descInput', quiz.description)
+      .click('@newNuggetButton')
+      .assert.visible(qp.nuggetForm(0))
+      .setValue(qp.questionInput(0), quiz.nugget.question)
+      .setValue(qp.correctAnswerInput(0), quiz.nugget.correctAnswer)
+      .setValue(qp.incorrectAnswersInput(0), quiz.nugget.incorrectAnswers)
       .click('@submitQuiz')
-      .waitForElementVisible('@createButton')
+      .waitForElementVisible(qp.quizBox(quiz.name))
 
 };
