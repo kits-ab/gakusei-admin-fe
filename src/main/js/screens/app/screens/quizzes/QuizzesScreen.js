@@ -116,7 +116,7 @@ class QuizzesScreen extends React.Component {
         {
           this.state.showCreate
             ?
-            <QuizForm callParent={this.handleCreateQuiz}/>
+              <QuizForm handleCreateQuiz={this.handleCreateQuiz}/>
             :
             <p>
               <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa en ny</Button><br/>
