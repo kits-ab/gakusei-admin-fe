@@ -1,6 +1,5 @@
 import React from 'react';
-import { Alert, Grid, FormControl, Button, ButtonGroup } from 'react-bootstrap';
-
+import { Alert, Grid, FormControl, Button, ButtonGroup, Panel } from 'react-bootstrap';
 import quizService from '../../../../shared/services/quizService';
 import QuizBox from './QuizBox';
 import QuizForm from './QuizForm';
@@ -122,14 +121,16 @@ class QuizzesScreen extends React.Component {
               <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa en ny</Button><br/>
             </p>
         }
-        <FormControl
-          type="text"
-          name="search"
-          placeholder="Sök efter quiz-ar"
-          value={this.state.search}
-          onChange={this.onInputChange}
-        />
         <br/>
+        <Panel bsStyle="primary" header="Sök">
+          <FormControl
+            type="text"
+            name="search"
+            placeholder="Sök efter quiz"
+            value={this.state.search}
+            onChange={this.onInputChange}
+          />
+        </Panel>
         {this.state.quizzes.length === 0 ? this.renderMsg('no quizzes') : null}
         {this.state.error ? this.renderMsg('error') : null}
         {this.state.quizzes.map(quiz => (
