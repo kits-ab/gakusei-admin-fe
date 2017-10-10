@@ -1,8 +1,4 @@
-/* Test login */
-
 import { getAdminUser } from '../../e2e-helpers/users';
-import '../../main/js/shared/services/quizService';
-
 let quizName = 'e2etestquiz';
 
 module.exports = {
@@ -33,10 +29,6 @@ module.exports = {
       .assert.visible('@createButton');
     client.end();
 
-  }
-  /* The test below works, but since we do not have a working delete test (and h2 is not currently working as it should)
-   we have to manually delete the quiz created in the test. */
-  /* ,
   'Test create new quiz': function(client) {
     let quizzesPage = client.page.quizzesPage();
     quizzesPage.navigate();
@@ -49,5 +41,4 @@ module.exports = {
       .click('@submitQuiz')
       .waitForElementVisible('@createButton')
 
-  } */
 };
