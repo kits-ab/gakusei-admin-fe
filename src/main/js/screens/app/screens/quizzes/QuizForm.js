@@ -68,7 +68,6 @@ class QuizForm extends React.Component {
     </Alert>
   );
 
-
   onInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,

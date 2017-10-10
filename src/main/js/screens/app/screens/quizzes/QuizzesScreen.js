@@ -99,7 +99,6 @@ class QuizzesScreen extends React.Component {
     }
   }
 
-
   renderErrorMsg = () => (
     <Alert bsStyle="danger">
       <strong>Ett fel upptäcktes!</strong>
