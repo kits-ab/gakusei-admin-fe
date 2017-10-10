@@ -152,6 +152,7 @@ class UserPanel extends React.Component {
     }
 
     submitRoleChange() {
+        this.closeRoleModal();
         this.changeRole(this.state.newRole);
     }
 
