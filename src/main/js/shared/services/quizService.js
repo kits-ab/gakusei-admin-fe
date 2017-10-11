@@ -37,5 +37,24 @@ export default function quizService() {
         },
       });
     }
+    getQuizNuggets(id) {
+      let url = baseQuizUrl.concat('/', id, '/nuggets');
+      return fetch(url, {
+        method: 'GET',
+        credentials: 'same-origin'
+      });
+    },
+    createQuizNuggets(data) {
+      let url = baseQuizUrl.concat('/nuggets/list');
+      return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }

@@ -1,26 +1,18 @@
 import React from 'react';
-import { Alert, Button, Panel, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Alert, Button, Panel, ButtonToolbar } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
+import QuizModal from './QuizModal';
 
 
 class QuizBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showButtons: false,
       quizDeleted: false,
       deleteAlertVisible: true,
       viewQuiz: false,
     };
-  }
-
-  mouseEnter = () => {
-    this.setState({ showButtons: true });
-  }
-
-  mouseExit = () => {
-    this.setState({ showButtons: false });
   }
 
   handleDeleteQuiz = (id) => {
@@ -38,7 +30,7 @@ class QuizBox extends React.Component {
       }
     }).catch((err) => {
       this.setState({
-        error: 'Något fick fel'
+        error: 'Något gick fel'
       });
     });
   }
@@ -56,7 +48,7 @@ class QuizBox extends React.Component {
     return (
       <div>
         {this.state.quizDeleted ? (
-          <Alert bsStyle="info" onDismiss={() => this.handleDeleteQuiz(quiz.id) }>
+          <Alert bsStyle="info" id={`deleteAlert${quiz.name}`} onDismiss={() => this.handleDeleteQuiz(quiz.id) }>
             <strong>{quiz.name}</strong> har raderats.
           </Alert>
         ) : (
@@ -67,24 +59,12 @@ class QuizBox extends React.Component {
               onMouseLeave={this.mouseExit}>
               <h3>{quiz.name}</h3>
               <p>{quiz.description}</p>
-              {this.state.showButtons ?
-                <ButtonToolbar>
-                  <Button bsStyle="primary" onClick={this.openModal}>Visa</Button>
-                  <Button bsStyle="danger" name="delete" onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
-                </ButtonToolbar>
-                :
-                null
-              }
+              <ButtonToolbar>
+                <Button bsStyle="primary" id={`show${quiz.name}`} onClick={this.openModal}>Visa</Button>
+                <Button bsStyle="danger" id={`delete${quiz.name}`} onClick={() => this.deleteQuiz(quiz.id)}>Ta bort</Button>
+              </ButtonToolbar>
             </Panel>
-            <Modal show={this.state.viewQuiz} onHide={this.closeModal}>
-              <Modal.Header closeButton>
-                <Modal.Title><strong>Quiz: </strong> {quiz.name}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                  <h4><strong>Namn: </strong> {quiz.name}</h4>
-                  <h4><strong>Beskrivning: </strong> {quiz.description}</h4>
-              </Modal.Body>
-            </Modal>
+            <QuizModal quiz={quiz} closeModal={this.closeModal} viewQuiz={this.state.viewQuiz}/>
           </div>
         )}
       </div>

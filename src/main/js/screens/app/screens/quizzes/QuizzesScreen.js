@@ -1,6 +1,5 @@
 import React from 'react';
-import { Alert, Grid, FormControl, Button, ButtonGroup } from 'react-bootstrap';
-
+import { Alert, Grid, FormControl, Button, ButtonGroup, Panel } from 'react-bootstrap';
 import quizService from '../../../../shared/services/quizService';
 import QuizBox from './QuizBox';
 import QuizForm from './QuizForm';
@@ -35,7 +34,7 @@ class QuizzesScreen extends React.Component {
           try {
             const data = JSON.parse(text);
             if (offset > 0) {
-              let ls = this.state.quizzes.slice();
+              let ls = this.state.quizzes;
               this.setState({
                 quizzes: ls.concat(data),
                 offset,
@@ -100,7 +99,6 @@ class QuizzesScreen extends React.Component {
     }
   }
 
-
   renderErrorMsg = () => (
     <Alert bsStyle="danger">
       <strong>Ett fel upptäcktes!</strong>
@@ -108,28 +106,30 @@ class QuizzesScreen extends React.Component {
     </Alert>
   )
 
-
   render() {
     return (
       <Grid>
-        <h2>Tillgängliga quiz-ar</h2>
+        <h2>Tillgängliga quiz</h2>
+        <br/>
         {
           this.state.showCreate
             ?
-            <QuizForm callParent={this.handleCreateQuiz}/>
+              <QuizForm handleCreateQuiz={this.handleCreateQuiz}/>
             :
-            <p>
-              <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa en ny</Button><br/>
-            </p>
+              <div>
+                <Button id="createButton" bsStyle="success" onClick={() => this.setState({ showCreate: true })}>Skapa nytt quiz</Button>
+              </div>
         }
-        <FormControl
-          type="text"
-          name="search"
-          placeholder="Sök efter quiz-ar"
-          value={this.state.search}
-          onChange={this.onInputChange}
-        />
         <br/>
+        <Panel bsStyle="primary" header="Sök">
+          <FormControl
+            type="text"
+            name="search"
+            placeholder="Sök efter quiz"
+            value={this.state.search}
+            onChange={this.onInputChange}
+          />
+        </Panel>
         {this.state.quizzes.length === 0 ? this.renderMsg('no quizzes') : null}
         {this.state.error ? this.renderMsg('error') : null}
         {this.state.quizzes.map(quiz => (
