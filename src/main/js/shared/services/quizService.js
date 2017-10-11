@@ -38,7 +38,7 @@ export default function quizService() {
       });
     }
     getQuizNuggets(id) {
-      let url = baseQuizUrl.concat('/nuggets/', id);
+      let url = baseQuizUrl.concat('/', id, '/nuggets');
       return fetch(url, {
         method: 'GET',
         credentials: 'same-origin'
