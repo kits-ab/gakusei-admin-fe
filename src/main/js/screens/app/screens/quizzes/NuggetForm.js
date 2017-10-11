@@ -15,8 +15,6 @@ class NuggetForm extends React.Component {
       },
       nuggetIsValid: null,
     };
-
-    this.onInputChange = this.onInputChange.bind(this);
   }
 
   removeNuggetForm = (id) => {
@@ -88,7 +86,7 @@ class NuggetForm extends React.Component {
               name="question"
               placeholder="Ange en ny fråga"
               value={this.state.question}
-              onChange={this.onInputChange.bind(this, i)}
+              onChange={event => this.onInputChange(i, event)}
             />
             <FormControl.Feedback/>
           </Col>
@@ -104,7 +102,7 @@ class NuggetForm extends React.Component {
               name="correctAnswer"
               placeholder="Ange rätt svar"
               value={this.state.correctAnswer}
-              onChange={this.onInputChange.bind(this, i)}
+              onChange={event => this.onInputChange(i, event)}
             />
             <FormControl.Feedback/>
           </Col>
@@ -120,7 +118,7 @@ class NuggetForm extends React.Component {
               name="incorrectAnswers"
               placeholder="Ange minst tre kommaseparerade felaktiga svar"
               value={this.state.incorrectAnswers}
-              onChange={this.onInputChange.bind(this, i)}
+              onChange={event => this.onInputChange(i, event)}
             />
             <FormControl.Feedback/>
           </Col>
@@ -132,7 +130,7 @@ class NuggetForm extends React.Component {
               className="pull-right"
               bsSize="small"
               bsStyle="danger"
-              onClick={this.removeNuggetForm.bind(this, id)}
+              onClick={() => this.removeNuggetForm(id)}
             >
               Ta bort
             </Button>
