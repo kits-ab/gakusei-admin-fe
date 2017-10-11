@@ -27,7 +27,7 @@ class userScreen extends React.Component {
         return (
             <Grid>
                 <Panel header='Search' bsStyle='primary' >
-                <Form horizontal onSubmit={this.performSearch} >
+                <Form id='searchForm' horizontal onSubmit={this.performSearch} >
                     <FormGroup controlId='formSearchName' >
                         <Col componentClass={ControlLabel} sm={2} >
                             Username
@@ -51,7 +51,7 @@ class userScreen extends React.Component {
                     </FormGroup>
                     <FormGroup>
                         <Col smOffset={2} sm={10} >
-                            <Button type='submit' bsStyle='primary' >
+                            <Button id='searchBtn' type='submit' bsStyle='primary' >
                                 <Glyphicon glyph='search' /> Search
                             </Button>
                         </Col>

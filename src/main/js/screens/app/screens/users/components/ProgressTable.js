@@ -20,12 +20,12 @@ class ProgressTable extends React.Component {
 
     render() {
         const header = (
-            <div> {this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} Progress </div>
+            <div id='progressPanel' > {this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} Progress </div>
         );
 
         return (
             <Panel collapsible expanded={this.state.expanded} header={header} onClick={this.handleClick}>
-                <Table striped bordered>
+                <Table id='progressTable' striped bordered>
                     <thead>
                         <tr>
                             <th>Id</th>

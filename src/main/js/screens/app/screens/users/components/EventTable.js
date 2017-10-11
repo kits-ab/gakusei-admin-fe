@@ -20,12 +20,12 @@ class EventTable extends React.Component {
 
     render() {
         const header = (
-            <div> {this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} Events </div>
+            <div id='eventPanel' > {this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} Events </div>
         );
 
         return (
             <Panel collapsible expanded={this.state.expanded} header={header} onClick={this.handleClick} >
-                <Table striped bordered>
+                <Table id='eventTable' striped bordered>
                     <thead>
                         <tr>
                             <th>Id</th>
