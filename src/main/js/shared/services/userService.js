@@ -30,7 +30,7 @@ export default function userService() {
         },
 
         searchWithRole(searchString, role) {
-            let url = urlUsers.concat('/', searchString, '/', role);
+            let url = urlUsers.concat('/search?searchString=', searchString, '&role=', role);
 
             return fetch(url, {
                 credentials: 'same-origin',
