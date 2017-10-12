@@ -36,7 +36,7 @@ export default function quizService() {
           'X-XSRF-TOKEN': getCSRF(),
         },
       });
-    }
+    },
     getQuizNuggets(id) {
       let url = baseQuizUrl.concat('/', id, '/nuggets');
       return fetch(url, {
