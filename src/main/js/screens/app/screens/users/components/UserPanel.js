@@ -57,7 +57,7 @@ class UserPanel extends React.Component {
                         </Modal.Header>
                         <Modal.Body>
                             <Panel>
-                                <h4> <strong> Username: </strong> {this.props.user.username} </h4>
+                                <h4 id='infoModal' > <strong> Username: </strong> {this.props.user.username} </h4>
                                 <h4> <strong> Role: </strong> {userUtils().stringifyRole(this.props.user.role)} </h4>
                             </Panel>
                             <ProgressTable progressList={this.props.user.progressTrackingList} />
@@ -83,7 +83,7 @@ class UserPanel extends React.Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Col smOffset={3} sm={9} >
-                                        <Button type='submit' bsStyle='primary' disabled={!this.state.validPassword} >
+                                        <Button id='passwordModal' type='submit' bsStyle='primary' disabled={!this.state.validPassword} >
                                             Submit
                                         </Button>
                                     </Col>
@@ -91,7 +91,7 @@ class UserPanel extends React.Component {
                             </Form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.closePassModal} > Close </Button>
+                            <Button id='passwordModal' onClick={this.closePassModal} > Close </Button>
                         </Modal.Footer>
                     </Modal>
                     <Modal show={this.state.showRoleModal} onHide={this.closeRoleModal} >
@@ -108,7 +108,7 @@ class UserPanel extends React.Component {
                             </ButtonToolbar>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.closeRoleModal} > Close </Button>
+                            <Button onClick={this.closeRoleModal} id='roleModal' > Close </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
