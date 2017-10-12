@@ -8,7 +8,7 @@ const BINPATH = './node_modules/nightwatch/bin/';
 // we use a nightwatch.conf.js file so we can include comments and helper functions
 module.exports = {
   src_folders: [
-    'src/test/e2e', // Where you are storing your Nightwatch e2e tests
+    'src/test/e2e/tests', // Where you are storing your Nightwatch e2e tests
     'src/test/unit' // Where you are storing your Nightwatch unit tests
   ],
   page_objects_path: [

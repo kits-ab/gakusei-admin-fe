@@ -14,10 +14,10 @@ export default function configureStore(initialState) {
   /* devcode: end */
 
   const enhancer = compose(
-        applyMiddleware(thunkMiddleware, routerMiddleware(createBrowserHistory())),
-        devToolsExtension ? devToolsExtension() : f => f,
-        autoRehydrate()
-    );
+    applyMiddleware(thunkMiddleware, routerMiddleware(createBrowserHistory())),
+    devToolsExtension ? devToolsExtension() : f => f,
+    autoRehydrate()
+  );
 
   const store = createStore(rootReducer, initialState, enhancer);
 

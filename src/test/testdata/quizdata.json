@@ -1,0 +1,9 @@
+{
+  "name": "e2etestquiz",
+  "description": "e2etestbeskrivning",
+  "nugget": {
+    "question": "nugget1",
+    "correctAnswer": "correct",
+    "incorrectAnswers": "incorrect1, incorrect2, incorrect3"
+  }
+}
