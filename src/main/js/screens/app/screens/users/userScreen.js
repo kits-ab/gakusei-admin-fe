@@ -99,14 +99,9 @@ class userScreen extends React.Component {
             role = 'ROLE_USER';
         } else if (key === '2') {
             role = 'ROLE_ADMIN';
-        } else {
-            role = 'NO_ROLE_PROVIDED';
         }
 
         let processedSearch = this.state.searchString;
-        if (processedSearch === '') {
-            processedSearch = 'NO_SEARCHSTRING_PROVIDED';
-        }
 
         this.search(processedSearch, role);
     }
