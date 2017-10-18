@@ -31,6 +31,11 @@ export class GakuseiAdminNav extends React.Component {
                 </LinkContainer>
               </Nav>
               <Nav>
+                <LinkContainer to="/users">
+                  <NavItem>User panel</NavItem>
+                </LinkContainer>
+              </Nav>
+              <Nav>
                 <LinkContainer to="/quizzes">
                   <NavItem>Quiz</NavItem>
                 </LinkContainer>
