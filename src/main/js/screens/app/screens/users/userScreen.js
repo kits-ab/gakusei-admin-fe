@@ -18,10 +18,6 @@ class userScreen extends React.Component {
       selectedRole: 'All users',
       showSearchAlert: false,
     };
-
-    this.onSearchStringChange = this.onSearchStringChange.bind(this);
-    this.saveEventKey = this.saveEventKey.bind(this);
-    this.performSearch = this.performSearch.bind(this);
   }
 
   render() {
@@ -85,11 +81,11 @@ class userScreen extends React.Component {
     );
   }
 
-  saveEventKey(eventKey) {
+  saveEventKey = (eventKey) => {
     this.setState({ selectedRoleKey: eventKey, selectedRole: this.eventKeyToString(eventKey) });
   }
 
-  eventKeyToString(key) {
+  eventKeyToString = (key) => {
     switch (key) {
       case '1':
         return 'Users';
@@ -100,7 +96,7 @@ class userScreen extends React.Component {
     }
   }
 
-  performSearch(e) {
+  performSearch = (e) => {
     e.preventDefault();
 
     const key = this.state.selectedRoleKey;
@@ -116,11 +112,11 @@ class userScreen extends React.Component {
     this.search(processedSearch, role);
   }
 
-  onSearchStringChange(event) {
+  onSearchStringChange = (event) => {
     this.setState({ searchString: event.target.value });
   }
 
-  search(searchString, role) {
+  search = (searchString, role) => {
     userService().searchWithRole(searchString, role).then((response) => {
       switch (response.status) {
         case 200:
