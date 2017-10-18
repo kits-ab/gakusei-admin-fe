@@ -28,7 +28,7 @@ class userScreen extends React.Component {
             <FormGroup controlId='formSearchName' >
               <Col componentClass={ControlLabel} sm={2} >
                 Username
-                        </Col>
+              </Col>
               <Col sm={10} >
                 <FormControl 
                   type='text' 
@@ -42,7 +42,7 @@ class userScreen extends React.Component {
             <FormGroup>
               <Col componentClass={ControlLabel} sm={2} >
                 Role
-                        </Col>
+              </Col>
               <Col sm={10} >
                 <DropdownButton title={this.state.selectedRole} id='roleSelect' onSelect={this.saveEventKey} >
                   <MenuItem eventKey='0'> All roles </MenuItem>
@@ -55,7 +55,7 @@ class userScreen extends React.Component {
               <Col smOffset={2} sm={10} >
                 <Button id='searchBtn' type='submit' bsStyle='primary' >
                   <Glyphicon glyph='search' /> Search
-                            </Button>
+                </Button>
               </Col>
             </FormGroup>
           </Form>
@@ -65,7 +65,7 @@ class userScreen extends React.Component {
           ?
           <Alert bsStyle='info' >
             <Glyphicon glyph='info-sign' /> No users found
-                    </Alert>
+          </Alert>
           :
           null
         }
