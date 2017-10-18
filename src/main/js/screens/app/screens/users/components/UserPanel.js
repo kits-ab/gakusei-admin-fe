@@ -185,8 +185,7 @@ class UserPanel extends React.Component {
             progressTrackingList: this.props.user.progressTrackingList,
             usersLessons: this.props.user.usersLessons,
         };
-        window.console.log(JSON.stringify(newUser));
-        window.console.log(newUser);
+        
         userService().resetPassword(JSON.stringify(newUser)).then((response) => {
             switch (response.status) {
                 case 200:
