@@ -1,5 +1,6 @@
 import React from 'react';
-import { Glyphicon, Row, Grid, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Button, Col, DropdownButton, MenuItem, Panel, Alert } from 'react-bootstrap';
+import { Glyphicon, Row, Grid, Form, FormControl, FormGroup, ControlLabel, 
+  HelpBlock, Button, Col, DropdownButton, MenuItem, Panel, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { requestUserSession } from '../../../../shared/actions/authActions';
 
@@ -33,7 +34,12 @@ class userScreen extends React.Component {
                 Username
                         </Col>
               <Col sm={10} >
-                <FormControl type='text' name='search' placeholder='Username' onChange={this.onSearchStringChange} />
+                <FormControl 
+                  type='text' 
+                  name='search' 
+                  placeholder='Username' 
+                  onChange={this.onSearchStringChange} 
+                />
                 <FormControl.Feedback />
               </Col>
             </FormGroup>
@@ -68,8 +74,12 @@ class userScreen extends React.Component {
           null
         }
 
-        {this.state.users.sort((a, b) => a.username.toUpperCase().localeCompare(b.username.toUpperCase())).map((user, index) => (
-          <UserPanel key={user.username} user={user} />
+        {
+          this.state.users
+          .sort((a, b) => 
+            a.username.toUpperCase().localeCompare(b.username.toUpperCase()))
+          .map((user, index) => (
+            <UserPanel key={user.username} user={user} />
         ))}
       </Grid>
     );
