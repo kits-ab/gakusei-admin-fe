@@ -95,8 +95,34 @@ class QuizModal extends React.Component {
             <Alert bsStyle="warning"> {this.state.error} </Alert>
             : 
             <div>
-              <h4><strong>Namn: </strong> {this.state.editing ? <FormControl type="text" placeholder={quiz.name} value={this.state.editName} onChange={this.handleNameChange} /> : quiz.name}</h4>
-              <h4><strong>Beskrivning: </strong> {this.state.editing ? <FormControl type="text" placeholder={quiz.description} value={this.state.editDescription} onChange={this.handleDescriptionChange} /> : quiz.description}</h4>
+              <h4>
+                <strong>Namn: </strong> 
+                {this.state.editing 
+                ? 
+                  <FormControl 
+                    type="text" 
+                    placeholder={quiz.name} 
+                    value={this.state.editName} 
+                    onChange={this.handleNameChange} 
+                  /> 
+                : 
+                  quiz.name
+                }
+              </h4>
+              <h4>
+                <strong>Beskrivning: </strong> 
+                {this.state.editing 
+                ? 
+                  <FormControl 
+                    type="text" 
+                    placeholder={quiz.description} 
+                    value={this.state.editDescription} 
+                    onChange={this.handleDescriptionChange} 
+                  /> 
+                : 
+                  quiz.description
+                }
+              </h4>
               <h4><strong>Frågor:</strong></h4>
               {this.state.nuggets.map((nugget, index) => (
                 this.displayNuggetDetails(nugget, index)
