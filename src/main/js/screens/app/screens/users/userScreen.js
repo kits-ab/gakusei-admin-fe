@@ -119,7 +119,7 @@ class userScreen extends React.Component {
                             const data = JSON.parse(text);
                             this.setState({ users: data, showSearchAlert: (data.length === 0) });
                         } catch (err) {
-                            window.console.log(err);
+                            this.setState({ users: [], showSearchAlert: true });
                         }
                     });
                     break;
