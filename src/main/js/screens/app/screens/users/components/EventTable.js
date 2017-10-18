@@ -20,7 +20,15 @@ class EventTable extends React.Component {
 
   render() {
     const header = (
-      <div id='eventPanel' > {this.state.expanded ? <Glyphicon glyph='chevron-up' /> : <Glyphicon glyph='chevron-down' />} Events </div>
+      <div id='eventPanel' > 
+          {this.state.expanded 
+            ? 
+            <Glyphicon glyph='chevron-up' /> 
+            : 
+            <Glyphicon glyph='chevron-down' />
+          } 
+          Events 
+        </div>
     );
 
     return (
