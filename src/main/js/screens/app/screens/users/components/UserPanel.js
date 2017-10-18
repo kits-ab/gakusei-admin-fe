@@ -1,5 +1,6 @@
 import React from 'react';
-import { Glyphicon, DropdownButton, MenuItem, Col, Alert, Button, Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
+import { Glyphicon, DropdownButton, MenuItem, Col, Alert, Button, 
+  Panel, ButtonToolbar, Form, FormControl, FormGroup, ControlLabel, Modal } from 'react-bootstrap';
 
 import ProgressTable from './ProgressTable';
 import EventTable from './EventTable';
@@ -59,7 +60,12 @@ class UserPanel extends React.Component {
                 </Button>
               </ButtonToolbar>
             </Panel>
-            <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large" aria-labelledby="contained-modal-title-lg">
+            <Modal 
+              show={this.state.showModal} 
+              onHide={this.closeModal} 
+              bsSize="large" 
+              aria-labelledby="contained-modal-title-lg"
+            >
               <Modal.Header closeButton>
                 <Modal.Title> <strong>Account:</strong> {this.props.user.username} </Modal.Title>
               </Modal.Header>
@@ -86,14 +92,24 @@ class UserPanel extends React.Component {
                       New password
                                     </Col>
                     <Col sm={9} >
-                      <FormControl type='text' name='password' placeholder='New password' onChange={this.handlePasswordInput} />
+                      <FormControl 
+                        type='text' 
+                        name='password' 
+                        placeholder='New password' 
+                        onChange={this.handlePasswordInput} 
+                      />
                     </Col>
                   </FormGroup>
                   <FormGroup>
                     <Col smOffset={3} sm={9} >
-                      <Button id='passwordModal' type='submit' bsStyle='primary' disabled={!this.state.validPassword} >
+                      <Button 
+                        id='passwordModal' 
+                        type='submit' 
+                        bsStyle='primary' 
+                        disabled={!this.state.validPassword} 
+                      >
                         Submit
-                                        </Button>
+                      </Button>
                     </Col>
                   </FormGroup>
                 </Form>
