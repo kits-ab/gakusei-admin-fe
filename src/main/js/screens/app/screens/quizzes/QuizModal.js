@@ -76,9 +76,29 @@ class QuizModal extends React.Component {
     let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
     return (
       <Panel key={nugget.id} bsStyle="primary" header={nugget.question}>
-        <strong>Rätt svar: </strong> {this.state.editing ? <FormControl type="text" placeholder={nugget.correctAnswer} onChange={event => this.handleAnswerChange(event, index)} /> : nugget.correctAnswer}
+        <strong>Rätt svar: </strong> 
+        {this.state.editing 
+        ? 
+          <FormControl 
+            type="text" 
+            placeholder={nugget.correctAnswer} 
+            onChange={event => this.handleAnswerChange(event, index)} 
+          /> 
+        : 
+          nugget.correctAnswer
+        }
         <br/>
-        <strong>Felaktiga svar: </strong> {this.state.editing ? <FormControl type="text" placeholder={incorrectAnswers} onChange={event => this.handleIncorrectAnswerChange(event, index)} /> : incorrectAnswers}
+        <strong>Felaktiga svar: </strong> 
+        {this.state.editing 
+        ? 
+          <FormControl 
+            type="text" 
+            placeholder={incorrectAnswers} 
+            onChange={event => this.handleIncorrectAnswerChange(event, index)}
+          /> 
+        : 
+          incorrectAnswers
+        }
       </Panel>
     );
   }
