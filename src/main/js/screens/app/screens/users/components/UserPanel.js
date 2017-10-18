@@ -45,10 +45,18 @@ class UserPanel extends React.Component {
           <div>
             <Panel header={userUtils().createHeader(this.props.user)} >
               <ButtonToolbar>
-                <Button id='infoBtn' bsStyle='primary' onClick={this.openModal} > <Glyphicon glyph='info-sign' /> Show info </Button>
-                <Button id='passBtn' bsStyle='warning' onClick={this.openPassModal} > <Glyphicon glyph='cog' /> Reset password </Button>
-                <Button id='roleBtn' bsStyle='warning' onClick={this.openRoleModal} > <Glyphicon glyph='cog' /> Change role </Button>
-                <Button id='delBtn' bsStyle='danger' onClick={this.deleteUser} > <Glyphicon glyph='alert' /> {this.state.confirmDelete ? 'Confirm' : 'Delete'} </Button>
+                <Button id='infoBtn' bsStyle='primary' onClick={this.openModal} > 
+                  <Glyphicon glyph='info-sign' /> Show info 
+                </Button>
+                <Button id='passBtn' bsStyle='warning' onClick={this.openPassModal} > 
+                  <Glyphicon glyph='cog' /> Reset password 
+                </Button>
+                <Button id='roleBtn' bsStyle='warning' onClick={this.openRoleModal} > 
+                  <Glyphicon glyph='cog' /> Change role 
+                </Button>
+                <Button id='delBtn' bsStyle='danger' onClick={this.deleteUser} > 
+                  <Glyphicon glyph='alert' /> {this.state.confirmDelete ? 'Confirm' : 'Delete'} 
+                </Button>
               </ButtonToolbar>
             </Panel>
             <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large" aria-labelledby="contained-modal-title-lg">
