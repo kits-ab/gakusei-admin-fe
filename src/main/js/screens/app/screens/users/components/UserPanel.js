@@ -29,7 +29,7 @@ class UserPanel extends React.Component {
         {this.state.deleted ?
           <Alert bsStyle='info'>
             <strong>{this.props.user.username}</strong> was deleted.
-                    </Alert>
+          </Alert>
           :
           <div>
             <Panel header={userUtils().createHeader(this.props.user)} >
@@ -78,7 +78,7 @@ class UserPanel extends React.Component {
                   <FormGroup controlId='newPassword' >
                     <Col componentClass={ControlLabel} sm={3} >
                       New password
-                                    </Col>
+                    </Col>
                     <Col sm={9} >
                       <FormControl 
                         type='text' 
