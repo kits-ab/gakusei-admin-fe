@@ -21,18 +21,6 @@ class UserPanel extends React.Component {
       newRole: this.props.user.role,
       validPassword: false,
     };
-
-    this.closeModal = this.closeModal.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closePassModal = this.closePassModal.bind(this);
-    this.openPassModal = this.openPassModal.bind(this);
-    this.closeRoleModal = this.closeRoleModal.bind(this);
-    this.openRoleModal = this.openRoleModal.bind(this);
-    this.deleteUser = this.deleteUser.bind(this);
-    this.submitPassword = this.submitPassword.bind(this);
-    this.handlePasswordInput = this.handlePasswordInput.bind(this);
-    this.submitRoleChange = this.submitRoleChange.bind(this);
-    this.saveRoleSelect = this.saveRoleSelect.bind(this);
   }
 
   render() {
@@ -141,50 +129,50 @@ class UserPanel extends React.Component {
     );
   }
 
-  openModal() {
+  openModal = () => {
     this.setState({ showModal: true });
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ showModal: false });
   }
 
-  openPassModal() {
+  openPassModal = () => {
     this.setState({ showPassModal: true });
   }
 
-  closePassModal() {
+  closePassModal = () => {
     this.setState({ showPassModal: false, password: '', validPassword: false });
   }
 
-  openRoleModal() {
+  openRoleModal = () => {
     this.setState({ showRoleModal: true });
   }
 
-  closeRoleModal() {
+  closeRoleModal = () => {
     this.setState({ showRoleModal: false });
   }
 
-  handlePasswordInput(e) {
+  handlePasswordInput = (e) => {
     this.setState({ password: e.target.value, validPassword: e.target.value.length !== 0 });
   }
 
-  submitPassword(e) {
+  submitPassword = (e) => {
     e.preventDefault();
     this.closePassModal();
     this.resetPassword();
   }
 
-  submitRoleChange() {
+  submitRoleChange = () => {
     this.closeRoleModal();
     this.changeRole(this.state.newRole);
   }
 
-  saveRoleSelect(eventKey) {
+  saveRoleSelect = (eventKey) => {
     this.setState({ newRole: eventKey });
   }
 
-  deleteUser() {
+  deleteUser = () => {
     if (!this.state.confirmDelete) {
       this.setState({ confirmDelete: true });
     } else {
@@ -200,7 +188,7 @@ class UserPanel extends React.Component {
     }
   }
 
-  resetPassword() {
+  resetPassword = () => {
     let newUser = {
       username: this.props.user.username,
       password: this.state.password,
@@ -220,12 +208,12 @@ class UserPanel extends React.Component {
     }).catch((err) => { });
   }
 
-  changeRole(newRole) {
+  changeRole = () => {
     let oldUser = this.props.user;
     let newUser = {
       username: oldUser.username,
       password: oldUser.password,
-      role: newRole,
+      role: this.state.newRole,
       events: oldUser.events,
       progressTrackingList: oldUser.progressTrackingList,
       usersLessons: oldUser.usersLessons,
