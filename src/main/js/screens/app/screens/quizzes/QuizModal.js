@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Modal, Panel } from 'react-bootstrap';
+import { Alert, Modal, Panel, FormControl, Button } from 'react-bootstrap';
 import quizService from '../../../../shared/services/quizService';
 
 class QuizModal extends React.Component {
@@ -8,6 +8,11 @@ class QuizModal extends React.Component {
     this.state = {
       nuggets: [],
       error: '',
+      editing: false,
+      editName: this.props.quiz.name,
+      editDescription: this.props.quiz.description,
+      editAnswers: [],
+      editIncorrectAnswers: [],
     };
   }
 
@@ -39,13 +44,41 @@ class QuizModal extends React.Component {
     this.props.closeModal();
   }
 
-  displayNuggetDetails = (nugget) => {
+  handleNameChange = (e) => {
+    this.setState({ editName: e.target.value });
+  }
+
+  handleDescriptionChange = (e) => {
+    this.setState({ editDescription: e.target.value });
+  }
+
+  handleAnswerChange = (event, i) => {
+    let value = this.state.editAnswers;
+    value[i] = event.target.value;
+    this.setState({ editAnswers: value });
+  }
+
+  handleIncorrectAnswerChange = (event, i) => {
+    let value = this.state.editIncorrectAnswers;
+    value[i] = event.target.value;
+    this.setState({ editIncorrectAnswers: value });
+  }
+
+  editQuiz = () => {
+    this.setState({ editing: !this.state.editing });
+  }
+
+  saveNewQuiz = () => {
+    window.console.log(this.state.editIncorrectAnswers);
+  }
+
+  displayNuggetDetails = (nugget, index) => {
     let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
     return (
       <Panel key={nugget.id} bsStyle="primary" header={nugget.question}>
-        <strong>Rätt svar: </strong> {nugget.correctAnswer}
+        <strong>Rätt svar: </strong> {this.state.editing ? <FormControl type="text" placeholder={nugget.correctAnswer} onChange={event => this.handleAnswerChange(event, index)} /> : nugget.correctAnswer}
         <br/>
-        <strong>Felaktiga svar: </strong> {incorrectAnswers}
+        <strong>Felaktiga svar: </strong> {this.state.editing ? <FormControl type="text" placeholder={incorrectAnswers} onChange={event => this.handleIncorrectAnswerChange(event, index)} /> : incorrectAnswers}
       </Panel>
     );
   }
@@ -60,17 +93,28 @@ class QuizModal extends React.Component {
         <Modal.Body>
           {this.state.error ?
             <Alert bsStyle="warning"> {this.state.error} </Alert>
-            :
+            : 
             <div>
-              <h4><strong>Namn: </strong> {quiz.name}</h4>
-              <h4><strong>Beskrivning: </strong> {quiz.description}</h4>
+              <h4><strong>Namn: </strong> {this.state.editing ? <FormControl type="text" placeholder={quiz.name} value={this.state.editName} onChange={this.handleNameChange} /> : quiz.name}</h4>
+              <h4><strong>Beskrivning: </strong> {this.state.editing ? <FormControl type="text" placeholder={quiz.description} value={this.state.editDescription} onChange={this.handleDescriptionChange} /> : quiz.description}</h4>
               <h4><strong>Frågor:</strong></h4>
-              {this.state.nuggets.map(nugget => (
-                this.displayNuggetDetails(nugget)
+              {this.state.nuggets.map((nugget, index) => (
+                this.displayNuggetDetails(nugget, index)
               ))}
             </div>
           }
         </Modal.Body>
+        <Modal.Footer>
+          {this.state.editing
+          ? 
+            <div>
+              <Button bsStyle='primary' onClick={this.saveNewQuiz} > Spara ändringar </Button>
+              <Button bsStyle='danger' onClick={this.editQuiz} > Avbryt </Button>
+            </div>
+          :
+            <Button bsStyle='primary' onClick={this.editQuiz} > Redigera quiz </Button>
+          }
+        </Modal.Footer>
       </Modal>
     );
   }
