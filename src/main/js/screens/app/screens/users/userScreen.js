@@ -138,29 +138,6 @@ class userScreen extends React.Component {
       }
     }).catch((err) => { });
   }
-
-  getUsers() {
-    userService().get().then((response) => {
-      switch (response.status) {
-        case 200:
-          response.text().then((text) => {
-            try {
-              const data = JSON.parse(text);
-              this.setState({
-                users: data,
-              });
-            } catch (err) {
-              this.setState({
-                users: [],
-              });
-            }
-          });
-          break;
-        default:
-          throw new Error();
-      }
-    }).catch((err) => { });
-  }
 }
 
 function mapStateToProps(state) {
