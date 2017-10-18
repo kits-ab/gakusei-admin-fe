@@ -10,11 +10,9 @@ class EventTable extends React.Component {
     this.state = {
       expanded: false,
     };
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({ expanded: !this.state.expanded });
   }
 
