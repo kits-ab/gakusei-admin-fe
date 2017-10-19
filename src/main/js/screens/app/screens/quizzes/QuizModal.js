@@ -21,7 +21,6 @@ class QuizModal extends React.Component {
   }
 
   setEditState = () => {
-    window.console.log(this.state.nuggets);    
     for (let index = 0; index < this.state.nuggets.length; index++) {
       let nugget = this.state.nuggets[index];
       let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
@@ -32,8 +31,6 @@ class QuizModal extends React.Component {
       oldIncorrectAnswers[index] = incorrectAnswers;
 
       this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers });
-      window.console.log(oldIncorrectAnswers);
-      window.console.log(oldCorrectAnswers);
     }
   }
 
