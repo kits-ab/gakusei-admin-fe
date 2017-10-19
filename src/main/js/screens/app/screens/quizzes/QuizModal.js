@@ -95,7 +95,13 @@ class QuizModal extends React.Component {
   }
 
   saveNewQuiz = () => {
-    window.console.log(this.state.editIncorrectAnswers);
+    let newQuiz = {
+      id: this.props.quiz.id,
+      name: this.state.editName,
+      description: this.state.editDescription,
+    };
+    
+    quizService().updateQuiz(newQuiz);
   }
 
   questionHeader = (question, index) => {
