@@ -24,6 +24,7 @@ class QuizModal extends React.Component {
   setEditState = () => {
     for (let index = 0; index < this.state.nuggets.length; index++) {
       let nugget = this.state.nuggets[index];
+      window.console.log(nugget);
       let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
       let oldIncorrectAnswers = this.state.editIncorrectAnswers;
       let oldCorrectAnswers = this.state.editAnswers;
@@ -97,11 +98,12 @@ class QuizModal extends React.Component {
   }
 
   questionHeader = (question, index) => {
-    let bla = '';
+    const style = this.state.editing ? { color: 'black' } : {};
     return (
       this.state.editing 
       ?
         <FormControl 
+          style={style}
           type="text"
           value={this.state.editQuestions[index]}
           placeholder={question}
