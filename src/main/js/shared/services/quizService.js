@@ -56,6 +56,17 @@ export default function quizService() {
         },
       });
     },
+    updateQuiz(data) {
+      return fetch(baseQuizUrl, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+        header: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
     updateQuizNuggets(data) {
       let url = baseQuizUrl.concat('/nuggets');
       return fetch(url, {
