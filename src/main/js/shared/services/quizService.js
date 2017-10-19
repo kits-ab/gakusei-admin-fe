@@ -61,7 +61,7 @@ export default function quizService() {
         method: 'PUT',
         body: JSON.stringify(data),
         credentials: 'same-origin',
-        header: {
+        headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-XSRF-TOKEN': getCSRF(),
         },
@@ -73,7 +73,7 @@ export default function quizService() {
         method: 'PUT',
         body: JSON.stringify(data),
         credentials: 'same-origin',
-        header: {
+        headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'X-XSRF-TOKEN': getCSRF(),
         },
