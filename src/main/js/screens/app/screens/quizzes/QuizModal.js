@@ -82,6 +82,12 @@ class QuizModal extends React.Component {
     this.setState({ editIncorrectAnswers: value });
   }
 
+  handleQuestionChange = (event, i) => {
+    let value = this.state.editQuestions;
+    value[i] = event.target.value;
+    this.setState({ editQuestions: value });
+  }
+
   editQuiz = () => {
     this.setState({ editing: !this.state.editing });
   }
@@ -90,14 +96,16 @@ class QuizModal extends React.Component {
     window.console.log(this.state.editIncorrectAnswers);
   }
 
-  questionHeader = (question) => {
+  questionHeader = (question, index) => {
     let bla = '';
     return (
       this.state.editing 
       ?
         <FormControl 
           type="text"
+          value={this.state.editQuestions[index]}
           placeholder={question}
+          onChange={event => this.handleQuestionChange(event, index)}
         />
       :
         question
@@ -107,7 +115,7 @@ class QuizModal extends React.Component {
   displayNuggetDetails = (nugget, index) => {
     let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
     return (
-      <Panel key={nugget.id} bsStyle="primary" header={this.questionHeader(nugget.question)}>
+      <Panel key={nugget.id} bsStyle="primary" header={this.questionHeader(nugget.question, index)}>
         <strong>Rätt svar: </strong> 
         {this.state.editing 
         ? 
