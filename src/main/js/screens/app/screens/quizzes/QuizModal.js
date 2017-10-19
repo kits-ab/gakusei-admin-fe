@@ -20,11 +20,29 @@ class QuizModal extends React.Component {
     this.getQuizNuggets(this.props.quiz.id);
   }
 
+  setEditState = () => {
+    window.console.log(this.state.nuggets);    
+    for (let index = 0; index < this.state.nuggets.length; index++) {
+      let nugget = this.state.nuggets[index];
+      let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
+      let oldIncorrectAnswers = this.state.editIncorrectAnswers;
+      let oldCorrectAnswers = this.state.editAnswers;
+
+      oldCorrectAnswers[index] = nugget.correctAnswer;
+      oldIncorrectAnswers[index] = incorrectAnswers;
+
+      this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers });
+      window.console.log(oldIncorrectAnswers);
+      window.console.log(oldCorrectAnswers);
+    }
+  }
+
   getQuizNuggets = (id) => {
     quizService().getQuizNuggets(id).then((response) => {
       if (response.status === 200) {
         response.text().then((text) => {
           this.setState({ nuggets: JSON.parse(text) });
+          this.setEditState();
         }).catch((err) => {
           this.setState({
             error: 'Kunde inte hantera nuggets'
@@ -82,6 +100,7 @@ class QuizModal extends React.Component {
           <FormControl 
             type="text" 
             placeholder={nugget.correctAnswer} 
+            value={this.state.editAnswers[index]}
             onChange={event => this.handleAnswerChange(event, index)} 
           /> 
         : 
@@ -93,7 +112,8 @@ class QuizModal extends React.Component {
         ? 
           <FormControl 
             type="text" 
-            placeholder={incorrectAnswers} 
+            placeholder={incorrectAnswers}
+            value={this.state.editIncorrectAnswers[index]}
             onChange={event => this.handleIncorrectAnswerChange(event, index)}
           /> 
         : 
