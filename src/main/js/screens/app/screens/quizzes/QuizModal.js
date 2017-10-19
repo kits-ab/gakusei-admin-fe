@@ -13,6 +13,7 @@ class QuizModal extends React.Component {
       editDescription: this.props.quiz.description,
       editAnswers: [],
       editIncorrectAnswers: [],
+      editQuestions: [],
     };
   }
 
@@ -26,11 +27,13 @@ class QuizModal extends React.Component {
       let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
       let oldIncorrectAnswers = this.state.editIncorrectAnswers;
       let oldCorrectAnswers = this.state.editAnswers;
+      let oldQuestions = this.state.editQuestions;
 
       oldCorrectAnswers[index] = nugget.correctAnswer;
       oldIncorrectAnswers[index] = incorrectAnswers;
+      oldQuestions[index] = nugget.question;
 
-      this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers });
+      this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers, editQuestions: oldQuestions });
     }
   }
 
@@ -87,10 +90,24 @@ class QuizModal extends React.Component {
     window.console.log(this.state.editIncorrectAnswers);
   }
 
+  questionHeader = (question) => {
+    let bla = '';
+    return (
+      this.state.editing 
+      ?
+        <FormControl 
+          type="text"
+          placeholder={question}
+        />
+      :
+        question
+    );
+  }
+
   displayNuggetDetails = (nugget, index) => {
     let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
     return (
-      <Panel key={nugget.id} bsStyle="primary" header={nugget.question}>
+      <Panel key={nugget.id} bsStyle="primary" header={this.questionHeader(nugget.question)}>
         <strong>Rätt svar: </strong> 
         {this.state.editing 
         ? 
