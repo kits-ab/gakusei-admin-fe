@@ -94,13 +94,41 @@ class QuizModal extends React.Component {
     this.setState({ editing: !this.state.editing });
   }
 
+  constructIncorrectAnswerArray = (index) => {
+    let toReturn = this.state.editIncorrectAnswers[index].split(',').map((answer, answerIndex) => {
+      let answerObject = {
+        id: this.state.nuggets[index].incorrectAnswers[answerIndex].id,
+        incorrectAnswer: answer,
+      };
+
+      return answerObject;
+    });
+
+    return toReturn;
+  }
+
   saveNewQuiz = () => {
     let newQuiz = {
       id: this.props.quiz.id,
       name: this.state.editName,
       description: this.state.editDescription,
     };
-    
+
+    let newNuggets = this.state.nuggets.map((nugget, index) => {
+      let newNugget = {
+        id: nugget.id,
+        quizRef: nugget.quizRef,
+        question: this.state.editQuestions[index],
+        correctAnswer: this.state.editAnswers[index],
+        incorrectAnswers: this.constructIncorrectAnswerArray(index),
+      };
+
+      quizService().updateQuizNuggets(newNugget);
+      return newNugget;
+    });
+
+    window.console.log(newNuggets);
+
     quizService().updateQuiz(newQuiz);
   }
 
