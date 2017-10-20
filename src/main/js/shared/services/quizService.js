@@ -79,5 +79,15 @@ export default function quizService() {
         },
       });
     },
+    deleteQuizNugget(id) {
+      let url = baseQuizUrl.concat('/nuggets/', id);
+      return fetch(url, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }
