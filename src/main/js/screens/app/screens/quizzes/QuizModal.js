@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Modal, Panel, FormControl, Button } from 'react-bootstrap';
+import { Alert, Modal, Panel, FormControl, FormGroup, Button } from 'react-bootstrap';
 import quizService from '../../../../shared/services/quizService';
 
 class QuizModal extends React.Component {
@@ -141,13 +141,17 @@ class QuizModal extends React.Component {
     return (
       this.state.editing 
       ?
-        <FormControl 
-          style={style}
-          type="text"
-          value={this.state.editQuestions[index]}
-          placeholder={question}
-          onChange={event => this.handleQuestionChange(event, index)}
-        />
+        <form>
+          <FormGroup>
+            <FormControl 
+              style={style}
+              type="text"
+              value={this.state.editQuestions[index]}
+              placeholder={question}
+              onChange={event => this.handleQuestionChange(event, index)}
+            />
+          </FormGroup>
+        </form>
       :
         question
     );
@@ -160,12 +164,16 @@ class QuizModal extends React.Component {
         <strong>Rätt svar: </strong> 
         {this.state.editing 
         ? 
-          <FormControl 
-            type="text" 
-            placeholder={nugget.correctAnswer} 
-            value={this.state.editAnswers[index]}
-            onChange={event => this.handleAnswerChange(event, index)} 
-          /> 
+          <form>
+            <FormGroup>
+              <FormControl 
+                type="text" 
+                placeholder={nugget.correctAnswer} 
+                value={this.state.editAnswers[index]}
+                onChange={event => this.handleAnswerChange(event, index)} 
+              /> 
+            </FormGroup>
+          </form>
         : 
           nugget.correctAnswer
         }
@@ -173,12 +181,16 @@ class QuizModal extends React.Component {
         <strong>Felaktiga svar: </strong> 
         {this.state.editing 
         ? 
-          <FormControl 
-            type="text" 
-            placeholder={incorrectAnswers}
-            value={this.state.editIncorrectAnswers[index]}
-            onChange={event => this.handleIncorrectAnswerChange(event, index)}
-          /> 
+          <form>
+            <FormGroup>
+              <FormControl 
+                type="text" 
+                placeholder={incorrectAnswers}
+                value={this.state.editIncorrectAnswers[index]}
+                onChange={event => this.handleIncorrectAnswerChange(event, index)}
+              /> 
+            </FormGroup>
+          </form>
         : 
           incorrectAnswers
         }
@@ -210,12 +222,16 @@ class QuizModal extends React.Component {
                 <strong>Namn: </strong> 
                 {this.state.editing 
                 ? 
-                  <FormControl 
-                    type="text" 
-                    placeholder={quiz.name} 
-                    value={this.state.editName} 
-                    onChange={this.handleNameChange} 
-                  /> 
+                  <form>
+                    <FormGroup>
+                      <FormControl 
+                        type="text" 
+                        placeholder={quiz.name} 
+                        value={this.state.editName} 
+                        onChange={this.handleNameChange} 
+                      /> 
+                    </FormGroup>
+                  </form>
                 : 
                   quiz.name
                 }
@@ -224,12 +240,16 @@ class QuizModal extends React.Component {
                 <strong>Beskrivning: </strong> 
                 {this.state.editing 
                 ? 
-                  <FormControl 
-                    type="text" 
-                    placeholder={quiz.description} 
-                    value={this.state.editDescription} 
-                    onChange={this.handleDescriptionChange} 
-                  /> 
+                  <form>
+                    <FormGroup>
+                      <FormControl 
+                        type="text" 
+                        placeholder={quiz.description} 
+                        value={this.state.editDescription} 
+                        onChange={this.handleDescriptionChange} 
+                      /> 
+                    </FormGroup>
+                  </form>
                 : 
                   quiz.description
                 }
