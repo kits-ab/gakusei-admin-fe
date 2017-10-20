@@ -90,6 +90,10 @@ class QuizModal extends React.Component {
     this.setState({ editQuestions: value });
   }
 
+  handleQuestionDelete = (event, i, toDelete) => {
+    quizService().deleteQuizNugget(toDelete);
+  }
+
   editQuiz = () => {
     this.setState({ editing: !this.state.editing });
   }
@@ -178,6 +182,7 @@ class QuizModal extends React.Component {
         : 
           incorrectAnswers
         }
+        {this.state.editing ? <Button bsStyle='danger' onClick={event => this.handleQuestionDelete(event, index, nugget.id)} > Ta bort fråga </Button> : null}
       </Panel>
     );
   }
