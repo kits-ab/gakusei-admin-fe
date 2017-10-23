@@ -112,27 +112,24 @@ class QuizModal extends React.Component {
   }
 
   constructIncorrectAnswerArray = (index) => {
-    let toReturn = this.state.editIncorrectAnswers[index].split(',').map(answer => answer.trim()).map((answer, answerIndex) => {
-      let incorrectAnswersArray = this.state.nuggets[index].incorrectAnswers;
-      let answerObject = {};
-      if (answerIndex < incorrectAnswersArray.length) {
-        answerObject = {
-          id: incorrectAnswersArray[answerIndex].id,
-          incorrectAnswer: answer,
-        };
-      } else {
-        this.saveNewIncorrectAnswer(answer, this.state.nuggets[index]);
-      }
+    let trimmedArray = this.state.editIncorrectAnswers[index].split(',').map(answer => answer.trim());
+    let incorrectAnswersArray = this.state.nuggets[index].incorrectAnswers;
+    let toReturn = [];
+    window.console.log(trimmedArray);
 
-      return answerObject;
-    });
-
-    for (let i = 0; i < toReturn.length; i++) {
-      window.console.log(toReturn[i]);
-      if (JSON.stringify(toReturn[i]) === '{}') {
-        toReturn.splice(i);
-      }
+    if (trimmedArray.length < incorrectAnswersArray.length) {
+      // we have removed incorrect answers, delete them
+      let toDelete = incorrectAnswersArray.slice(trimmedArray.length);
+    } else if (trimmedArray.length > incorrectAnswersArray.length) {
+      // we have added new  incorrect answers, create them
+      let toCreate = trimmedArray.splice(incorrectAnswersArray.length);
+      toCreate.map(answer => this.saveNewIncorrectAnswer(answer, this.state.nuggets[index]));
     }
+
+    toReturn = trimmedArray.map((answer, answerIndex) => ({ 
+      id: incorrectAnswersArray[answerIndex].id, 
+      incorrectAnswer: answer 
+    }));
 
     return toReturn;
   }
