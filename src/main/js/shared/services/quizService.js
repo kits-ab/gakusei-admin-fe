@@ -101,5 +101,15 @@ export default function quizService() {
         },
       });
     },
+    deleteIncorrectAnswer(id) {
+      let url = baseQuizUrl.concat('/nuggets/incorrectAnswers/', id);
+      return fetch(url, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }
