@@ -89,5 +89,17 @@ export default function quizService() {
         },
       });
     },
+    createIncorrectAnswer(incorrectAnswer) {
+      let url = baseQuizUrl.concat('/nuggets/incorrectAnswers');
+      return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(incorrectAnswer),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }
