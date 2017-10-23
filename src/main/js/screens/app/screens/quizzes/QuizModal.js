@@ -98,15 +98,41 @@ class QuizModal extends React.Component {
     this.setState({ editing: !this.state.editing });
   }
 
+  saveNewIncorrectAnswer = (answer, nugget) => {
+    quizService().createIncorrectAnswer({ incorrectAnswer: answer, quizNugget: nugget }).then((response) => {
+      if (response.status === 201) {
+        response.text().then((text) => {
+          let createdObject = JSON.parse(text);
+          return { id: createdObject.id, incorrectAnswer: createdObject.incorrectAnswer };
+        });
+      }
+
+      return new Error();
+    });
+  }
+
   constructIncorrectAnswerArray = (index) => {
-    let toReturn = this.state.editIncorrectAnswers[index].split(',').map((answer, answerIndex) => {
-      let answerObject = {
-        id: this.state.nuggets[index].incorrectAnswers[answerIndex].id,
-        incorrectAnswer: answer,
-      };
+    let toReturn = this.state.editIncorrectAnswers[index].split(',').map(answer => answer.trim()).map((answer, answerIndex) => {
+      let incorrectAnswersArray = this.state.nuggets[index].incorrectAnswers;
+      let answerObject = {};
+      if (answerIndex < incorrectAnswersArray.length) {
+        answerObject = {
+          id: incorrectAnswersArray[answerIndex].id,
+          incorrectAnswer: answer,
+        };
+      } else {
+        this.saveNewIncorrectAnswer(answer, this.state.nuggets[index]);
+      }
 
       return answerObject;
     });
+
+    for (let i = 0; i < toReturn.length; i++) {
+      window.console.log(toReturn[i]);
+      if (JSON.stringify(toReturn[i]) === '{}') {
+        toReturn.splice(i);
+      }
+    }
 
     return toReturn;
   }
