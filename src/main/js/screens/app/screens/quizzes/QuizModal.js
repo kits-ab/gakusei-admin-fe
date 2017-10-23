@@ -24,7 +24,6 @@ class QuizModal extends React.Component {
   setEditState = () => {
     for (let index = 0; index < this.state.nuggets.length; index++) {
       let nugget = this.state.nuggets[index];
-      window.console.log(nugget);
       let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
       let oldIncorrectAnswers = this.state.editIncorrectAnswers;
       let oldCorrectAnswers = this.state.editAnswers;
@@ -115,11 +114,11 @@ class QuizModal extends React.Component {
     let trimmedArray = this.state.editIncorrectAnswers[index].split(',').map(answer => answer.trim());
     let incorrectAnswersArray = this.state.nuggets[index].incorrectAnswers;
     let toReturn = [];
-    window.console.log(trimmedArray);
 
     if (trimmedArray.length < incorrectAnswersArray.length) {
       // we have removed incorrect answers, delete them
       let toDelete = incorrectAnswersArray.slice(trimmedArray.length);
+      toDelete.map(answer => quizService().deleteIncorrectAnswer(answer.id));
     } else if (trimmedArray.length > incorrectAnswersArray.length) {
       // we have added new  incorrect answers, create them
       let toCreate = trimmedArray.splice(incorrectAnswersArray.length);
@@ -153,8 +152,6 @@ class QuizModal extends React.Component {
       quizService().updateQuizNuggets(newNugget);
       return newNugget;
     });
-
-    window.console.log(newNuggets);
 
     quizService().updateQuiz(newQuiz);
   }
