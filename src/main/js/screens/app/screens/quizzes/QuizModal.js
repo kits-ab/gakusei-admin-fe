@@ -134,6 +134,8 @@ class QuizModal extends React.Component {
   }
 
   saveNewQuiz = () => {
+    this.closeModal();
+
     let newQuiz = {
       id: this.props.quiz.id,
       name: this.state.editName,
