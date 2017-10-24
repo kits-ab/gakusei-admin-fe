@@ -68,6 +68,7 @@ class QuizModal extends React.Component {
 
   closeModal = () => {
     this.setState({ editing: false });
+    this.setEditState();
     this.props.closeModal();
   }
 
