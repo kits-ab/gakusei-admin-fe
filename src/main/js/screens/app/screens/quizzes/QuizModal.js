@@ -98,7 +98,11 @@ class QuizModal extends React.Component {
   }
 
   handleQuestionDelete = (event, i, toDelete) => {
-    quizService().deleteQuizNugget(toDelete);
+    // quizService().deleteQuizNugget(toDelete);
+    let oldDeleted = this.state.deleted;
+    oldDeleted[i] = true;
+    window.console.log(oldDeleted);
+    this.setState({ deleted: oldDeleted });
   }
 
   editQuiz = () => {
@@ -190,49 +194,55 @@ class QuizModal extends React.Component {
   displayNuggetDetails = (nugget, index) => {
     let incorrectAnswers = nugget.incorrectAnswers.map(answerObject => answerObject.incorrectAnswer).join(', ');
     return (
-      <Panel key={nugget.id} bsStyle="primary" header={this.questionHeader(nugget.question, index)}>
-        <strong>Rätt svar: </strong> 
-        {this.state.editing 
-        ? 
-          <form>
-            <FormGroup>
-              <FormControl 
-                type="text" 
-                placeholder={nugget.correctAnswer} 
-                value={this.state.editAnswers[index]}
-                onChange={event => this.handleAnswerChange(event, index)} 
-              /> 
-            </FormGroup>
-          </form>
-        : 
-          nugget.correctAnswer
+      <div key={nugget.id}>
+        { this.state.deleted[index] && this.state.editing ?
+          <Alert bsStyle='info'> Fråga borttagen </Alert>
+          :
+          <Panel bsStyle="primary" header={this.questionHeader(nugget.question, index)}>
+            <strong>Rätt svar: </strong> 
+            {this.state.editing 
+            ? 
+              <form>
+                <FormGroup>
+                  <FormControl 
+                    type="text" 
+                    placeholder={nugget.correctAnswer} 
+                    value={this.state.editAnswers[index]}
+                    onChange={event => this.handleAnswerChange(event, index)} 
+                  /> 
+                </FormGroup>
+              </form>
+            : 
+              nugget.correctAnswer
+            }
+            <br/>
+            <strong>Felaktiga svar: </strong> 
+            {this.state.editing 
+            ? 
+              <form>
+                <FormGroup>
+                  <FormControl 
+                    type="text" 
+                    placeholder={incorrectAnswers}
+                    value={this.state.editIncorrectAnswers[index]}
+                    onChange={event => this.handleIncorrectAnswerChange(event, index)}
+                  /> 
+                </FormGroup>
+              </form>
+            : 
+              incorrectAnswers
+            }
+            {this.state.editing ?
+              <Button 
+                bsStyle='danger' 
+                onClick={event => this.handleQuestionDelete(event, index, nugget.id)} 
+              > 
+                Ta bort fråga 
+              </Button> 
+              : null}
+          </Panel>
         }
-        <br/>
-        <strong>Felaktiga svar: </strong> 
-        {this.state.editing 
-        ? 
-          <form>
-            <FormGroup>
-              <FormControl 
-                type="text" 
-                placeholder={incorrectAnswers}
-                value={this.state.editIncorrectAnswers[index]}
-                onChange={event => this.handleIncorrectAnswerChange(event, index)}
-              /> 
-            </FormGroup>
-          </form>
-        : 
-          incorrectAnswers
-        }
-        {this.state.editing ?
-          <Button 
-            bsStyle='danger' 
-            onClick={event => this.handleQuestionDelete(event, index, nugget.id)} 
-          > 
-            Ta bort fråga 
-          </Button> 
-          : null}
-      </Panel>
+      </div>
     );
   }
 
