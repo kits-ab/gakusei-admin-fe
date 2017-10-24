@@ -36,7 +36,12 @@ class QuizModal extends React.Component {
       oldQuestions[index] = nugget.question;
       oldDeleted[index] = false;
 
-      this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers, editQuestions: oldQuestions, deleted: oldDeleted });
+      this.setState({ 
+        editAnswers: oldCorrectAnswers, 
+        editIncorrectAnswers: oldIncorrectAnswers, 
+        editQuestions: oldQuestions, 
+        deleted: oldDeleted 
+      });
     }
   }
 
