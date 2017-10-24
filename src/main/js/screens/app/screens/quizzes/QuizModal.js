@@ -98,8 +98,7 @@ class QuizModal extends React.Component {
     this.setState({ editQuestions: value });
   }
 
-  handleQuestionDelete = (event, i, toDelete) => {
-    // quizService().deleteQuizNugget(toDelete);
+  handleQuestionDelete = (event, i) => {
     let oldDeleted = this.state.deleted;
     oldDeleted[i] = true;
     window.console.log(oldDeleted);
@@ -147,28 +146,33 @@ class QuizModal extends React.Component {
   }
 
   saveNewQuiz = () => {
-    this.closeModal();
-
     let newQuiz = {
       id: this.props.quiz.id,
       name: this.state.editName,
       description: this.state.editDescription,
     };
 
-    let newNuggets = this.state.nuggets.map((nugget, index) => {
-      let newNugget = {
-        id: nugget.id,
-        quizRef: nugget.quizRef,
-        question: this.state.editQuestions[index],
-        correctAnswer: this.state.editAnswers[index],
-        incorrectAnswers: this.constructIncorrectAnswerArray(index),
-      };
-
-      quizService().updateQuizNuggets(newNugget);
-      return newNugget;
-    });
-
     quizService().updateQuiz(newQuiz);
+
+    for (let index = 0; index < this.state.nuggets.length; index++) {
+      let nugget = this.state.nuggets[index];
+      window.console.log(nugget);
+      if (this.state.deleted[index]) {
+        quizService().deleteQuizNugget(nugget.id);
+      } else {
+        let newNugget = {
+          id: nugget.id,
+          quizRef: nugget.quizRef,
+          question: this.state.editQuestions[index],
+          correctAnswer: this.state.editAnswers[index],
+          incorrectAnswers: this.constructIncorrectAnswerArray(index),
+        };
+
+        quizService().updateQuizNuggets(newNugget);
+      }
+    }
+
+    this.closeModal();    
   }
 
   questionHeader = (question, index) => {
@@ -236,7 +240,7 @@ class QuizModal extends React.Component {
             {this.state.editing ?
               <Button 
                 bsStyle='danger' 
-                onClick={event => this.handleQuestionDelete(event, index, nugget.id)} 
+                onClick={event => this.handleQuestionDelete(event, index)} 
               > 
                 Ta bort fråga 
               </Button> 
