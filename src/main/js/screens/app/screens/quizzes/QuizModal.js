@@ -14,6 +14,7 @@ class QuizModal extends React.Component {
       editAnswers: [],
       editIncorrectAnswers: [],
       editQuestions: [],
+      deleted: [],
     };
   }
 
@@ -28,12 +29,14 @@ class QuizModal extends React.Component {
       let oldIncorrectAnswers = this.state.editIncorrectAnswers;
       let oldCorrectAnswers = this.state.editAnswers;
       let oldQuestions = this.state.editQuestions;
+      let oldDeleted = this.state.deleted;
 
       oldCorrectAnswers[index] = nugget.correctAnswer;
       oldIncorrectAnswers[index] = incorrectAnswers;
       oldQuestions[index] = nugget.question;
+      oldDeleted[index] = false;
 
-      this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers, editQuestions: oldQuestions });
+      this.setState({ editAnswers: oldCorrectAnswers, editIncorrectAnswers: oldIncorrectAnswers, editQuestions: oldQuestions, deleted: oldDeleted });
     }
   }
 
