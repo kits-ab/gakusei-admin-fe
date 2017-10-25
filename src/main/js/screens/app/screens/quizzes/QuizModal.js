@@ -101,7 +101,6 @@ class QuizModal extends React.Component {
   handleQuestionDelete = (event, i) => {
     let oldDeleted = this.state.deleted;
     oldDeleted[i] = true;
-    window.console.log(oldDeleted);
     this.setState({ deleted: oldDeleted });
   }
 
@@ -156,7 +155,6 @@ class QuizModal extends React.Component {
 
     for (let index = 0; index < this.state.nuggets.length; index++) {
       let nugget = this.state.nuggets[index];
-      window.console.log(nugget);
       if (this.state.deleted[index]) {
         quizService().deleteQuizNugget(nugget.id);
       } else {
