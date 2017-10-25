@@ -12,7 +12,6 @@ module.exports = {
       .waitForElementVisible('body')
       .setValue('@nameInput', admin.username)
       .setValue('@pwdInput', admin.password)
-      .click('@loginButton')
       .click('@loginButton');
 
     setTimeout(function(){
@@ -65,6 +64,19 @@ module.exports = {
       .waitForElementVisible('@closeModalButton')
       .click('@closeModalButton')
       .waitForElementNotPresent('@quizModal');
+  },
+  'Test show edit fields': function(client) {
+    let qp = client.page.quizzesPage();
+    let quizBox = qp.quizBox(quiz.name);
+    let showButton = qp.showButton(quiz.name);
+
+    qp
+      .waitForElementVisible(quizBox)
+      .assert.visible(showButton)
+      .click(showButton)
+      .waitForElementVisible('@quizModal')
+      .click('@editButton')
+      .assert.visible('@editNameForm');
   },
   'Test delete quiz': function(client) {
     let qp = client.page.quizzesPage();

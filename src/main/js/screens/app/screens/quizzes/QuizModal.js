@@ -265,7 +265,7 @@ class QuizModal extends React.Component {
                 <strong>Namn: </strong> 
                 {this.state.editing 
                 ? 
-                  <form>
+                  <form id='editNameForm' >
                     <FormGroup>
                       <FormControl 
                         type="text" 
@@ -312,7 +312,7 @@ class QuizModal extends React.Component {
               <Button bsStyle='danger' onClick={this.editQuiz} > Avbryt </Button>
             </div>
           :
-            <Button bsStyle='primary' onClick={this.editQuiz} > Redigera quiz </Button>
+            <Button id="editButton" bsStyle='primary' onClick={this.editQuiz} > Redigera quiz </Button>
           }
         </Modal.Footer>
       </Modal>
