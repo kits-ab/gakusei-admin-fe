@@ -56,5 +56,60 @@ export default function quizService() {
         },
       });
     },
+    updateQuiz(data) {
+      return fetch(baseQuizUrl, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
+    updateQuizNuggets(data) {
+      let url = baseQuizUrl.concat('/nuggets');
+      return fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
+    deleteQuizNugget(id) {
+      let url = baseQuizUrl.concat('/nuggets/', id);
+      return fetch(url, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
+    createIncorrectAnswer(incorrectAnswer) {
+      let url = baseQuizUrl.concat('/nuggets/incorrectAnswers');
+      return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(incorrectAnswer),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
+    deleteIncorrectAnswer(id) {
+      let url = baseQuizUrl.concat('/nuggets/incorrectAnswers/', id);
+      return fetch(url, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }

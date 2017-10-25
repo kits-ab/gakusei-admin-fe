@@ -12,6 +12,8 @@ module.exports = {
     cancelButton: 'button[name=cancel]',
     quizModal: '.modal-body',
     closeModalButton: 'button.close',
+    editButton: 'button[id=editButton]',
+    editNameForm: 'form[id=editNameForm]',
   },
   commands: [
     {
