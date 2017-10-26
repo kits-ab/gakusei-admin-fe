@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Alert, Form, FormGroup, FormControl, Panel, Col, ControlLabel
+  Alert, Form, FormGroup, FormControl, Panel, Col, ControlLabel, HelpBlock
 } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
@@ -190,6 +190,12 @@ class QuizForm extends React.Component {
             </Col>
           </FormGroup>
           {this.createNuggetForms()}
+          <FormGroup>
+            <Col xsOffset={2} mdOffset={2} xs={10} md={10} >
+              <FormControl type='file' />
+              <HelpBlock> Ladda upp quiz som CSV-fil </HelpBlock>
+            </Col>
+          </FormGroup>
           <FormGroup>
             {!this.state.error ? this.renderErrorMsg : null}
             <Col xs={12} md={12}>
