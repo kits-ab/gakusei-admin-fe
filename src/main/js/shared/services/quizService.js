@@ -111,5 +111,17 @@ export default function quizService() {
         },
       });
     },
+    uploadCSV(file, quizName, quizDescription) {
+      let url = baseQuizUrl.concat('/csv?quizName=', quizName, '&quizDescription=', quizDescription);
+
+      return fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: file,
+        headers: {
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }
