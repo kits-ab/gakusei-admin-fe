@@ -20,7 +20,13 @@ class CSVForm extends React.Component {
     let input = document.querySelector('input[type="file"]');
     let formData = new window.FormData();
     formData.append('file', input.files[0]);
-    quizService().uploadCSV(formData, this.state.name, this.state.description);
+    quizService().uploadCSV(formData, this.state.name, this.state.description).then((response) => {
+        if (response.status === 201) {
+          this.props.handleCreateQuiz(true);
+        } else {
+          throw new Error();
+        }
+    }).catch((err) => { });
   }
 
   onInputChange = (event) => {

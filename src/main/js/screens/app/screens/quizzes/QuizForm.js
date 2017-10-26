@@ -161,7 +161,7 @@ class QuizForm extends React.Component {
   render() {
     return (
       <div>
-        <CSVForm />
+        <CSVForm handleCreateQuiz={this.props.handleCreateQuiz} />
         <Panel header={<h3>Skapa ett nytt quiz</h3>} bsStyle="primary">
           <Form horizontal id="createForm" onSubmit={this.handleSubmit}>
             <FormGroup>
