@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, FormGroup, FormControl, Panel, Col, ControlLabel, HelpBlock, Button
+  Alert, Form, FormGroup, FormControl, Panel, Col, ControlLabel, HelpBlock, Button, Glyphicon
 } from 'react-bootstrap';
 
 import quizService from '../../../../shared/services/quizService';
@@ -10,6 +10,7 @@ class CSVForm extends React.Component {
     super(props);
 
     this.state = {
+      error: '',
       name: '',
       description: '',
       validForm: false,
@@ -23,8 +24,10 @@ class CSVForm extends React.Component {
     formData.append('file', input.files[0]);
     quizService().uploadCSV(formData, this.state.name, this.state.description).then((response) => {
         if (response.status === 201) {
+          this.setState({ error: '' });
           this.props.handleCreateQuiz(true);
         } else {
+          this.setState({ error: 'Kunde inte ladda upp fil' });
           throw new Error();
         }
     }).catch((err) => { });
@@ -88,6 +91,11 @@ class CSVForm extends React.Component {
             </Col>
           </FormGroup>
         </Form>
+        {this.state.error ?
+          <Alert bsStyle='danger' > <Glyphicon glyph='alert' /> {this.state.error} </Alert>
+        :
+          null
+        }
       </Panel>
     );
   }
