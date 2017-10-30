@@ -25,11 +25,16 @@ class CSVForm extends React.Component {
     formData.append('file', input[0]);
     quizService().uploadCSV(formData, this.state.name, this.state.description).then((response) => {
         if (response.status === 201) {
-          this.setState({ error: '' });
-          this.props.handleCreateQuiz(true);
+          response.text().then((text) => {
+            this.setState({ error: '' });
+            this.props.handleCreateQuiz(true);
+          });
         } else {
-          this.setState({ error: 'Kunde inte ladda upp fil' });
-          throw new Error();
+          response.text().then((text) => {
+            let errorList = JSON.parse(text);
+            let errorMsg = errorList.reduce((complete, error) => `${complete} Error: ${error} \n`, '');
+            this.setState({ error: errorMsg });
+          });
         }
     }).catch((err) => { });
   }
@@ -92,7 +97,7 @@ class CSVForm extends React.Component {
           </FormGroup>
         </Form>
         {this.state.error ?
-          <Alert bsStyle='danger' > <Glyphicon glyph='alert' /> {this.state.error} </Alert>
+          <Alert bsStyle='danger' style={{ whiteSpace: 'pre-line' }} > {this.state.error} </Alert>
         :
           null
         }
