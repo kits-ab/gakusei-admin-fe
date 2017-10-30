@@ -14,14 +14,15 @@ class CSVForm extends React.Component {
       name: '',
       description: '',
       validForm: false,
+      file: [],
     };
   }
 
   handleCSVUpload = (event) => {
     event.preventDefault();
-    let input = document.querySelector('input[type="file"]');
+    let input = this.state.file;
     let formData = new window.FormData();
-    formData.append('file', input.files[0]);
+    formData.append('file', input[0]);
     quizService().uploadCSV(formData, this.state.name, this.state.description).then((response) => {
         if (response.status === 201) {
           this.setState({ error: '' });
@@ -34,15 +35,16 @@ class CSVForm extends React.Component {
   }
 
   onInputChange = (event) => {
+    let value = event.target.name === 'file' ? event.target.files : event.target.value;
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: value,
     });
 
     this.formIsValid();
   }
 
   formIsValid = () => {
-    let fileChosen = document.querySelector('input[type="file"]').files.length !== 0;
+    let fileChosen = this.state.file.length !== 0;
     let nameAndDescriptionAdded = this.state.name !== '' && this.state.description !== '';
     this.setState({ validForm: nameAndDescriptionAdded && fileChosen });
   }
@@ -81,7 +83,7 @@ class CSVForm extends React.Component {
           </FormGroup>
           <FormGroup id='uploadCsv' >
             <Col xsOffset={2} mdOffset={2} xs={10} md={10} >
-              <FormControl type='file' name='file' onChange={this.formIsValid} />
+              <FormControl type='file' name='file' onChange={this.onInputChange} />
               <HelpBlock> Ladda upp quiz som CSV-fil </HelpBlock>
             </Col>
           </FormGroup>
