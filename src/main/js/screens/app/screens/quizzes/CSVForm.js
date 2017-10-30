@@ -32,8 +32,9 @@ class CSVForm extends React.Component {
         } else {
           response.text().then((text) => {
             let errorList = JSON.parse(text);
+            // Remove extra information about quizname and description in error message
             errorList = errorList.map(error => error.split(`${this.state.name}, ${this.state.description}, `).reduce((reducedError, split) => `${reducedError}${split}`, ''));
-            let errorMsg = errorList.reduce((complete, error) => `${complete} Error: ${error} \n`, '');
+            let errorMsg = errorList.reduce((complete, error, index) => `${complete} Error ${index + 1}: ${error} \n`, `Errors while parsing file: ${errorList.length} \n`);
             this.setState({ error: errorMsg });
           });
         }
