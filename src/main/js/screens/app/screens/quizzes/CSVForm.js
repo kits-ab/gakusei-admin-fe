@@ -38,9 +38,7 @@ class CSVForm extends React.Component {
     let value = event.target.name === 'file' ? event.target.files : event.target.value;
     this.setState({
       [event.target.name]: value,
-    });
-
-    this.formIsValid();
+    }, this.formIsValid);
   }
 
   formIsValid = () => {
