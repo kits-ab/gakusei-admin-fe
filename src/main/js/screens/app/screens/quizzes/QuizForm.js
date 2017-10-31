@@ -7,6 +7,7 @@ import quizService from '../../../../shared/services/quizService';
 import Utility from '../../../../shared/util/Utility';
 import NuggetForm from './NuggetForm';
 import QuizButtonToolbar from './QuizButtonToolbar';
+import CSVForm from './CSVForm';
 
 class QuizForm extends React.Component {
   constructor(props) {
@@ -159,45 +160,48 @@ class QuizForm extends React.Component {
 
   render() {
     return (
-      <Panel header={<h3>Skapa ett nytt quiz</h3>} bsStyle="primary">
-        <Form horizontal id="createForm" onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Col componentClass={ControlLabel} xs={12} md={2}>
-              Namn
-            </Col>
-            <Col xs={12} md={10}>
-              <FormControl
-                type="text"
-                name="name"
-                placeholder="Ange ett quiznamn"
-                value={this.state.name}
-                onChange={this.onInputChange}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup>
-            <Col componentClass={ControlLabel} xs={12} md={2}>
-              Beskrivning
-            </Col>
-            <Col xs={12} md={10}>
-              <FormControl
-                type="text"
-                name="description"
-                placeholder="Ange en beskrivning"
-                value={this.state.description}
-                onChange={this.onInputChange}
-              />
-            </Col>
-          </FormGroup>
-          {this.createNuggetForms()}
-          <FormGroup>
-            {!this.state.error ? this.renderErrorMsg : null}
-            <Col xs={12} md={12}>
-              <QuizButtonToolbar addNuggetForm={this.addNuggetForm} formIsValid={this.formIsValid} handleCreateQuiz={this.props.handleCreateQuiz}/>
-            </Col>
-          </FormGroup>
-        </Form>
-      </Panel>
+      <div>
+        <CSVForm handleCreateQuiz={this.props.handleCreateQuiz} />
+        <Panel header={<h3>Skapa ett nytt quiz</h3>} bsStyle="primary">
+          <Form horizontal id="createForm" onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Col componentClass={ControlLabel} xs={12} md={2}>
+                Namn
+              </Col>
+              <Col xs={12} md={10}>
+                <FormControl
+                  type="text"
+                  name="name"
+                  placeholder="Ange ett quiznamn"
+                  value={this.state.name}
+                  onChange={this.onInputChange}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} xs={12} md={2}>
+                Beskrivning
+              </Col>
+              <Col xs={12} md={10}>
+                <FormControl
+                  type="text"
+                  name="description"
+                  placeholder="Ange en beskrivning"
+                  value={this.state.description}
+                  onChange={this.onInputChange}
+                />
+              </Col>
+            </FormGroup>
+            {this.createNuggetForms()}
+            <FormGroup>
+              {!this.state.error ? this.renderErrorMsg : null}
+              <Col xs={12} md={12}>
+                <QuizButtonToolbar addNuggetForm={this.addNuggetForm} formIsValid={this.formIsValid} handleCreateQuiz={this.props.handleCreateQuiz}/>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Panel>
+      </div>
     );
   }
 
