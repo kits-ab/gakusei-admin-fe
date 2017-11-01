@@ -25,5 +25,11 @@ export default function lessonService() {
         method: 'GET',
       }));
     },
+    delete(lessonId) {
+      let url = baseUrl.concat('/', lessonId);
+      return fetch(url, Object.assign(fetchProperties, {
+        method: 'DELETE',
+      }));
+    }
   };
 }

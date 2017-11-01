@@ -42,6 +42,12 @@ class LessonsScreen extends React.Component {
     });
   };
 
+  handleDeleteLesson = (deletedLessonId) => {
+    this.setState(prevState => ({
+      lessons: prevState.lessons.filter(lesson => lesson.id !== deletedLessonId)
+    }));
+  };
+
   renderMsg = (type) => {
     switch (type) {
       case 'no lessons':
@@ -81,7 +87,7 @@ class LessonsScreen extends React.Component {
         <br/>
         {this.state.lessons.length === 0 ? this.renderMsg('no lessons') : null}
         {this.state.error ? this.renderMsg('error') : null}
-        {this.state.lessons.map(lesson => <LessonPanel key={lesson.id} lesson={lesson}/>)}
+        {this.state.lessons.map(lesson => <LessonPanel key={lesson.id} lesson={lesson} handleDeleteLesson={this.handleDeleteLesson}/>)}
       </Grid>
     );
   }
