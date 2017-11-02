@@ -40,6 +40,11 @@ export class GakuseiAdminNav extends React.Component {
                   <NavItem>Quiz</NavItem>
                 </LinkContainer>
               </Nav>
+              <Nav>
+                <LinkContainer to="/grammar">
+                  <NavItem> Grammar </NavItem>
+                </LinkContainer>
+              </Nav>
               <Nav pullRight>
                 <LinkContainer to="/log-out">
                   <NavItem>Logga ut</NavItem>
