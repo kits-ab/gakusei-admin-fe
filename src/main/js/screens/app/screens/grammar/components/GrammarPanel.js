@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Panel, Button, Modal, Badge } from 'react-bootstrap';
 
+import WordPanel from './WordPanel';
+import InflectionPanel from './InflectionPanel';
+
 class GrammarPanel extends React.Component {
   constructor(props) {
     super(props);
@@ -32,9 +35,8 @@ class GrammarPanel extends React.Component {
             <Modal.Title> <strong>Lektion :</strong> {this.props.grammarList.lesson} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {this.props.grammarList.nuggets.map(nugget =>
-              <p>{nugget.description}</p>
-            )}
+            <InflectionPanel inflections={this.props.grammarList.inflections} />
+            <WordPanel nuggets={this.props.grammarList.nuggets} />
           </Modal.Body>
         </Modal>
       </div>
