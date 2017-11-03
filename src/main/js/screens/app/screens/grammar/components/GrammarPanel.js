@@ -23,20 +23,21 @@ class GrammarPanel extends React.Component {
   }
 
   render() {
+    let grammarList = this.props.grammarList;
     return (
       <div>
-        <Panel header={this.props.grammarList.lesson} >
-          <p> Antal böjningar: <Badge> {this.props.grammarList.inflections} </Badge> </p>
-          <p> Antal ord: <Badge> {this.props.grammarList.nuggets.length} </Badge></p>
+        <Panel header={grammarList.lesson} >
+          <p> Antal böjningar: <Badge> {grammarList.inflections} </Badge> </p>
+          <p> Antal ord: <Badge> {grammarList.nuggets.length} </Badge></p>
           <Button bsStyle='primary' onClick={this.openModal} > Visa ord och böjningar </Button>
         </Panel>
         <Modal show={this.state.viewLesson} onHide={this.closeModal} >
           <Modal.Header closeButton >
-            <Modal.Title> <strong>Lektion :</strong> {this.props.grammarList.lesson} </Modal.Title>
+            <Modal.Title> <strong>Lektion :</strong> {grammarList.lesson} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <InflectionPanel inflections={this.props.grammarList.inflections} />
-            <WordPanel nuggets={this.props.grammarList.nuggets} />
+            <InflectionPanel inflections={grammarList.inflections} />
+            <WordPanel nuggets={grammarList.nuggets} />
           </Modal.Body>
         </Modal>
       </div>
