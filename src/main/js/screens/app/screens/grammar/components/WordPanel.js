@@ -1,13 +1,31 @@
 import React from 'react';
 
+import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
+
 class WordPanel extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      expanded: false,
+    };
+  }
+
+  handlePanelClick = () => {
+    this.setState({ expanded: !this.state.expanded });
   }
 
   render() {
+    let nuggets = this.props.nuggets;
+
     return (
-      <p> Hello Word! </p>
+      <Panel collapsible expanded={this.state.expanded} header={'Ord'} onClick={this.handlePanelClick} >
+        <ListGroup>
+        {nuggets.map(nugget => 
+          <ListGroupItem> {nugget.description} </ListGroupItem>
+        )}
+        </ListGroup>
+      </Panel>
     );
   }
 }
