@@ -46,8 +46,8 @@ class grammarScreen extends React.Component {
   render() {
     return (
       <Grid>
-        {this.state.grammarLists.sort((a, b) => a.lesson.toUpperCase().localeCompare(b.lesson.toUpperCase())).map(grammarList => 
-          <GrammarPanel updateGrammarList={this.updateGrammarList} key={grammarList.lesson} grammarList={grammarList} />   
+        {this.state.grammarLists.sort((a, b) => a.lesson.name.toUpperCase().localeCompare(b.lesson.name.toUpperCase())).map(grammarList => 
+          <GrammarPanel updateGrammarList={this.updateGrammarList} key={grammarList.lesson.name} grammarList={grammarList} />   
         )}
       </Grid>
     );

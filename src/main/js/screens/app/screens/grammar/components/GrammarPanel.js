@@ -71,7 +71,7 @@ class GrammarPanel extends React.Component {
     let grammarList = this.props.grammarList;
     return (
       <div>
-        <Panel header={grammarList.lesson} >
+        <Panel header={grammarList.lesson.name} >
           <p> Antal böjningar: <Badge> {grammarList.inflections.used.length} </Badge> </p>
           <p> Antal ord: <Badge> {grammarList.nuggets.length} </Badge></p>
           <ButtonToolbar>
@@ -81,7 +81,7 @@ class GrammarPanel extends React.Component {
         </Panel>
         <Modal show={this.state.viewLesson} onHide={this.closeModal} >
           <Modal.Header closeButton >
-            <Modal.Title> <strong>Lektion :</strong> {grammarList.lesson} </Modal.Title>
+            <Modal.Title> <strong>Lektion :</strong> {grammarList.lesson.name} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <InflectionPanel inflections={grammarList.inflections} />
@@ -90,7 +90,7 @@ class GrammarPanel extends React.Component {
         </Modal>
         <Modal bsSize='lg' show={this.state.viewInflection} onHide={this.closeInflectionModal} >
           <Modal.Header closeButton >
-            <Modal.Title> <strong> Böjningar : {grammarList.lesson} </strong> </Modal.Title>
+            <Modal.Title> <strong> Böjningar : {grammarList.lesson.name} </strong> </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={this.handleFormSubmit} >
