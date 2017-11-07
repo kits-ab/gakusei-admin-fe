@@ -32,11 +32,22 @@ class grammarScreen extends React.Component {
     });
   }
 
+  updateGrammarList = (grammarList, property, newValue) => {
+    let oldGrammarLists = this.state.grammarLists;
+
+    let updatedGrammarList = grammarList;
+    updatedGrammarList[property] = newValue;
+
+    let newGrammarLists = oldGrammarLists.map(element => (grammarList.lesson === element.lesson ? updatedGrammarList : element));
+
+    this.setState({ grammarLists: newGrammarLists });
+  }
+
   render() {
     return (
       <Grid>
-        {this.state.grammarLists.map(grammarList => 
-          <GrammarPanel key={grammarList.lesson} grammarList={grammarList} />   
+        {this.state.grammarLists.sort((a, b) => a.lesson.toUpperCase().localeCompare(b.lesson.toUpperCase())).map(grammarList => 
+          <GrammarPanel updateGrammarList={this.updateGrammarList} key={grammarList.lesson} grammarList={grammarList} />   
         )}
       </Grid>
     );
