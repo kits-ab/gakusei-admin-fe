@@ -20,7 +20,7 @@ class InflectionPanel extends React.Component {
       <Panel collapsible header={'Böjningar'} expanded={this.state.expanded} onClick={this.handlePanelClick} >
         <ListGroup>
           {this.props.inflections.used.map(inflection => 
-            <ListGroupItem> {inflection} </ListGroupItem>
+            <ListGroupItem key={inflection.inflectionMethod} > {inflection.inflectionMethod} </ListGroupItem>
           )}
         </ListGroup>
       </Panel>
