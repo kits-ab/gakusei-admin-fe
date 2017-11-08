@@ -21,9 +21,9 @@ class WordPanel extends React.Component {
     return (
       <Panel collapsible expanded={this.state.expanded} header={'Ord'} onClick={this.handlePanelClick} >
         <ListGroup>
-        {nuggets.map(nugget => 
-          <ListGroupItem> {nugget.description} </ListGroupItem>
-        )}
+          {nuggets.map(nugget => 
+            <ListGroupItem key={nugget.id}> {nugget.description} </ListGroupItem>
+          )}
         </ListGroup>
       </Panel>
     );
