@@ -21,10 +21,18 @@ class grammarScreen extends React.Component {
   }
 
   getGrammarLists = () => {
-    grammarService().getAll().then((response) => {
+    grammarService().getLessons().then((response) => {
       if (response.status === 200) {
-        response.text().then((text) => {
-          this.setState({ grammarLists: JSON.parse(text) });
+        response.json().then((data) => {
+          data.forEach((lesson) => {
+            grammarService().getGrammarList(lesson.id).then((grammarResponse) => {
+              grammarResponse.json().then((grammarList) => {
+                let newGrammarList = this.state.grammarLists;
+                newGrammarList.push(grammarList);
+                this.setState({ grammarLists: newGrammarList });
+              });
+            });
+          });
         });
       } else {
         throw new Error();
