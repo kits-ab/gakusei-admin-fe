@@ -6,8 +6,16 @@ export default function grammarService() {
   const baseUrl = '/api/grammar';
 
   return {
-    getAll() {
-      return fetch(baseUrl, {
+    getLessons() {
+      return fetch('/api/lessons?lessonType=vocabulary', {
+        method: 'GET',
+        credentials: 'same-origin',
+      });
+    },
+    getGrammarList(lessonId) {
+      let grammarListUrl = baseUrl.concat('/', lessonId);
+
+      return fetch(grammarListUrl, {
         method: 'GET',
         credentials: 'same-origin',
       });
