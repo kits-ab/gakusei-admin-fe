@@ -5,6 +5,8 @@ import { Col, Panel, Button, ButtonToolbar, Modal, Badge, Form, FormGroup, FormC
 import WordPanel from './WordPanel';
 import InflectionPanel from './InflectionPanel';
 
+import grammarService from '../../../../../shared/services/grammarService';
+
 class GrammarPanel extends React.Component {
   constructor(props) {
     super(props);
@@ -50,21 +52,42 @@ class GrammarPanel extends React.Component {
     event.preventDefault();
     event.target.reset();
 
-    let currentUsedInflections = this.props.grammarList.inflections.used;
-    let currentUnusedInflections = this.props.grammarList.inflections.unused;
+    this.updateUnusedInflectionsBackend();
+    this.updateUsedInflectionsBackend();
 
-    let filteredUsedInflections = currentUsedInflections.filter(element => this.state.selectUsedInflections.indexOf(element) === -1);
-    let filteredUnusedInflections = currentUnusedInflections.filter(element => this.state.selectUnusedInflections.indexOf(element) === -1);
-
-    let updatedUsedInflections = filteredUsedInflections.concat(this.state.selectUnusedInflections);
-    let updatedUnusedInflections = filteredUnusedInflections.concat(this.state.selectUsedInflections);
+    this.props.updateGrammarList(this.props.grammarList, 'inflections', { used: this.updateUsedInflections(), unused: this.updateUnusedInflections() });
 
     this.setState({ selectUnusedInflections: [], selectUsedInflections: [] });
+  }
 
-    let oldGrammarList = this.props.grammarList;
+  updateUsedInflections = () => {
+    let currentUsedInflections = this.props.grammarList.inflections.used;
+    let addedInflectionsProperForm = this.state.selectUnusedInflections.map(inflection => ({ lesson: this.props.grammarList.lesson, inflectionMethod: inflection }));
 
-    this.props.updateGrammarList(oldGrammarList, 'inflections', { used: updatedUsedInflections, unused: updatedUnusedInflections });
-    // TODO : Send updated list to server
+    return currentUsedInflections
+            .filter(element => this.state.selectUsedInflections.indexOf(element.inflectionMethod) === -1)
+            .concat(addedInflectionsProperForm);
+  }
+
+  updateUnusedInflections = () => {
+    let currentUnusedInflections = this.props.grammarList.inflections.unused;
+    let removedInflectionsProperForm = this.state.selectUsedInflections.map(inflection => ({ lesson: this.props.grammarList.lesson, inflectionMethod: inflection }));
+
+    return currentUnusedInflections
+            .filter(element => this.state.selectUnusedInflections.indexOf(element.inflectionMethod) === -1)
+            .concat(removedInflectionsProperForm);
+  }
+
+  updateUsedInflectionsBackend = () => {
+    this.state.selectUnusedInflections.forEach((inflection) => {
+      grammarService().createInflection({ lesson: this.props.grammarList.lesson, inflectionMethod: inflection });
+    });
+  }
+
+  updateUnusedInflectionsBackend = () => {
+    this.state.selectUsedInflections.forEach((inflection) => {
+      grammarService().deleteInflection({ lesson: this.props.grammarList.lesson, inflectionMethod: inflection });
+    });
   }
 
   render() {
@@ -79,6 +102,7 @@ class GrammarPanel extends React.Component {
             <Button onClick={this.openInflectionModal} > Ändra använda böjningar </Button>
           </ButtonToolbar>
         </Panel>
+
         <Modal show={this.state.viewLesson} onHide={this.closeModal} >
           <Modal.Header closeButton >
             <Modal.Title> <strong>Lektion :</strong> {grammarList.lesson.name} </Modal.Title>
@@ -88,6 +112,7 @@ class GrammarPanel extends React.Component {
             <WordPanel nuggets={grammarList.nuggets} />
           </Modal.Body>
         </Modal>
+
         <Modal bsSize='lg' show={this.state.viewInflection} onHide={this.closeInflectionModal} >
           <Modal.Header closeButton >
             <Modal.Title> <strong> Böjningar : {grammarList.lesson.name} </strong> </Modal.Title>
@@ -106,14 +131,14 @@ class GrammarPanel extends React.Component {
                 <Col sm={6} >
                   <FormControl name="selectUnusedInflections" style={{ height: '500px' }} componentClass='select' multiple onChange={this.handleSelectUsed} >
                     {grammarList.inflections.unused.map(inflection => (
-                      <option key={inflection} value={inflection}> {inflection} </option>
+                      <option key={inflection.inflectionMethod} value={inflection.inflectionMethod}> {inflection.inflectionMethod} </option>
                     ))}
                   </FormControl>
                 </Col>
                 <Col sm={6} >
                   <FormControl name="selectUsedInflections" style={{ height: '500px' }} componentClass='select' multiple onChange={this.handleSelectUsed} >
                     {grammarList.inflections.used.map(inflection => (
-                      <option key={inflection} value={inflection} > {inflection} </option>
+                      <option key={inflection.inflectionMethod} value={inflection.inflectionMethod} > {inflection.inflectionMethod} </option>
                     ))}
                   </FormControl>
                 </Col>
@@ -122,6 +147,7 @@ class GrammarPanel extends React.Component {
             </Form>
           </Modal.Body>
         </Modal>
+
       </div>
     );
   }
