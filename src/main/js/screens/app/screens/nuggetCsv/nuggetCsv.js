@@ -56,9 +56,9 @@ class nuggetCsv extends React.Component {
           </Form>
           {
             this.state.response !== '' ?
-              <Alert bsStyle={ this.state.error ? 'danger' : 'info'} >
+              <Alert style={{ whiteSpace: 'pre-line' }} bsStyle={ this.state.error ? 'danger' : 'success'} >
                 { this.state.error ? <Glyphicon glyph='alert' /> : <Glyphicon glyph='info-sign' /> }
-                {this.state.response}
+                { this.state.response }
               </Alert>
             :
               null
