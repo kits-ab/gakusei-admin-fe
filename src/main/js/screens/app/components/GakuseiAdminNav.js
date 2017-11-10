@@ -19,7 +19,10 @@ let navPages = [{
   }, {
     name: 'Lektioner',
     link: '/lessons',
-  },
+  }, {
+    name: 'Ord',
+    link: '/nuggets'
+  }
 ];
 
 export class GakuseiAdminNav extends React.Component {

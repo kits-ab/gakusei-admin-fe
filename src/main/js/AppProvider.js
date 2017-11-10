@@ -16,6 +16,7 @@ import AdminPanelScreen from './screens/app/screens/admin-panel';
 import userScreen from './screens/app/screens/users';
 import QuizzesScreen from './screens/app/screens/quizzes';
 import LessonsScreen from './screens/app/screens/lessons';
+import NuggetScreen from './screens/app/screens/nuggets';
 
 
 function onUpdate() {
@@ -57,6 +58,7 @@ export default class AppProvider extends React.Component {
             <Route path="/users" component={requireAuthentication(userScreen)} />
             <Route path="/quizzes" component={requireAuthentication(QuizzesScreen)} />
             <Route path="/lessons" component={requireAuthentication(LessonsScreen)} />
+            <Route path="/nuggets" component={requireAuthentication(NuggetScreen)} />
           </div>
         </BrowserRouter>
       </Provider>);
