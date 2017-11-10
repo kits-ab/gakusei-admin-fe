@@ -15,6 +15,7 @@ import GakuseiAdminNav from './screens/app/components/GakuseiAdminNav';
 import AdminPanelScreen from './screens/app/screens/admin-panel';
 import userScreen from './screens/app/screens/users';
 import QuizzesScreen from './screens/app/screens/quizzes';
+import NuggetCSV from './screens/app/screens/nuggetCsv';
 
 function onUpdate() {
   anchorate(); // To have href's that can scroll to page sections
@@ -54,6 +55,7 @@ export default class AppProvider extends React.Component {
             <Route path="/admin-panel" component={requireAuthentication(AdminPanelScreen)} />
             <Route path="/users" component={requireAuthentication(userScreen)} />
             <Route path="/quizzes" component={requireAuthentication(QuizzesScreen)} />
+            <Route path="/nuggetCsv" component={requireAuthentication(NuggetCSV)} />
           </div>
         </BrowserRouter>
       </Provider>);
