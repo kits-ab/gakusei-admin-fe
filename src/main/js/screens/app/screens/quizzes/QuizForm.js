@@ -5,7 +5,7 @@ import {
 
 import quizService from '../../../../shared/services/quizService';
 import Utility from '../../../../shared/util/Utility';
-import NuggetForm from './NuggetForm';
+import QuizNuggetForm from './QuizNuggetForm';
 import QuizButtonToolbar from './QuizButtonToolbar';
 import CSVForm from './CSVForm';
 
@@ -209,7 +209,7 @@ class QuizForm extends React.Component {
     let nuggets = [];
     for (let i = 0; i < this.state.nuggetCount; i++) {
       nuggets.push(
-        <NuggetForm
+        <QuizNuggetForm
           key={this.state.tmpNuggetIds[i]}
           id={this.state.tmpNuggetIds[i]}
           i={i}
