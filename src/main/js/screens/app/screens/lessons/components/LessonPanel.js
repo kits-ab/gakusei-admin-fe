@@ -1,16 +1,26 @@
 import React from 'react';
 import { Button, Panel, ButtonToolbar, Alert } from 'react-bootstrap';
 import lessonService from '../../../../../shared/services/lessonService';
+import LessonModal from './LessonModal';
 
 
 class LessonPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      viewLesson: false,
       lessonDeleted: false,
       error: '',
     };
   }
+
+  openModal = () => {
+    this.setState({ viewLesson: true });
+  };
+
+  closeModal = () => {
+    this.setState({ viewLesson: false });
+  };
 
   deleteLesson = (id) => {
     lessonService().delete(id).then((response) => {
@@ -37,13 +47,17 @@ class LessonPanel extends React.Component {
             <strong>{lesson.name}</strong> har raderats.
           </Alert>
         ) : (
-          <Panel id={lesson.id}>
-            <h3>{lesson.name}</h3>
-            <p>{lesson.description}</p>
-            <ButtonToolbar>
-              <Button bsStyle="danger" id={`delete${lesson.name}`} onClick={() => this.deleteLesson(lesson.id)}>Ta bort</Button>
-            </ButtonToolbar>
-          </Panel>
+          <div>
+            <Panel id={lesson.id}>
+              <h3>{lesson.name}</h3>
+              <p>{lesson.description}</p>
+              <ButtonToolbar>
+                <Button bsStyle="primary" id={`show${lesson.name}`} onClick={this.openModal}>Visa</Button>
+                <Button bsStyle="danger" id={`delete${lesson.name}`} onClick={() => this.deleteLesson(lesson.id)}>Ta bort</Button>
+              </ButtonToolbar>
+            </Panel>
+            <LessonModal lesson={lesson} closeModal={this.closeModal} viewLesson={this.state.viewLesson}/>
+          </div>
         )}
       </div>
     );
