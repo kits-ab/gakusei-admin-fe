@@ -41,8 +41,7 @@ class nuggetCsv extends React.Component {
         <Panel bsStyle='primary' header={'Ladda upp CSV-fil'} >
           <Well>
             För att en CSV-fil ska accepteras av servern måste vissa krav 
-            på struktur uppfyllas. Det förväntas finnas 'headers' och blablabla.
-            Exempel på filformat följer: <br />
+            på struktur uppfyllas. Exempel på filformat följer: <br />
             <code>
               # Headers <br />
               Id, Description, Title, Type, Lessons, Swedish, English, JpRead, JpWrite, Hidden <br />
@@ -50,6 +49,8 @@ class nuggetCsv extends React.Component {
               # Body <br />
               1,"Test nugget","Test title","Test type","Test lesson","svenska","english","Japanese reading","Japanese writing",false <br />
             </code>
+            De namn som ges på Title, Type och Lesson måste, respektive, stämma överens
+            titeln på en existerande bok, en existerande ordtyp och en existerande lektion.
           </Well>
           <Form id='CSVForm' horizontal encType='multipart/form-data' onSubmit={this.handleCSVUpload} >
             <FormGroup>
