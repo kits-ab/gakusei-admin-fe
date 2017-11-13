@@ -13,6 +13,7 @@ class nuggetCsv extends React.Component {
       file: [],
       response: '',
       error: false,
+      buttonDisabled: true,
     };
   }
 
@@ -32,7 +33,11 @@ class nuggetCsv extends React.Component {
   }
 
   handleFileChosen = (event) => {
-    this.setState({ file: event.target.files });
+    this.setState({ file: event.target.files }, this.setDisabled);
+  }
+
+  setDisabled = () => {
+    this.setState({ buttonDisabled: this.state.file === 0 });
   }
 
   render() {
@@ -64,7 +69,7 @@ class nuggetCsv extends React.Component {
             </FormGroup>
             <FormGroup>
               <Col xsOffset={2} >
-                <Button type='submit' bsStyle='primary' > <Glyphicon glyph='cloud-upload' /> Ladda upp </Button>
+                <Button type='submit' bsStyle='primary' disabled={this.state.buttonDisabled} > <Glyphicon glyph='cloud-upload' /> Ladda upp </Button>
               </Col>
             </FormGroup>
           </Form>
