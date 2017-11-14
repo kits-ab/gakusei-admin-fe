@@ -16,6 +16,7 @@ import AdminPanelScreen from './screens/app/screens/admin-panel';
 import userScreen from './screens/app/screens/users';
 import QuizzesScreen from './screens/app/screens/quizzes';
 import NuggetCSV from './screens/app/screens/nuggetCsv';
+import grammarScreen from './screens/app/screens/grammar';
 
 function onUpdate() {
   anchorate(); // To have href's that can scroll to page sections
@@ -56,6 +57,7 @@ export default class AppProvider extends React.Component {
             <Route path="/users" component={requireAuthentication(userScreen)} />
             <Route path="/quizzes" component={requireAuthentication(QuizzesScreen)} />
             <Route path="/nuggetCsv" component={requireAuthentication(NuggetCSV)} />
+            <Route path="/grammar" component={requireAuthentication(grammarScreen)} />
           </div>
         </BrowserRouter>
       </Provider>);
