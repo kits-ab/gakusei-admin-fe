@@ -23,11 +23,11 @@ class WordPanel extends React.Component {
         <Table striped bordered >
           <thead>
             <tr>
-              <th> Description </th>
-              <th> swedish </th>
-              <th> english </th>
-              <th> jp_read </th>
-              <th> jp_write </th>
+              <th> Beskrivning </th>
+              <th> Svenska </th>
+              <th> Engelska </th>
+              <th> Japanska: Läs </th>
+              <th> Japanska: Skrift </th>
             </tr>
           </thead>
           <tbody>
