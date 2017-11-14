@@ -103,7 +103,7 @@ class GrammarPanel extends React.Component {
           </ButtonToolbar>
         </Panel>
 
-        <Modal show={this.state.viewLesson} onHide={this.closeModal} >
+        <Modal bsSize='lg' show={this.state.viewLesson} onHide={this.closeModal} >
           <Modal.Header closeButton >
             <Modal.Title> <strong>Lektion :</strong> {grammarList.lesson.name} </Modal.Title>
           </Modal.Header>
