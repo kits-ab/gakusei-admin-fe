@@ -21,7 +21,7 @@ class WordPanel extends React.Component {
     return (
       <Panel collapsible expanded={this.state.expanded} header={'Ord'} onClick={this.handlePanelClick} >
         <ListGroup>
-          {nuggets.map(nugget => 
+          {nuggets.sort((a, b) => a.description.toUpperCase().localeCompare(b.description.toUpperCase())).map(nugget => 
             <ListGroupItem key={nugget.id}> {nugget.description} </ListGroupItem>
           )}
         </ListGroup>

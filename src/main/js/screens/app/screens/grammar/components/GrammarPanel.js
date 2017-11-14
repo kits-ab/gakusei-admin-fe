@@ -130,14 +130,14 @@ class GrammarPanel extends React.Component {
               <FormGroup>
                 <Col sm={6} >
                   <FormControl name="selectUnusedInflections" style={{ height: '500px' }} componentClass='select' multiple onChange={this.handleSelectUsed} >
-                    {grammarList.inflections.unused.map(inflection => (
+                    {grammarList.inflections.unused.sort((a, b) => a.inflectionMethod.localeCompare(b.inflectionMethod)).map(inflection => (
                       <option key={inflection.inflectionMethod} value={inflection.inflectionMethod}> {inflection.inflectionMethod} </option>
                     ))}
                   </FormControl>
                 </Col>
                 <Col sm={6} >
                   <FormControl name="selectUsedInflections" style={{ height: '500px' }} componentClass='select' multiple onChange={this.handleSelectUsed} >
-                    {grammarList.inflections.used.map(inflection => (
+                    {grammarList.inflections.used.sort((a, b) => a.inflectionMethod.localeCompare(b.inflectionMethod)).map(inflection => (
                       <option key={inflection.inflectionMethod} value={inflection.inflectionMethod} > {inflection.inflectionMethod} </option>
                     ))}
                   </FormControl>

@@ -19,7 +19,7 @@ class InflectionPanel extends React.Component {
     return (
       <Panel collapsible header={'Böjningar'} expanded={this.state.expanded} onClick={this.handlePanelClick} >
         <ListGroup>
-          {this.props.inflections.used.map(inflection => 
+          {this.props.inflections.used.sort((a, b) => a.inflectionMethod.localeCompare(b.inflectionMethod)).map(inflection => 
             <ListGroupItem key={inflection.inflectionMethod} > {inflection.inflectionMethod} </ListGroupItem>
           )}
         </ListGroup>
