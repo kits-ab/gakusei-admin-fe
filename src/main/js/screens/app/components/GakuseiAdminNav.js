@@ -42,7 +42,7 @@ export class GakuseiAdminNav extends React.Component {
               </Nav>
               <Nav>
                 <LinkContainer to="/grammar">
-                  <NavItem> Grammar </NavItem>
+                  <NavItem> Grammatik </NavItem>
                 </LinkContainer>
               </Nav>
               <Nav pullRight>
