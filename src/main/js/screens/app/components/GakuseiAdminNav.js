@@ -41,6 +41,11 @@ export class GakuseiAdminNav extends React.Component {
                 </LinkContainer>
               </Nav>
               <Nav>
+                <LinkContainer to="/nuggetCsv">
+                  <NavItem>CSV Nugget</NavItem>
+                </LinkContainer>
+              </Nav>
+              <Nav>
                 <LinkContainer to="/grammar">
                   <NavItem> Grammatik </NavItem>
                 </LinkContainer>
