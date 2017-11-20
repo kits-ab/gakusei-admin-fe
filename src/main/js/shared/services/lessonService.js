@@ -19,8 +19,10 @@ export default function lessonService() {
         body: JSON.stringify(lesson),
       }));
     },
-    getAll() {
-      let url = baseUrl.concat('/all');
+    getPage(offset) {
+      let pageSize = '5';
+      let url = baseUrl.concat('/page/', offset, '?pageSize=', pageSize);
+      console.log(url);
       return fetch(url, Object.assign(fetchProperties, {
         method: 'GET',
       }));

@@ -20,12 +20,15 @@ export default function nuggetService() {
       }));
     },
     getNuggets(searchInput, offset) {
+      let pageSize = '10';
       let wordTypeId = searchInput.wordType;
       let bookIds = searchInput.bookIds;
-      let url = baseUrl.concat('/', offset);
+      let url = baseUrl.concat('/', offset, '?pageSize=', pageSize);
       if (!(wordTypeId === null && bookIds === null && searchInput.swedish === '')) {
         url = baseUrl.concat(
-          '/', offset, '/search?swedish=', searchInput.swedish
+          '/', offset, '/search?pageSize=', pageSize
+        ).concat(
+          '&swedish=', searchInput.swedish
         ).concat(
           wordTypeId !== null ? '&wordTypeId='.concat(wordTypeId) : ''
         ).concat(
