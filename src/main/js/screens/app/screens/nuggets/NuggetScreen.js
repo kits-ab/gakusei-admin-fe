@@ -22,6 +22,7 @@ class NuggetScreen extends React.Component {
       error: '',
       currentSearch: '',
       nuggetIsValid: false,
+      loadMoreIsDisabled: false,
     };
   }
 
@@ -45,11 +46,9 @@ class NuggetScreen extends React.Component {
   getNuggets = () => {
     nuggetService().getNuggets(this.state.currentSearch, this.state.offset).then((response) => {
       response.text().then((text) => {
-        let oldNuggets = this.state.nuggets;
-        let newNuggets = JSON.parse(text);
-        let nuggets = this.state.offset === 0 ? newNuggets : oldNuggets.concat(newNuggets);
-        console.log(nuggets);
-        this.setState({ nuggets });
+        let data = JSON.parse(text);
+        let nuggets = this.state.nuggets.concat(data.content);
+        this.setState({ nuggets, loadMoreIsDisabled: data.last });
       });
     });
   };
@@ -93,7 +92,8 @@ class NuggetScreen extends React.Component {
 
     if (isNew) {
       this.setState({
-        searchString: '',
+        offset: 0,
+        nuggets: [],
       }, () => this.getNuggets());
     }
   };
@@ -102,6 +102,7 @@ class NuggetScreen extends React.Component {
     event.preventDefault();
     this.setState({
       offset: 0,
+      nuggets: [],
       currentSearch: this.buildSearchInput(),
     }, () => this.getNuggets());
   };
@@ -225,6 +226,7 @@ class NuggetScreen extends React.Component {
           block
           bsStyle="primary"
           bsSize="small"
+          disabled={this.state.loadMoreIsDisabled}
           onClick={this.handleLoadMore}>Ladda fler</Button>
         <br/>
       </Grid>

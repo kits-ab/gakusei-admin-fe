@@ -11,6 +11,7 @@ class NuggetSearchForm extends React.Component {
       books: [],
       offset: 0,
       currentSearch: null,
+      loadMoreIsDisabled: false,
     };
   }
 
@@ -27,8 +28,9 @@ class NuggetSearchForm extends React.Component {
     nuggetService().getNuggets(this.state.currentSearch, this.state.offset).then((response) => {
       response.text().then((text) => {
         let oldNuggets = this.props.nuggets;
-        let newNuggets = JSON.parse(text);
-        let allNuggets = this.state.offset === 0 ? newNuggets : oldNuggets.concat(newNuggets);
+        let data = JSON.parse(text);
+        let allNuggets = this.state.offset === 0 ? data.content : oldNuggets.concat(data.content);
+        this.setState({ loadMoreIsDisabled: data.last });
         this.props.updateNuggets(allNuggets, this.state.isNewSearch);
       });
     });
@@ -67,10 +69,6 @@ class NuggetSearchForm extends React.Component {
       [name]: value,
     });
   };
-
-  loadMoreIsDisabled = () => (
-    this.props.nuggets.length === 0 || this.props.nuggets.length % 10 > 0
-  );
 
   render() {
     return (
@@ -122,7 +120,7 @@ class NuggetSearchForm extends React.Component {
           bsStyle="primary"
           bsSize="small"
           onClick={this.handleLoadMore}
-          disabled={this.loadMoreIsDisabled()}>Ladda fler</Button>
+          disabled={this.state.loadMoreIsDisabled}>Ladda fler</Button>
       </div>
     );
   }
