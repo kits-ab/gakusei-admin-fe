@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, Modal, Panel } from 'react-bootstrap';
+import lessonService from '../../../../../shared/services/lessonService';
 
 class LessonModal extends React.Component {
   constructor(props) {
@@ -11,7 +12,13 @@ class LessonModal extends React.Component {
   }
 
   componentWillMount = () => {
-    this.setState({ nuggets: this.props.lesson.nuggets });
+    lessonService().get(this.props.lesson.id).then((response) => {
+      if (response.status === 200) {
+        response.text().then(text => this.setState({ nuggets: JSON.parse(text).nuggets }));
+      } else {
+        this.setState({ error: 'Kunde inte hämta nuggets' });
+      }
+    });
   };
 
   closeModal = () => {
