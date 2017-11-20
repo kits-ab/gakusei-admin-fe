@@ -19,6 +19,12 @@ export default function lessonService() {
         body: JSON.stringify(lesson),
       }));
     },
+    get(id) {
+      let url = baseUrl.concat('/', id);
+      return fetch(url, Object.assign(fetchProperties, {
+        method: 'GET',
+      }));
+    },
     getPage(offset) {
       let pageSize = '5';
       let url = baseUrl.concat('/page/', offset, '?pageSize=', pageSize);
