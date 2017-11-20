@@ -28,7 +28,7 @@ class NuggetModal extends React.Component {
         {Object.prototype.hasOwnProperty.call(nugget, 'books') ? nugget.books.map(book => book.title).join(', ') : ''}
         <br/>
         <strong>Ordklass: </strong>
-        {Object.prototype.hasOwnProperty.call(nugget, 'wordType') ? nugget.wordType.type : ''}
+        {nugget.wordType.type}
         <br/>
       </Panel>
     </div>
