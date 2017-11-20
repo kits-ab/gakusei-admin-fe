@@ -49,10 +49,10 @@ class NuggetPanel extends React.Component {
         ) : (
           <div>
             <Panel>
-              <Col xs={12} md={6}>
-                <p>{nugget.swedish}</p>
-              </Col>
-              <Col xs={12} md={6}>
+              <Col md={3}>{nugget.swedish}</Col>
+              <Col md={3}>{nugget.english}</Col>
+              <Col md={3}>{nugget.jpWrite}</Col>
+              <Col xs={12} md={3}>
                 <ButtonToolbar className="pull-right">
                   <Button bsStyle="primary" bsSize="small" id={`show${nugget.id}`} onClick={this.openModal}>Visa</Button>
                   <Button bsStyle="danger" bsSize="small" id={`delete${nugget.id}`} onClick={() => this.deleteNugget(nugget.id)}>Ta bort</Button>

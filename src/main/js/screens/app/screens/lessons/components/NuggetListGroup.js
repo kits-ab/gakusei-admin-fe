@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class NuggetListGroup extends React.Component {
   constructor(props) {
@@ -33,7 +33,9 @@ class NuggetListGroup extends React.Component {
             key={nugget.id}
             onClick={() => this.toggleSelect(nugget)}
           >
-            {nugget.swedish}
+            <Col md={4}>{nugget.swedish}</Col>
+            <Col md={4}>{nugget.english}</Col>
+            <Col md={4}>{nugget.jpWrite}</Col>
           </ListGroupItem>)}
       </ListGroup>
     );
