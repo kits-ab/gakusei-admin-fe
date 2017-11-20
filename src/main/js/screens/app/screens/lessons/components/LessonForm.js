@@ -24,7 +24,7 @@ class LessonForm extends React.Component {
     const lesson = { name: this.state.name, description: this.state.description, nuggets: this.state.selected };
     lessonService().create(lesson).then((response) => {
       if (response.status === 201) {
-        response.text().then(text => this.props.handleCreateLesson());
+        response.text().then(text => this.props.handleCreateLesson(true));
       } else {
         throw new Error();
       }
