@@ -21,7 +21,13 @@ let navPages = [{
     link: '/lessons',
   }, {
     name: 'Ord',
-    link: '/nuggets'
+    link: '/nuggets',
+  }, {
+    name: 'CSV Ord',
+    link: '/nuggetCsv',
+  }, {
+    name: 'Grammatik',
+    link: '/grammar',
   }
 ];
 
