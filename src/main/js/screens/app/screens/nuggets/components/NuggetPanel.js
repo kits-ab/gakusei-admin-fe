@@ -40,6 +40,10 @@ class NuggetPanel extends React.Component {
 
   render() {
     let nugget = this.props.nugget;
+    // wordtype and a lot of other keys are null for kanji-nuggets, remove temporary check when kanji gets its own db table
+    if (nugget.wordType === null) {
+      return (<div/>);
+    }
     return (
       <div>
         {this.state.nuggetDeleted ? (
