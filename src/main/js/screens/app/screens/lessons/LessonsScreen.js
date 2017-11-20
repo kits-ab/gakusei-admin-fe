@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Alert, Grid } from 'react-bootstrap';
+import { Button, Alert, Grid, ButtonGroup } from 'react-bootstrap';
 
 import LessonForm from './components/LessonForm';
 import lessonService from '../../../../shared/services/lessonService';
@@ -17,6 +17,8 @@ class LessonsScreen extends React.Component {
       error: '',
       wordTypes: [],
       books: [],
+      offset: 0,
+      loadMoreIsDisabled: true,
     };
   }
 
@@ -27,11 +29,15 @@ class LessonsScreen extends React.Component {
   };
 
   getLessons = () => {
-    lessonService().getAll().then((response) => {
+    lessonService().getPage(this.state.offset).then((response) => {
       if (response.status === 200) {
-        response.text().then(text =>
-          this.setState({ lessons: JSON.parse(text).sort((a, b) => Utility.compareStringProperty(a, b, 'name')) })
-        ).catch((err) => {
+        response.text().then((text) => {
+          let data = JSON.parse(text);
+          this.setState({
+            lessons: this.state.lessons.concat(data.content),
+            loadMoreIsDisabled: data.last,
+          });
+        }).catch((err) => {
           this.setState({ error: 'Kunde inte hantera lektioner' });
         });
       } else {
@@ -74,10 +80,16 @@ class LessonsScreen extends React.Component {
     });
   };
 
-  handleCreateLesson = () => {
-    this.setState({
-      showCreate: false,
-    });
+  loadMore = () => {
+    console.log('load');
+    this.setState({ offset: this.state.offset + 1 }, () => this.getLessons());
+  };
+
+  handleCreateLesson = (created) => {
+    this.setState({ showCreate: false });
+    if (created) {
+      this.setState({ offset: 0, lessons: [] }, () => this.getLessons());
+    }
   };
 
   handleDeleteLesson = (deletedLessonId) => {
@@ -133,6 +145,17 @@ class LessonsScreen extends React.Component {
         {this.state.error ? this.renderMsg('error') : null}
         {this.state.lessons.map(lesson =>
           <LessonPanel key={lesson.id} lesson={lesson} handleDeleteLesson={this.handleDeleteLesson}/>)}
+        <ButtonGroup vertical block>
+          <Button
+            label="load"
+            bsStyle="primary"
+            name="load"
+            disabled={this.state.loadMoreIsDisabled}
+            onClick={() => this.loadMore()}
+          >
+            Ladda fler
+          </Button>
+        </ButtonGroup>
       </Grid>
     );
   }
