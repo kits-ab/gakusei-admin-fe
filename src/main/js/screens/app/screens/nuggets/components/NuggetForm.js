@@ -79,7 +79,7 @@ class NuggetForm extends React.Component {
     nuggetService().create(nugget).then((response) => {
       if (response.status === 201) {
         response.text().then((text) => {
-          this.props.handleCreateNugget();
+          this.props.handleCreateNugget(true);
         });
       } else {
         throw new Error();
