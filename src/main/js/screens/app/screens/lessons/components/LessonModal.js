@@ -25,30 +25,37 @@ class LessonModal extends React.Component {
     this.props.closeModal();
   };
 
-  displayNuggetDetails = (nugget, index) => (
-    <div key={this.props.lesson.name.concat(nugget.id)}>
-      <Panel bsStyle="primary" header={nugget.swedish}>
-        <strong>Svenska: </strong>
-        {nugget.swedish}
-        <br/>
-        <strong>Engelska: </strong>
-        {nugget.english}
-        <br/>
-        <strong>Kanji: </strong>
-        {nugget.jpRead}
-        <br/>
-        <strong>Hiragana: </strong>
-        {nugget.jpWrite}
-        <br/>
-        <strong>Bokreferenser: </strong>
-        {Object.prototype.hasOwnProperty.call(nugget, 'books') ? nugget.books.map(book => book.title).join(', ') : ''}
-        <br/>
-        <strong>Ordklass: </strong>
-        {Object.prototype.hasOwnProperty.call(nugget, 'wordType') ? nugget.wordType.type : ''}
-        <br/>
-      </Panel>
-    </div>
-  );
+  displayNuggetDetails = (nugget, index) => {
+    // kanji-nuggets har inte någon wordtype, ta bort när kanji flyttas till egen tabell
+    let wordType = 'kanji-nugget';
+    if (nugget.wordType !== null) {
+      wordType = nugget.wordType.type;
+    }
+    return (
+      <div key={this.props.lesson.name.concat(nugget.id)}>
+        <Panel bsStyle="primary" header={nugget.swedish}>
+          <strong>Svenska: </strong>
+          {nugget.swedish}
+          <br/>
+          <strong>Engelska: </strong>
+          {nugget.english}
+          <br/>
+          <strong>Lästecken: </strong>
+          {nugget.jpRead}
+          <br/>
+          <strong>Skrivtecken: </strong>
+          {nugget.jpWrite}
+          <br/>
+          <strong>Bokreferenser: </strong>
+          {Object.prototype.hasOwnProperty.call(nugget, 'books') ? nugget.books.map(book => book.title).join(', ') : ''}
+          <br/>
+          <strong>Ordklass: </strong>
+          {wordType}
+          <br/>
+        </Panel>
+      </div>
+    );
+  };
 
 
   render() {

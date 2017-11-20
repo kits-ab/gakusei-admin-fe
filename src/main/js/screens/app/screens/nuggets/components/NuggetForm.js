@@ -140,13 +140,13 @@ class NuggetForm extends React.Component {
           </FormGroup>
           <FormGroup bsSize="small" validationState={this.state.validationStates.jpRead}>
             <Col componentClass={ControlLabel} xs={12} md={2}>
-              Hiragana
+              Lästecken
             </Col>
             <Col xs={12} md={10}>
               <FormControl
                 type="text"
                 name="jpRead"
-                placeholder="Hiraganatecken"
+                placeholder="Lästecken"
                 value={this.state.jpRead}
                 onChange={event => this.onInputChange(event)}
               />
@@ -155,13 +155,13 @@ class NuggetForm extends React.Component {
           </FormGroup>
           <FormGroup bsSize="small" validationState={this.state.validationStates.jpWrite}>
             <Col componentClass={ControlLabel} xs={12} md={2}>
-              Kanji
+              Skrivtecken
             </Col>
             <Col xs={12} md={10}>
               <FormControl
                 type="text"
                 name="jpWrite"
-                placeholder="Kanjitecken"
+                placeholder="Skrivtecken"
                 value={this.state.jpWrite}
                 onChange={event => this.onInputChange(event)}
               />
