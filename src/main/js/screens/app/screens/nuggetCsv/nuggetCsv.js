@@ -49,10 +49,10 @@ class nuggetCsv extends React.Component {
             på struktur uppfyllas. Exempel på filformat följer: <br />
             <code>
               # Headers <br />
-              Id, Description, Title, Type, Lessons, Swedish, English, JpRead, JpWrite, Hidden <br />
+              Description, Title, Type, Lessons, Swedish, English, JpRead, JpWrite, Hidden <br />
 
               # Body <br />
-              1,"Test nugget","Test title","Test type","Test lesson","svenska","english","Japanese reading","Japanese writing",false <br />
+              "Test nugget","Test title","Test type","Test lesson","svenska","english","Japanese reading","Japanese writing",false <br />
             </code>
             De namn som ges på Title, Type och Lesson måste, respektive, stämma överens
             titeln på en existerande bok, en existerande ordtyp och en existerande lektion.
