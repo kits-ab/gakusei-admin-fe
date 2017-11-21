@@ -7,7 +7,6 @@ class NuggetForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
       swedish: '',
       english: '',
       jpRead: '',
@@ -15,7 +14,6 @@ class NuggetForm extends React.Component {
       wordType: '',
       books: [],
       validationStates: {
-        id: null,
         swedish: null,
         english: null,
         jpRead: null,
@@ -67,7 +65,6 @@ class NuggetForm extends React.Component {
   handleSubmitNugget = (event) => {
     event.preventDefault();
     let nugget = {
-      id: this.state.id,
       swedish: this.state.swedish,
       english: this.state.english,
       jpRead: this.state.jpRead,
@@ -93,21 +90,6 @@ class NuggetForm extends React.Component {
     return (
       <Panel header="Lägg till nytt ord" bsStyle="primary">
         <Form horizontal onSubmit={this.handleSubmitNugget}>
-          <FormGroup bsSize="small" validationState={this.state.validationStates.id}>
-            <Col componentClass={ControlLabel} xs={12} md={2}>
-              id
-            </Col>
-            <Col xs={12} md={10}>
-              <FormControl
-                type="text"
-                name="id"
-                placeholder="id"
-                value={this.state.id}
-                onChange={event => this.onInputChange(event)}
-              />
-              <FormControl.Feedback/>
-            </Col>
-          </FormGroup>
           <FormGroup bsSize="small" validationState={this.state.validationStates.swedish}>
             <Col componentClass={ControlLabel} xs={12} md={2}>
               Svenska
