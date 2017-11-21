@@ -1,9 +1,13 @@
 import React from 'react';
-import { Col, ControlLabel, Form, FormControl, FormGroup, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
+import {
+  Button, Col, ControlLabel, Form, FormControl, FormGroup, ListGroup, ListGroupItem,
+  Panel
+} from 'react-bootstrap';
 import LessonButtonToolbar from './LessonButtonToolbar';
 import lessonService from '../../../../../shared/services/lessonService';
 import NuggetSearchForm from './NuggetSearchForm';
 import NuggetListGroup from './NuggetListGroup';
+import nuggetService from '../../../../../shared/services/nuggetService';
 
 class LessonForm extends React.Component {
   constructor(props) {
@@ -16,8 +20,33 @@ class LessonForm extends React.Component {
       notSelected: [],
       selected: [],
       formIsValid: false,
+      loadMoreIsDisabled: true,
+      offset: 0,
+      currentSearch: null,
     };
   }
+
+  getNuggets = (currentSearch, offset) => {
+    nuggetService().getNuggets(currentSearch, offset).then((response) => {
+      response.text().then((text) => {
+        let oldNuggets = this.state.nuggets;
+        let data = JSON.parse(text);
+        let allNuggets = offset === 0 ? data.content : oldNuggets.concat(data.content);
+        this.setState({ offset, loadMoreIsDisabled: data.last });
+        this.updateNuggets(allNuggets);
+      });
+    });
+  };
+
+  handleLoadMore = (event) => {
+    event.preventDefault();
+    let offset = this.state.offset + 1;
+    this.getNuggets(this.state.currentSearch, offset);
+  };
+
+  updateCurrentSearch = (currentSearch) => {
+    this.setState({ currentSearch });
+  };
 
   handleSubmitLesson = (event) => {
     event.preventDefault();
@@ -45,7 +74,7 @@ class LessonForm extends React.Component {
     return name.trim() !== '' && description.trim() !== '';
   };
 
-  updateNuggets = (nuggets, isNewSearch) => {
+  updateNuggets = (nuggets) => {
     let notSelected = nuggets.filter(nugget => (this.state.selected.find(n => n.id === nugget.id) === undefined));
     this.setState({ nuggets, notSelected });
   };
@@ -116,6 +145,8 @@ class LessonForm extends React.Component {
           books={this.props.books}
           onInputChange={this.onInputChange}
           searchNuggets={this.searchNuggets}
+          getNuggets={this.getNuggets}
+          updateCurrentSearch={this.updateCurrentSearch}
         />
         <br/>
         <NuggetListGroup
@@ -123,6 +154,12 @@ class LessonForm extends React.Component {
           notSelected={this.state.notSelected}
           updateSelected={this.updateSelected}
         />
+        <Button
+          block
+          bsStyle="primary"
+          bsSize="small"
+          onClick={this.handleLoadMore}
+          disabled={this.state.loadMoreIsDisabled}>Ladda fler</Button>
       </Panel>
     );
   }

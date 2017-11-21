@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon } from 'react-bootstrap';
-import nuggetService from '../../../../../shared/services/nuggetService';
 
 class NuggetSearchForm extends React.Component {
   constructor(props) {
@@ -11,7 +10,6 @@ class NuggetSearchForm extends React.Component {
       books: [],
       offset: 0,
       currentSearch: null,
-      loadMoreIsDisabled: false,
     };
   }
 
@@ -25,32 +23,15 @@ class NuggetSearchForm extends React.Component {
   );
 
   getNuggets = () => {
-    nuggetService().getNuggets(this.state.currentSearch, this.state.offset).then((response) => {
-      response.text().then((text) => {
-        let oldNuggets = this.props.nuggets;
-        let data = JSON.parse(text);
-        let allNuggets = this.state.offset === 0 ? data.content : oldNuggets.concat(data.content);
-        this.setState({ loadMoreIsDisabled: data.last });
-        this.props.updateNuggets(allNuggets, this.state.isNewSearch);
-      });
-    });
+    this.props.getNuggets(this.state.currentSearch, this.state.offset);
   };
 
   searchNuggets = (event) => {
     event.preventDefault();
+    let currentSearch = this.buildSearchInput();
+    this.props.updateCurrentSearch(currentSearch);
     this.setState({
-      isNewSearch: true,
-      offset: 0,
-      currentSearch: this.buildSearchInput(),
-    }, () => this.getNuggets());
-  };
-
-  handleLoadMore = (event) => {
-    event.preventDefault();
-    let offset = this.state.offset + 1;
-    this.setState({
-      isNewSearch: false,
-      offset
+      currentSearch,
     }, () => this.getNuggets());
   };
 
@@ -72,56 +53,48 @@ class NuggetSearchForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <Form horizontal id="searchNuggetsForm" onSubmit={this.searchNuggets}>
-          <FormGroup>
-            <Col componentClass={ControlLabel} xs={12} md={2}>
-              Sök efter ord
-            </Col>
-            <Col xs={12} md={4}>
-              <FormControl
-                type="text"
-                name="searchString"
-                placeholder="Svenskt ord"
-                value={this.state.searchString}
-                onChange={event => this.onInputChange(event)}
-              />
-            </Col>
-            <Col xs={6} md={2}>
-              <FormControl
-                componentClass="select"
-                name="wordType"
-                onChange={event => this.onInputChange(event)}
-              >
-                <option>Alla ordklasser</option>
-                {this.props.wordTypes.map((wordType, i) =>
-                  <option key={wordType.type} value={wordType.type}>{wordType.type}</option>)}
-              </FormControl>
-            </Col>
-            <Col xs={6} md={3}>
-              <FormControl
-                multiple
-                componentClass="select"
-                name="books"
-                onChange={event => this.onInputChange(event)}
-              >
-                {this.props.books.map(book => <option key={book.title} value={book.title}>{book.title}</option>)}
-              </FormControl>
-            </Col>
-            <Col xs={12} md={1}>
-              <Button className="pull-right" id='searchBtn' type='submit' bsStyle='primary' >
-                <Glyphicon glyph='search'/> Sök
-              </Button>
-            </Col>
-          </FormGroup>
-        </Form>
-        <Button
-          block
-          bsStyle="primary"
-          bsSize="small"
-          onClick={this.handleLoadMore}
-          disabled={this.state.loadMoreIsDisabled}>Ladda fler</Button>
-      </div>
+      <Form horizontal id="searchNuggetsForm" onSubmit={this.searchNuggets}>
+        <FormGroup>
+          <Col componentClass={ControlLabel} xs={12} md={2}>
+            Sök efter ord
+          </Col>
+          <Col xs={12} md={4}>
+            <FormControl
+              type="text"
+              name="searchString"
+              placeholder="Svenskt ord"
+              value={this.state.searchString}
+              onChange={event => this.onInputChange(event)}
+            />
+          </Col>
+          <Col xs={6} md={2}>
+            <FormControl
+              componentClass="select"
+              name="wordType"
+              onChange={event => this.onInputChange(event)}
+            >
+              <option>Alla ordklasser</option>
+              {this.props.wordTypes.map((wordType, i) =>
+                <option key={wordType.type} value={wordType.type}>{wordType.type}</option>)}
+            </FormControl>
+          </Col>
+          <Col xs={6} md={3}>
+            <FormControl
+              multiple
+              componentClass="select"
+              name="books"
+              onChange={event => this.onInputChange(event)}
+            >
+              {this.props.books.map(book => <option key={book.title} value={book.title}>{book.title}</option>)}
+            </FormControl>
+          </Col>
+          <Col xs={12} md={1}>
+            <Button className="pull-right" id='searchBtn' type='submit' bsStyle='primary' >
+              <Glyphicon glyph='search'/> Sök
+            </Button>
+          </Col>
+        </FormGroup>
+      </Form>
     );
   }
 }
