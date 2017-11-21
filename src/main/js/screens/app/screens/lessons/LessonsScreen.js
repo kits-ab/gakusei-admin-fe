@@ -81,7 +81,6 @@ class LessonsScreen extends React.Component {
   };
 
   loadMore = () => {
-    console.log('load');
     this.setState({ offset: this.state.offset + 1 }, () => this.getLessons());
   };
 

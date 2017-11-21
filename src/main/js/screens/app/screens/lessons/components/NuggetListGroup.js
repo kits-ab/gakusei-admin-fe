@@ -25,7 +25,6 @@ class NuggetListGroup extends React.Component {
 
   render() {
     let nuggets = this.props.notSelected;
-    console.log(nuggets);
     return (
       <ListGroup>
         {nuggets.map(nugget =>

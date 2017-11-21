@@ -35,7 +35,6 @@ export default function nuggetService() {
           bookIds !== null ? '&bookIds='.concat(bookIds) : ''
         );
       }
-      console.log(url);
       return fetch(url, Object.assign(fetchProperties, {
         method: 'GET',
       }));
