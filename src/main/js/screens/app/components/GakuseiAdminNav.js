@@ -7,6 +7,30 @@ import logo from '../../../../resources/static/img/logo/temp_gakusei_logo3.png';
 
 export const Reducers = [];
 
+let navPages = [{
+    name: 'Adminpanelen',
+    link: '/admin-panel',
+  }, {
+    name: 'Användare',
+    link: '/users',
+  }, {
+    name: 'Quiz',
+    link: '/quizzes',
+  }, {
+    name: 'Lektioner',
+    link: '/lessons',
+  }, {
+    name: 'Ord',
+    link: '/nuggets',
+  }, {
+    name: 'CSV Ord',
+    link: '/nuggetCsv',
+  }, {
+    name: 'Grammatik',
+    link: '/grammar',
+  }
+];
+
 export class GakuseiAdminNav extends React.Component {
   render() {
     return (
@@ -25,31 +49,7 @@ export class GakuseiAdminNav extends React.Component {
         <Navbar.Collapse>
           { this.props.session.loggedIn ?
             <div>
-              <Nav>
-                <LinkContainer to="/admin-panel">
-                  <NavItem>Adminpanelen</NavItem>
-                </LinkContainer>
-              </Nav>
-              <Nav>
-                <LinkContainer to="/users">
-                  <NavItem>User panel</NavItem>
-                </LinkContainer>
-              </Nav>
-              <Nav>
-                <LinkContainer to="/quizzes">
-                  <NavItem>Quiz</NavItem>
-                </LinkContainer>
-              </Nav>
-              <Nav>
-                <LinkContainer to="/nuggetCsv">
-                  <NavItem>CSV Nugget</NavItem>
-                </LinkContainer>
-              </Nav>
-              <Nav>
-                <LinkContainer to="/grammar">
-                  <NavItem> Grammatik </NavItem>
-                </LinkContainer>
-              </Nav>
+              {navPages.map(page => this.navItem(page))}
               <Nav pullRight>
                 <LinkContainer to="/log-out">
                   <NavItem>Logga ut</NavItem>
@@ -74,7 +74,16 @@ export class GakuseiAdminNav extends React.Component {
       </Navbar>
     );
   }
+
+  navItem = navPage => (
+    <Nav key={navPage.link}>
+      <LinkContainer to={navPage.link}>
+        <NavItem>{navPage.name}</NavItem>
+      </LinkContainer>
+    </Nav>
+  );
 }
+
 
 function mapStateToProps(state) {
   return {

@@ -72,4 +72,16 @@ export default class Utility {
     }
     return nuggets;
   }
+
+  static compareStringProperty(first, second, prop) {
+    let a = first[prop].toLowerCase();
+    let b = second[prop].toLowerCase();
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+    return 0;
+  }
 }

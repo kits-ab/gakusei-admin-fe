@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Panel } from 'react-bootstrap';
 
-class NuggetForm extends React.Component {
+class QuizNuggetForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -141,4 +141,4 @@ class NuggetForm extends React.Component {
   }
 }
 
-export default NuggetForm;
+export default QuizNuggetForm;

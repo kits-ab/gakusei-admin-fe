@@ -54,9 +54,7 @@ class QuizBox extends React.Component {
         ) : (
           <div>
             <Panel
-              id={quiz.name}
-              onMouseEnter={this.mouseEnter}
-              onMouseLeave={this.mouseExit}>
+              id={quiz.name}>
               <h3>{quiz.name}</h3>
               <p>{quiz.description}</p>
               <ButtonToolbar>
