@@ -58,7 +58,7 @@ class NuggetSearchForm extends React.Component {
           <Col componentClass={ControlLabel} xs={12} md={2}>
             Sök efter ord
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={12} md={3}>
             <FormControl
               type="text"
               name="searchString"
@@ -66,6 +66,9 @@ class NuggetSearchForm extends React.Component {
               value={this.state.searchString}
               onChange={event => this.onInputChange(event)}
             />
+          </Col>
+          <Col componentClass={ControlLabel} xs={12} md={1}>
+            Ordklass
           </Col>
           <Col xs={6} md={2}>
             <FormControl
@@ -78,7 +81,10 @@ class NuggetSearchForm extends React.Component {
                 <option key={wordType.type} value={wordType.type}>{wordType.type}</option>)}
             </FormControl>
           </Col>
-          <Col xs={6} md={3}>
+          <Col componentClass={ControlLabel} xs={12} md={1}>
+            Bokreferens
+          </Col>
+          <Col xs={6} md={2}>
             <FormControl
               multiple
               componentClass="select"

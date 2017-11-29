@@ -28,7 +28,6 @@ export default function lessonService() {
     getPage(offset) {
       let pageSize = '5';
       let url = baseUrl.concat('/page/', offset, '?pageSize=', pageSize);
-      console.log(url);
       return fetch(url, Object.assign(fetchProperties, {
         method: 'GET',
       }));

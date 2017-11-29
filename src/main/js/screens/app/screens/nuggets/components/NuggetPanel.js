@@ -48,15 +48,16 @@ class NuggetPanel extends React.Component {
       <div>
         {this.state.nuggetDeleted ? (
           <Alert bsStyle="info" id={`deleteAlert${nugget.id}`} onDismiss={() => this.props.handleDeleteNugget(nugget.id) }>
-            Ordet "<strong>{nugget.swedish}"</strong> med id "<strong>{nugget.id}</strong>" har raderats.
+            Ordet <strong>"{nugget.swedish}"</strong> ({nugget.english}, {nugget.jpRead}, {nugget.jpWrite}) har raderats.
           </Alert>
         ) : (
           <div>
             <Panel>
               <Col md={3}>{nugget.swedish}</Col>
               <Col md={3}>{nugget.english}</Col>
-              <Col md={3}>{nugget.jpWrite}</Col>
-              <Col xs={12} md={3}>
+              <Col md={2}>{nugget.jpWrite}</Col>
+              <Col md={2}>{nugget.jpRead}</Col>
+              <Col xs={12} md={2}>
                 <ButtonToolbar className="pull-right">
                   <Button bsStyle="primary" bsSize="small" id={`show${nugget.id}`} onClick={this.openModal}>Visa</Button>
                   <Button bsStyle="danger" bsSize="small" id={`delete${nugget.id}`} onClick={() => this.deleteNugget(nugget.id)}>Ta bort</Button>

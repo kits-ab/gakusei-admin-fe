@@ -13,6 +13,7 @@ class NuggetModal extends React.Component {
     <div key={nugget.id.concat('modal')}>
       <strong>Beskrivning: </strong>
       {nugget.description}
+      <br/>
       <strong>Svenska: </strong>
       {nugget.swedish}
       <br/>
