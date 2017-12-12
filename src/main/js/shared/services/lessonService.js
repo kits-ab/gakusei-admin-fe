@@ -37,6 +37,12 @@ export default function lessonService() {
       return fetch(url, Object.assign(fetchProperties, {
         method: 'DELETE',
       }));
+    },
+    update(lesson) {
+      return fetch(baseUrl, Object.assign(fetchProperties, {
+        method: 'PUT',
+        body: JSON.stringify(lesson),
+      }));
     }
   };
 }
