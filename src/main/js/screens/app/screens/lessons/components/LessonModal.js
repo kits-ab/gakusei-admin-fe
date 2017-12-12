@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Modal, Panel } from 'react-bootstrap';
+import { Alert, Modal, Panel, ModalBody, Button, ButtonToolbar } from 'react-bootstrap';
 import lessonService from '../../../../../shared/services/lessonService';
 
 class LessonModal extends React.Component {
@@ -8,6 +8,7 @@ class LessonModal extends React.Component {
     this.state = {
       nuggets: [],
       error: '',
+      editLesson: false,
     };
   }
 
@@ -57,6 +58,26 @@ class LessonModal extends React.Component {
     );
   };
 
+  showEditButtons = () => {
+    let floatStyle = {
+      float: 'right'
+    };
+
+    const clickFunc = () => this.setState({ editLesson: !this.state.editLesson });
+
+    return (
+      <div style={ floatStyle } >
+        { this.state.editLesson ?
+          <ButtonToolbar>
+            <Button bsStyle='primary' onClick={clickFunc} > Spara ändringar </Button>
+            <Button bsStyle='danger' onClick={clickFunc} > Avbryt </Button>
+          </ButtonToolbar>
+        :
+          <Button bsStyle='primary' onClick={clickFunc} > Redigera lektion </Button>
+        }
+      </div>
+    );
+  }
 
   render() {
     let lesson = this.props.lesson;
@@ -70,6 +91,7 @@ class LessonModal extends React.Component {
             <Alert bsStyle="warning"> {this.state.error} </Alert>
             :
             <div>
+              {this.showEditButtons()}
               <h4>
                 <strong>Namn: </strong>
                 {lesson.name}
@@ -85,6 +107,9 @@ class LessonModal extends React.Component {
             </div>
           }
         </Modal.Body>
+        <Modal.Footer>
+          {this.showEditButtons()}
+        </Modal.Footer>
       </Modal>
     );
   }
