@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert, Modal, Panel, ModalBody, Button, ButtonToolbar } from 'react-bootstrap';
+import { Alert, Modal, Panel, ModalBody, Button, ButtonToolbar,
+  FormGroup, FormControl } from 'react-bootstrap';
 import lessonService from '../../../../../shared/services/lessonService';
 
 class LessonModal extends React.Component {
@@ -58,6 +59,77 @@ class LessonModal extends React.Component {
     );
   };
 
+  editNuggetDetails = (nugget, index) => {
+    const fu = 0;
+    return (
+      <div key={this.props.lesson.name.concat(nugget.id)}>
+        <Panel bsStyle="primary" header={nugget.swedish}>
+          <strong>Svenska: </strong>
+            <form>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  placeholder={nugget.swedish}
+                />
+              </FormGroup>
+            </form>
+          <strong>Engelska: </strong>
+            <form>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  placeholder={nugget.english}
+                />
+              </FormGroup>
+            </form>
+          <strong>Lästecken: </strong>
+            <form>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  placeholder={nugget.jpRead}
+                />
+              </FormGroup>
+            </form>
+          <strong>Skrivtecken: </strong>
+            <form>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  placeholder={nugget.jpWrite}
+                />
+              </FormGroup>
+            </form>
+          <strong>Bokreferenser: </strong>
+            <form>
+              <FormGroup>
+                <FormControl
+                  multiple
+                  componentClass="select"
+                  name="books"
+                >
+                  {this.props.books.map(book => <option key={book.title} value={book.title}>{book.title}</option>)}
+                </FormControl>
+              </FormGroup>
+            </form>
+          <strong>Ordklass: </strong>
+            <form>
+              <FormGroup>
+                <FormControl
+                  componentClass="select"
+                  name="wordType"
+                >
+                  <option>Alla ordklasser</option>
+                  {this.props.wordTypes.map((wordType, i) =>
+                    <option key={wordType.type} value={wordType.type}>{wordType.type}</option>)}
+                </FormControl>
+              </FormGroup>
+            </form>
+        </Panel>
+      </div>
+    );
+  }
+
   showEditButtons = () => {
     let floatStyle = {
       float: 'right'
@@ -101,9 +173,13 @@ class LessonModal extends React.Component {
                 {lesson.description}
               </h4>
               <h4><strong>Uttryck:</strong></h4>
-              {this.state.nuggets.map((nugget, index) => (
-                this.displayNuggetDetails(nugget, index)
-              ))}
+              {this.state.nuggets.map((nugget, index) => {
+                return (this.state.editLesson ? 
+                  this.editNuggetDetails(nugget, index)
+                  :
+                  this.displayNuggetDetails(nugget, index)
+                );
+              })}
             </div>
           }
         </Modal.Body>
