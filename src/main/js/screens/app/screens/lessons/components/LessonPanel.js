@@ -56,7 +56,13 @@ class LessonPanel extends React.Component {
                 <Button bsStyle="danger" id={`delete${lesson.name}`} onClick={() => this.deleteLesson(lesson.id)}>Ta bort</Button>
               </ButtonToolbar>
             </Panel>
-            <LessonModal lesson={lesson} closeModal={this.closeModal} viewLesson={this.state.viewLesson}/>
+            <LessonModal 
+              lesson={lesson} 
+              closeModal={this.closeModal} 
+              viewLesson={this.state.viewLesson}
+              books={this.props.books}
+              wordTypes={this.props.wordTypes}
+            />
           </div>
         )}
       </div>
