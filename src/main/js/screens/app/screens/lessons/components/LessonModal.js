@@ -48,7 +48,16 @@ class LessonModal extends React.Component {
   onInputChange = (event, index) => {
     let name = event.target.name;
     let options = event.target.options;
-    let value = name === 'books' ? this.props.books.filter(book => this.getSelected(options).includes(book.title)) : event.target.value;
+
+    let value;
+    if (name === 'books') {
+      value = this.props.books.filter(book => this.getSelected(options).includes(book.title));
+    } else if (name === 'wordType') {
+      value = this.props.wordTypes.find(wt => wt.type === event.target.value);
+    } else {
+      value = event.target.value;
+    }
+
     let updateEditNuggets = this.state.editNuggets;
     updateEditNuggets[index][name] = value;
     this.setState({ editNuggets: updateEditNuggets });
