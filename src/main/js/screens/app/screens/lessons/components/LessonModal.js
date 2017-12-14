@@ -208,6 +208,7 @@ class LessonModal extends React.Component {
                   componentClass="select"
                   onChange={event => this.onInputChange(event, index)} 
                   name="wordType"
+                  value={nugget.wordType.type}
                 >
                   <option>Alla ordklasser</option>
                   {this.props.wordTypes.map((wordType, i) =>
