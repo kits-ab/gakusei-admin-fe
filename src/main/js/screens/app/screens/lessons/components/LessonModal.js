@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Modal, Panel, ModalBody, Button, ButtonToolbar,
   Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
 import lessonService from '../../../../../shared/services/lessonService';
+import nuggetService from '../../../../../shared/services/nuggetService';
 
 class LessonModal extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class LessonModal extends React.Component {
     this.state = {
       nuggets: [],
       editNuggets: [],
+      editState: [],
       error: '',
       editLesson: false,
     };
@@ -17,7 +19,13 @@ class LessonModal extends React.Component {
   componentWillMount = () => {
     lessonService().get(this.props.lesson.id).then((response) => {
       if (response.status === 200) {
-        response.text().then(text => this.setState({ nuggets: JSON.parse(text).nuggets, editNuggets: JSON.parse(text).nuggets }));
+        response.text().then(text =>
+          this.setState({ 
+            nuggets: JSON.parse(text).nuggets, 
+            editNuggets: JSON.parse(text).nuggets,
+            editState: new Array(JSON.parse(text).nuggets.length).fill(false) 
+          })
+        );
       } else {
         this.setState({ error: 'Kunde inte hämta nuggets' });
       }
@@ -32,6 +40,16 @@ class LessonModal extends React.Component {
     let updateEditNuggets = this.state.editNuggets;
     updateEditNuggets[index][event.target.name] = event.target.value;
     this.setState({ editNuggets: updateEditNuggets });
+  }
+
+  updateNugget = (nugget) => {
+    nuggetService().update(nugget);
+  }
+
+  setEditState = (index) => {
+    let newEditState = this.state.editState;
+    newEditState[index] = true;
+    this.setState({ editState: newEditState });
   }
 
   displayNuggetDetails = (nugget, index) => {
@@ -61,6 +79,7 @@ class LessonModal extends React.Component {
           <strong>Ordklass: </strong>
           {wordType}
           <br/>
+          <Button bsStyle='primary' onClick={() => this.setEditState(index)} > Redigera nugget </Button>
         </Panel>
       </div>
     );
@@ -160,28 +179,11 @@ class LessonModal extends React.Component {
               </Col>
             </FormGroup>
           </Form>
-        </Panel>
-      </div>
-    );
-  }
-
-  showEditButtons = () => {
-    let floatStyle = {
-      float: 'right'
-    };
-
-    const clickFunc = () => this.setState({ editLesson: !this.state.editLesson });
-
-    return (
-      <div style={ floatStyle } >
-        { this.state.editLesson ?
           <ButtonToolbar>
-            <Button bsStyle='primary' onClick={clickFunc} > Spara ändringar </Button>
-            <Button bsStyle='danger' onClick={clickFunc} > Avbryt </Button>
+            <Button bsStyle='primary' onClick={() => this.updateNugget(nugget)} > Spara ändringar </Button>
+            <Button bsStyle='danger' > Avbryt </Button>
           </ButtonToolbar>
-        :
-          <Button bsStyle='primary' onClick={clickFunc} > Redigera lektion </Button>
-        }
+        </Panel>
       </div>
     );
   }
@@ -198,7 +200,6 @@ class LessonModal extends React.Component {
             <Alert bsStyle="warning"> {this.state.error} </Alert>
             :
             <div>
-              {this.showEditButtons()}
               <h4>
                 <strong>Namn: </strong>
                 {lesson.name}
@@ -209,7 +210,8 @@ class LessonModal extends React.Component {
               </h4>
               <h4><strong>Uttryck:</strong></h4>
               {this.state.nuggets.map((nugget, index) => {
-                return (this.state.editLesson ? 
+                const editing = this.state.editState[index];
+                return (editing ? 
                   this.editNuggetDetails(index)
                   :
                   this.displayNuggetDetails(nugget, index)
@@ -218,9 +220,6 @@ class LessonModal extends React.Component {
             </div>
           }
         </Modal.Body>
-        <Modal.Footer>
-          {this.showEditButtons()}
-        </Modal.Footer>
       </Modal>
     );
   }
