@@ -12,7 +12,8 @@ class LessonModal extends React.Component {
       editNuggets: [],
       editState: [],
       error: '',
-      editLesson: false,
+      editLesson: {},
+      editLessonState: false,
     };
   }
 
@@ -23,7 +24,8 @@ class LessonModal extends React.Component {
           this.setState({ 
             nuggets: JSON.parse(text).nuggets, 
             editNuggets: JSON.parse(text).nuggets,
-            editState: new Array(JSON.parse(text).nuggets.length).fill(false) 
+            editState: new Array(JSON.parse(text).nuggets.length).fill(false),
+            editLesson: this.props.lesson,
           })
         );
       } else {
@@ -42,13 +44,28 @@ class LessonModal extends React.Component {
     this.setState({ editNuggets: updateEditNuggets });
   }
 
-  updateNugget = (nugget) => {
+  updateNugget = (nugget, index) => {
     nuggetService().update(nugget);
+    this.setEditState(index);
+    this.setNewNugget(nugget, index);
+  }
+
+  setNewNugget = (nugget, index) => {
+    let newNuggets = this.state.nuggets;
+    newNuggets[index] = nugget;
+    this.setState({ nuggets: newNuggets });
+  }
+
+  resetEditNugget = (index) => {
+    let newEditNuggets = this.state.editNuggets;
+    newEditNuggets[index] = this.state.nuggets[index];
+    this.setState({ editNuggets: newEditNuggets });
+    this.setEditState(index);
   }
 
   setEditState = (index) => {
     let newEditState = this.state.editState;
-    newEditState[index] = true;
+    newEditState[index] = !newEditState[index];
     this.setState({ editState: newEditState });
   }
 
@@ -180,13 +197,59 @@ class LessonModal extends React.Component {
             </FormGroup>
           </Form>
           <ButtonToolbar>
-            <Button bsStyle='primary' onClick={() => this.updateNugget(nugget)} > Spara ändringar </Button>
-            <Button bsStyle='danger' > Avbryt </Button>
+            <Button bsStyle='primary' onClick={() => this.updateNugget(nugget, index)} > Spara ändringar </Button>
+            <Button bsStyle='danger' onClick={() => this.resetEditNugget(index)} > Avbryt </Button>
           </ButtonToolbar>
         </Panel>
       </div>
     );
   }
+
+  showEditButtons = () => {
+    const clickFunc = () => this.setState({ editLessonState: !this.state.editLessonState });
+
+    return (
+      <div>
+        { this.state.editLessonState ?
+          <ButtonToolbar>
+            <Button bsStyle='primary' onClick={clickFunc} > Spara ändringar </Button>
+            <Button bsStyle='danger' onClick={clickFunc} > Avbryt </Button>
+          </ButtonToolbar>
+        :
+          <Button bsStyle='primary' onClick={clickFunc} > Redigera lektion </Button>
+        }
+      </div>
+    );
+  }
+
+  editLessonDetails = () => (
+      <div>
+        <Form horizontal>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={3} >
+              Namn:
+            </Col>
+            <Col md={9} >
+              <FormControl
+                name="name"
+                placeholder={this.state.editLesson.name}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={3} >
+              Beskrivning:
+            </Col>
+            <Col md={9} >
+              <FormControl
+                name="description"
+                placeholder={this.state.editLesson.description}
+              />
+            </Col>
+          </FormGroup>
+        </Form>
+      </div>
+  )
 
   render() {
     let lesson = this.props.lesson;
@@ -200,14 +263,21 @@ class LessonModal extends React.Component {
             <Alert bsStyle="warning"> {this.state.error} </Alert>
             :
             <div>
-              <h4>
-                <strong>Namn: </strong>
-                {lesson.name}
-              </h4>
-              <h4>
-                <strong>Beskrivning: </strong>
-                {lesson.description}
-              </h4>
+              {this.showEditButtons()}
+              { this.state.editLessonState ?
+                this.editLessonDetails()
+              :
+                <div>
+                  <h4>
+                    <strong>Namn: </strong>
+                    {lesson.name}
+                  </h4>
+                  <h4>
+                    <strong>Beskrivning: </strong>
+                    {lesson.description}
+                  </h4>
+                </div>
+              }
               <h4><strong>Uttryck:</strong></h4>
               {this.state.nuggets.map((nugget, index) => {
                 const editing = this.state.editState[index];
