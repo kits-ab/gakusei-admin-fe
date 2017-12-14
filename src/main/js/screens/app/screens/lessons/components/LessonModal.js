@@ -193,6 +193,7 @@ class LessonModal extends React.Component {
                   componentClass="select"
                   onChange={event => this.onInputChange(event, index)} 
                   name="books"
+                  value={nugget.books.map(book => book.title)}
                 >
                   {this.props.books.map(book => <option key={book.title} value={book.title}>{book.title}</option>)}
                 </FormControl>
