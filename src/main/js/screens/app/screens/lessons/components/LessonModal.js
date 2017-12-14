@@ -224,58 +224,84 @@ class LessonModal extends React.Component {
     );
   }
 
-  showEditButtons = () => {
-    const clickFunc = () => this.setState({ editLessonState: !this.state.editLessonState });
+  showEditButtons = () => (
+    <div>
+      { this.state.editLessonState ?
+        <ButtonToolbar>
+          <Button bsStyle='primary' onClick={() => this.updateLesson()} > Spara ändringar </Button>
+          <Button bsStyle='danger' onClick={() => this.resetEditLesson()} > Avbryt </Button>
+        </ButtonToolbar>
+      :
+        <Button bsStyle='primary' onClick={() => this.setEditLessonState()} > Redigera lektion </Button>
+      }
+    </div>
+  )
 
-    return (
-      <div>
-        { this.state.editLessonState ?
-          <ButtonToolbar>
-            <Button bsStyle='primary' onClick={clickFunc} > Spara ändringar </Button>
-            <Button bsStyle='danger' onClick={clickFunc} > Avbryt </Button>
-          </ButtonToolbar>
-        :
-          <Button bsStyle='primary' onClick={clickFunc} > Redigera lektion </Button>
-        }
-      </div>
-    );
+  setEditLessonState = () => {
+    this.setState({ editLessonState: !this.state.editLessonState });
   }
+
+  resetEditLesson = () => {
+    this.setState({ editLesson: this.props.lesson });
+    this.setEditLessonState();
+  }
+
+  updateLesson = () => {
+    lessonService().update(this.state.editLesson);
+    this.setEditLessonState();
+  }
+
+  onEditLesson = (event) => {
+    let newEditLesson = this.state.editLesson;
+    newEditLesson[event.target.name] = event.target.value;
+    this.setState({ editLesson: newEditLesson });
+  } 
 
   editLessonDetails = () => (
       <div>
         <Form horizontal>
           <FormGroup>
-            <Col componentClass={ControlLabel} md={3} >
-              Namn:
-            </Col>
-            <Col md={9} >
-              <FormControl
-                name="name"
-                placeholder={this.state.editLesson.name}
-              />
-            </Col>
+            <h4>
+              <Col componentClass={ControlLabel} md={3} >
+                <strong>Namn: </strong>
+              </Col>
+              <Col md={9} >
+                <FormControl
+                  type="text"
+                  name="name"
+                  placeholder={this.props.lesson.name}
+                  value={this.state.editLesson.name}
+                  onChange={event => this.onEditLesson(event)}
+                />
+              </Col>
+            </h4>
           </FormGroup>
           <FormGroup>
-            <Col componentClass={ControlLabel} md={3} >
-              Beskrivning:
-            </Col>
-            <Col md={9} >
-              <FormControl
-                name="description"
-                placeholder={this.state.editLesson.description}
-              />
-            </Col>
+            <h4>
+              <Col componentClass={ControlLabel} md={3} >
+                <strong>Beskrivning: </strong>
+              </Col>
+              <Col md={9} >
+                <FormControl
+                  type="text"
+                  name="description"
+                  placeholder={this.props.lesson.description}
+                  value={this.state.editLesson.description}
+                  onChange={event => this.onEditLesson(event)}
+                />
+              </Col>
+            </h4>
           </FormGroup>
         </Form>
       </div>
   )
 
   render() {
-    let lesson = this.props.lesson;
+    let lesson = this.state.editLesson;
     return (
       <Modal show={this.props.viewLesson} onHide={this.closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title><strong>Lesson: </strong> {lesson.name}</Modal.Title>
+          <Modal.Title><strong>Lesson: </strong> {this.props.lesson.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {this.state.error ?
