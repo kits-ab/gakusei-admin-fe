@@ -38,9 +38,19 @@ class LessonModal extends React.Component {
     this.props.closeModal();
   };
 
+  getSelected = options => (
+    Object.keys(options).filter(key => options[key].selected).reduce((acc, key) => {
+      acc.push(options[key].value);
+      return acc;
+    }, [])
+  );
+
   onInputChange = (event, index) => {
+    let name = event.target.name;
+    let options = event.target.options;
+    let value = name === 'books' ? this.props.books.filter(book => this.getSelected(options).includes(book.title)) : event.target.value;
     let updateEditNuggets = this.state.editNuggets;
-    updateEditNuggets[index][event.target.name] = event.target.value;
+    updateEditNuggets[index][name] = value;
     this.setState({ editNuggets: updateEditNuggets });
   }
 
