@@ -143,7 +143,13 @@ class LessonsScreen extends React.Component {
         {this.state.lessons.length === 0 ? this.renderMsg('no lessons') : null}
         {this.state.error ? this.renderMsg('error') : null}
         {this.state.lessons.map(lesson =>
-          <LessonPanel key={lesson.id} lesson={lesson} handleDeleteLesson={this.handleDeleteLesson}/>)}
+          <LessonPanel 
+            key={lesson.id} 
+            lesson={lesson} 
+            handleDeleteLesson={this.handleDeleteLesson}
+            books={this.state.books}
+            wordTypes={this.state.wordTypes}
+          />)}
         <ButtonGroup vertical block>
           <Button
             label="load"
