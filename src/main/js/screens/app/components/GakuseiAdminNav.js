@@ -28,6 +28,9 @@ let navPages = [{
   }, {
     name: 'Grammatik',
     link: '/grammar',
+  }, {
+    name: 'Kanji',
+    link: '/kanji',
   }
 ];
 

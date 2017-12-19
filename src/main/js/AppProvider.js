@@ -19,6 +19,7 @@ import LessonsScreen from './screens/app/screens/lessons';
 import NuggetScreen from './screens/app/screens/nuggets';
 import NuggetCSV from './screens/app/screens/nuggetCsv';
 import grammarScreen from './screens/app/screens/grammar';
+import kanjiScreen from './screens/app/screens/kanji';
 
 function onUpdate() {
   anchorate(); // To have href's that can scroll to page sections
@@ -62,6 +63,7 @@ export default class AppProvider extends React.Component {
             <Route path="/nuggets" component={requireAuthentication(NuggetScreen)} />
             <Route path="/nuggetCsv" component={requireAuthentication(NuggetCSV)} />
             <Route path="/grammar" component={requireAuthentication(grammarScreen)} />
+            <Route path="/kanji" component={requireAuthentication(kanjiScreen)} />
           </div>
         </BrowserRouter>
       </Provider>);
