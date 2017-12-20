@@ -52,6 +52,14 @@ class kanjiScreen extends React.Component {
     });
   }
 
+  createKanji = (kanji) => {
+    kanjiService().createKanji(kanji).then((response) => {
+      if (response.ok) {
+        this.setState({ kanjis: [], offset: 0 }, this.getKanjis('', []));
+      }
+    });
+  }
+
   getBooks = () => {
     bookService().getAll().then((response) => {
       if (response.status === 200) {
@@ -73,7 +81,7 @@ class kanjiScreen extends React.Component {
       <Grid>
         <h2> Tillgängliga kanjis </h2>
         <br />
-        <KanjiForm />
+        <KanjiForm books={this.state.books} create={this.createKanji} />
         <br />
         <KanjiSearch books={this.state.books} search={this.searchKanjis} />
         <hr />
