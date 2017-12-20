@@ -18,5 +18,38 @@ export default function nuggetService() {
         credentials: 'same-origin',
       });
     },
+    deleteKanji(kanji) {
+      let url = baseUrl.concat('/', kanji.id);
+
+      return fetch(url, {
+          method: 'DELETE',
+          credentials: 'same-origin',
+          headers: {
+            'X-XSRF-TOKEN': getCSRF(),
+          },
+      });
+    },
+    createKanji(kanji) {
+      return fetch(baseUrl, {
+        method: 'POST',
+        body: JSON.stringify(kanji),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
+    updateKanji(kanji) {
+      return fetch(baseUrl, {
+        method: 'PUT',
+        body: JSON.stringify(kanji),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'X-XSRF-TOKEN': getCSRF(),
+        },
+      });
+    },
   };
 }
