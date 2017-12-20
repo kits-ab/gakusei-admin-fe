@@ -33,7 +33,7 @@ class KanjiSearch extends React.Component {
 
   render() {
     return (
-      <Panel bsStyle="primary" header="Sök" >
+      <Panel bsStyle="primary" header="Sök kanji" >
         <Form horizontal onSubmit={this.handleSubmit}>
           <FormGroup>
             <Col componentClass={ControlLabel} md={2} >
