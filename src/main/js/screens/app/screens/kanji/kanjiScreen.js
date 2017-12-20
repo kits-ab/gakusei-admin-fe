@@ -6,6 +6,7 @@ import kanjiService from '../../../../shared/services/kanjiService';
 import Utility from '../../../../shared/util/Utility';
 
 import KanjiSearch from './components/KanjiSearch';
+import KanjiPanel from './components/KanjiPanel';
 
 class kanjiScreen extends React.Component {
   constructor(props) {
@@ -26,11 +27,11 @@ class kanjiScreen extends React.Component {
     this.state.books.filter(book => bookNames.includes(book.title)).map(book => book.id)
   )
 
-  searchNuggets = (swedish, books) => {
-    this.setState({ kanjis: [], offset: 0 }, this.getNuggets(swedish, books));
+  searchKanjis = (swedish, books) => {
+    this.setState({ kanjis: [], offset: 0 }, this.getKanjis(swedish, books));
   }
 
-  getNuggets = (swedish, books) => {
+  getKanjis = (swedish, books) => {
     kanjiService().getKanji(swedish, this.extractBookIds(books), this.state.offset).then((response) => {
       response.text().then((text) => {
         let data = JSON.parse(text);
@@ -39,6 +40,10 @@ class kanjiScreen extends React.Component {
         this.setState({ kanjis });
       });
     });
+  }
+
+  deleteKanji = (kanji) => {
+    window.console.log(kanji.swedish);
   }
 
   getBooks = () => {
@@ -60,7 +65,11 @@ class kanjiScreen extends React.Component {
   render() {
     return (
       <Grid>
-        <KanjiSearch books={this.state.books} search={this.searchNuggets} />
+        <KanjiSearch books={this.state.books} search={this.searchKanjis} />
+        <hr />
+        { this.state.kanjis.map(kanji => (
+          <KanjiPanel key={kanji.id} kanji={kanji} delete={this.deleteKanji} />
+        ))}
       </Grid>
     );
   }
