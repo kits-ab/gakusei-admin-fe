@@ -7,6 +7,7 @@ import Utility from '../../../../shared/util/Utility';
 
 import KanjiSearch from './components/KanjiSearch';
 import KanjiPanel from './components/KanjiPanel';
+import KanjiForm from './components/KanjiForm';
 
 class kanjiScreen extends React.Component {
   constructor(props) {
@@ -65,6 +66,10 @@ class kanjiScreen extends React.Component {
   render() {
     return (
       <Grid>
+        <h2> Tillgängliga kanjis </h2>
+        <br />
+        <KanjiForm />
+        <br />
         <KanjiSearch books={this.state.books} search={this.searchKanjis} />
         <hr />
         { this.state.kanjis.map(kanji => (
