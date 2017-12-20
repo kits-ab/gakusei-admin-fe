@@ -64,9 +64,9 @@ class KanjiSearch extends React.Component {
               </FormControl>
             </Col>
           </FormGroup>
-            <Button type="submit" className="pull-right" bsStyle="primary">
-              <Glyphicon glyph="search" /> {' '} Sök
-            </Button>
+          <Button type="submit" className="pull-right" bsStyle="primary">
+            <Glyphicon glyph="search" /> {' '} Sök
+          </Button>
         </Form>
       </Panel>
     );
