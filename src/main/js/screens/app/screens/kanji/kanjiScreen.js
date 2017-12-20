@@ -44,7 +44,12 @@ class kanjiScreen extends React.Component {
   }
 
   deleteKanji = (kanji) => {
-    window.console.log(kanji.swedish);
+    kanjiService().deleteKanji(kanji.id).then((response) => {
+      if (response.ok) {
+        let kanjis = this.state.kanjis.filter(k => !k.id === kanji.id);
+        this.setState({ kanjis });
+      }
+    });
   }
 
   getBooks = () => {
