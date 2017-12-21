@@ -1,17 +1,28 @@
 import React from 'react';
 import { Panel, Col, Button, ButtonToolbar, Alert } from 'react-bootstrap';
 
+import KanjiModal from './KanjiModal';
+
 class KanjiPanel extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       deleted: false,
+      showModal: false,
     };
   }
 
   handleDelete = () => {
     this.setState({ deleted: true }, this.props.delete(this.props.kanji));
+  }
+
+  showModal = () => {
+    this.setState({ showModal: true });
+  }
+
+  closeModal = () => {
+    this.setState({ showModal: false });
   }
 
   panelContent = () => {
@@ -23,7 +34,7 @@ class KanjiPanel extends React.Component {
         <Col md={3}> {kanji.kanji} </Col>
         <Col md={3} >
           <ButtonToolbar className="pull-right" >
-            <Button bsStyle="primary" bsSize="small" > Visa </Button>
+            <Button bsStyle="primary" bsSize="small" onClick={this.showModal} > Visa </Button>
             <Button bsStyle="danger" bsSize="small" onClick={this.handleDelete} > Ta bort </Button>
           </ButtonToolbar>
         </Col>
@@ -45,6 +56,7 @@ class KanjiPanel extends React.Component {
         :
           this.panelContent()
         }
+        <KanjiModal kanji={this.props.kanji} showModal={this.state.showModal} closeModal={this.closeModal} />
       </div>
     );
   }
