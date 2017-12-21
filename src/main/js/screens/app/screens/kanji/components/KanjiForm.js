@@ -42,6 +42,7 @@ class KanjiForm extends React.Component {
       kanji: this.state.kanji,
       books: this.extractBooks(),
     });
+    this.setState({ showCreate: false });
   }
 
   renderShowButton = () => (
