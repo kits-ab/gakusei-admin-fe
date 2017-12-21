@@ -22,6 +22,10 @@ class KanjiForm extends React.Component {
     }, [])
   );
 
+  extractBooks = () => (
+    this.props.books.filter(book => this.state.books.includes(book.title))
+  )
+
   onInputChange = (event) => {
     let name = event.target.name;
     let options = event.target.options;
@@ -31,7 +35,13 @@ class KanjiForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    // TODO: build kanji object, send to createKanji()
+    this.props.create({
+      description: this.state.description,
+      swedish: this.state.swedish,
+      english: this.state.swedish,
+      kanji: this.state.kanji,
+      books: this.extractBooks(),
+    });
   }
 
   renderShowButton = () => (
@@ -93,7 +103,7 @@ class KanjiForm extends React.Component {
         </FormGroup>
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>
-            Svenska
+            Böcker
           </Col>
           <Col md={10} >
             <FormControl 
