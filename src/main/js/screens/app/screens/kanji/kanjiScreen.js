@@ -8,6 +8,7 @@ import Utility from '../../../../shared/util/Utility';
 import KanjiSearch from './components/KanjiSearch';
 import KanjiPanel from './components/KanjiPanel';
 import KanjiForm from './components/KanjiForm';
+import KanjiLoadMore from './components/KanjiLoadMore';
 
 class kanjiScreen extends React.Component {
   constructor(props) {
@@ -16,13 +17,16 @@ class kanjiScreen extends React.Component {
     this.state = {
       books: [],
       kanjis: [],
+      searchSwedish: '',
+      searchBooks: '',
       offset: 0,
+      loadMoreIsDisabled: false,
     };
   }
 
   componentWillMount = () => {
     this.getBooks();
-    this.searchKanjis('', []);
+    this.getKanjis();
   }
 
   extractBookIds = bookNames => (
@@ -30,16 +34,25 @@ class kanjiScreen extends React.Component {
   )
 
   searchKanjis = (swedish, books) => {
-    this.setState({ kanjis: [], offset: 0 }, this.getKanjis(swedish, books));
+    this.setState({ 
+      kanjis: [], 
+      offset: 0, 
+      searchSwedish: swedish, 
+      searchBooks: books }, this.getKanjis);
   }
 
-  getKanjis = (swedish, books) => {
-    kanjiService().getKanji(swedish, this.extractBookIds(books), this.state.offset).then((response) => {
+  loadMore = () => {
+    let offset = this.state.offset + 1;
+    this.setState({ offset }, this.getKanjis);
+  }
+
+  getKanjis = () => {
+    kanjiService().getKanji(this.state.searchSwedish, this.extractBookIds(this.state.searchBooks), this.state.offset).then((response) => {
       response.text().then((text) => {
         let data = JSON.parse(text);
         let kanjis = this.state.kanjis.concat(data.content);
         window.console.log(kanjis);
-        this.setState({ kanjis });
+        this.setState({ kanjis, loadMoreIsDisabled: data.last });
       });
     });
   }
@@ -81,13 +94,27 @@ class kanjiScreen extends React.Component {
       <Grid>
         <h2> Tillgängliga kanjis </h2>
         <br />
-        <KanjiForm books={this.state.books} create={this.createKanji} />
+        <KanjiForm 
+          books={this.state.books} 
+          create={this.createKanji} 
+        />
         <br />
-        <KanjiSearch books={this.state.books} search={this.searchKanjis} />
+        <KanjiSearch 
+          books={this.state.books} 
+          search={this.searchKanjis} 
+        />
         <hr />
         { this.state.kanjis.map(kanji => (
-          <KanjiPanel key={kanji.id} kanji={kanji} delete={this.deleteKanji} />
+          <KanjiPanel 
+            key={kanji.id} 
+            kanji={kanji} 
+            delete={this.deleteKanji} 
+          />
         ))}
+        <KanjiLoadMore 
+          loadMoreIsDisabled={this.state.loadMoreIsDisabled}
+          loadMore={this.loadMore}
+        />
       </Grid>
     );
   }
