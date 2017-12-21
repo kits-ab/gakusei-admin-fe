@@ -73,6 +73,14 @@ class kanjiScreen extends React.Component {
     });
   }
 
+  updateKanji = (kanji) => {
+    kanjiService().updateKanji(kanji).then((response) => {
+      if (response.ok) {
+        this.setState({ kanjis: this.state.kanjis.map(mapKanji => (mapKanji.id === kanji.id ? kanji : mapKanji)) });
+      }
+    });
+  }
+
   getBooks = () => {
     bookService().getAll().then((response) => {
       if (response.status === 200) {
@@ -108,7 +116,9 @@ class kanjiScreen extends React.Component {
           <KanjiPanel 
             key={kanji.id} 
             kanji={kanji} 
-            delete={this.deleteKanji} 
+            delete={this.deleteKanji}
+            update={this.updateKanji}
+            books={this.state.books}
           />
         ))}
         <KanjiLoadMore 

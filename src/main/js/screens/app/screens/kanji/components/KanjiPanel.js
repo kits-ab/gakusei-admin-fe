@@ -56,7 +56,13 @@ class KanjiPanel extends React.Component {
         :
           this.panelContent()
         }
-        <KanjiModal kanji={this.props.kanji} showModal={this.state.showModal} closeModal={this.closeModal} />
+        <KanjiModal 
+          kanji={this.props.kanji} 
+          showModal={this.state.showModal} 
+          closeModal={this.closeModal}
+          update={this.props.update}
+          books={this.props.books}
+        />
       </div>
     );
   }
