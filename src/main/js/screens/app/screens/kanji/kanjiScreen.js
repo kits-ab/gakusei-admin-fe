@@ -22,6 +22,7 @@ class kanjiScreen extends React.Component {
 
   componentWillMount = () => {
     this.getBooks();
+    this.searchKanjis('', []);
   }
 
   extractBookIds = bookNames => (
