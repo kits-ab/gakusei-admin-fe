@@ -47,7 +47,6 @@ class kanjiScreen extends React.Component {
     kanjiService().deleteKanji(kanji).then((response) => {
       if (response.ok) {
         let kanjis = this.state.kanjis.filter(k => k.id !== kanji.id);
-        this.setState({ kanjis });
       }
     });
   }
