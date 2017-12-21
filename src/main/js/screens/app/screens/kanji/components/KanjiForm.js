@@ -38,7 +38,7 @@ class KanjiForm extends React.Component {
     this.props.create({
       description: this.state.description,
       swedish: this.state.swedish,
-      english: this.state.swedish,
+      english: this.state.english,
       kanji: this.state.kanji,
       books: this.extractBooks(),
     });
