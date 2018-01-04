@@ -120,6 +120,7 @@ class NuggetModal extends React.Component {
             </Col>
             <Col md={10}>
               <FormControl
+                style={{ height: '200px' }}
                 onChange={event => this.onInputChange(event)}
                 multiple
                 componentClass="select"

@@ -123,7 +123,8 @@ class KanjiModal extends React.Component {
               Bokreferenser:
             </Col>
             <Col md={10} >
-              <FormControl 
+              <FormControl
+                style={{ height: '200px' }}
                 onChange={event => this.onInputChange(event)}
                 multiple
                 componentClass="select"
