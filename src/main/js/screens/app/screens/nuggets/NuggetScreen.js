@@ -177,7 +177,7 @@ class NuggetScreen extends React.Component {
           <Form horizontal id="searchNuggetsForm" onSubmit={this.searchNuggets}>
             <FormGroup>
               <Col componentClass={ControlLabel} xs={12} md={2}>
-               Svenskt uttryck
+                Svenskt uttryck
               </Col>
               <Col xs={12} md={4}>
                 <FormControl
@@ -219,8 +219,13 @@ class NuggetScreen extends React.Component {
         </Panel>
         {this.state.nuggets.length === 0 ? this.renderMsg('no nuggets') : null}
         {this.state.error ? this.renderMsg('error') : null}
-         {this.state.nuggets.map(nugget => (
-            <NuggetPanel key={nugget.id.concat('nuggetpanel')} nugget={nugget} handleDeleteNugget={this.handleDeleteNugget}/>
+        {this.state.nuggets.map(nugget => (
+            <NuggetPanel 
+              key={nugget.id.concat('nuggetpanel')} 
+              nugget={nugget} 
+              handleDeleteNugget={this.handleDeleteNugget}
+              books={this.state.books}
+            />
           ))}
         <Button
           block
