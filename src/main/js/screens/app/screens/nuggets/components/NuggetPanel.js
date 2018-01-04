@@ -70,6 +70,7 @@ class NuggetPanel extends React.Component {
               viewNugget={this.state.viewNugget}
               books={this.props.books}
               wordTypes={this.props.wordTypes}
+              update={this.props.update}
             />
           </div>
         )}

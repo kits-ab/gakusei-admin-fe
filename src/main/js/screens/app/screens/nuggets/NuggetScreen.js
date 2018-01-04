@@ -113,6 +113,14 @@ class NuggetScreen extends React.Component {
     this.setState({ offset }, () => this.getNuggets());
   };
 
+  handleUpdateNugget = (nugget) => {
+    nuggetService().update(nugget).then((response) => {
+      if (response.ok) {
+        this.setState({ nuggets: this.state.nuggets.map(mapNugget => (mapNugget.id === nugget.id ? nugget : mapNugget)) });
+      }
+    });
+  }
+
   handleDeleteNugget = (deletedNuggetId) => {
     this.setState(prevState => ({
       nuggets: prevState.nuggets.filter(nugget => nugget.id !== deletedNuggetId)
@@ -226,6 +234,7 @@ class NuggetScreen extends React.Component {
               handleDeleteNugget={this.handleDeleteNugget}
               books={this.state.books}
               wordTypes={this.state.wordTypes}
+              update={this.handleUpdateNugget}
             />
           ))}
         <Button
