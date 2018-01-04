@@ -124,7 +124,7 @@ class NuggetModal extends React.Component {
                 multiple
                 componentClass="select"
                 name="books"
-                value={nugget.books.map(book => book.title)}
+                defaultValue={nugget.books.map(book => book.title)}
               >
                 {this.props.books.map(book => <option key={book.title} value={book.title} > {book.title} </option>)}
               </FormControl>
@@ -138,8 +138,8 @@ class NuggetModal extends React.Component {
               <FormControl
                 onChange={event => this.onInputChange(event)}
                 componentClass="select"
-                name="description"
-                value={nugget.wordType.type}
+                name="wordType"
+                defaultValue={nugget.wordType.type}
               >
                 {this.props.wordTypes.map(type => <option key={type.type} value={type.type} > {type.type} </option>)}
               </FormControl>
@@ -148,6 +148,15 @@ class NuggetModal extends React.Component {
         </Form>
       </div>
     );
+  }
+
+  updateNugget = () => {
+    this.props.update(this.state.editNugget);
+    this.resetEditNugget();
+  }
+
+  resetEditNugget = () => {
+    this.setState({ editNugget: JSON.parse(JSON.stringify(this.props.nugget)), editState: false });
   }
 
   getSelected = options => (
@@ -160,9 +169,14 @@ class NuggetModal extends React.Component {
   onInputChange = (event) => {
     let name = event.target.name;
     let options = event.target.options;
-    let value = name === 'books' 
-                          ? this.props.books.filter(book => this.getSelected(options).includes(book.title)) 
-                          : event.target.value;
+    let value = event.target.value;
+
+    if (name === 'books') {
+      value = this.props.books.filter(book => this.getSelected(options).includes(book.title));
+    } else if (name === 'wordType') {
+      value = this.props.wordTypes.find(wt => wt.type === event.target.value);
+    }
+    
     let editNugget = this.state.editNugget;
     editNugget[name] = value;
     this.setState({ editNugget });
@@ -191,8 +205,8 @@ class NuggetModal extends React.Component {
         <Modal.Footer>
           {this.state.editState ?
             <ButtonToolbar className="pull-right">
-              <Button bsStyle="primary" > Spara ändringar </Button>
-              <Button bsStyle="danger" onClick={() => this.setState({ editState: false })}> Avbryt </Button>
+              <Button bsStyle="primary" onClick={this.updateNugget}> Spara ändringar </Button>
+              <Button bsStyle="danger" onClick={this.resetEditNugget}> Avbryt </Button>
             </ButtonToolbar>
           :
             <Button
