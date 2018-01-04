@@ -128,7 +128,7 @@ class KanjiModal extends React.Component {
                 multiple
                 componentClass="select"
                 name="books"
-                value={kanji.books.map(book => book.title)}
+                defaultValue={kanji.books.map(book => book.title)}
               >
                 {this.props.books.map(book => <option key={book.title} value={book.title}>{book.title}</option>)}
               </FormControl>
