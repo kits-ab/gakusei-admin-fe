@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert, Modal, Panel, Form, ControlLabel, FormControl, FormGroup, Col } from 'react-bootstrap';
+import { Alert, Modal, Panel, Form, ControlLabel, 
+  FormControl, FormGroup, Col, ButtonToolbar, Button } from 'react-bootstrap';
 
 class NuggetModal extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class NuggetModal extends React.Component {
     this.state = {
       error: '',
       editNugget: JSON.parse(JSON.stringify(this.props.nugget)),
+      editState: false,
     };
   }
 
@@ -177,9 +179,29 @@ class NuggetModal extends React.Component {
           {this.state.error ?
             <Alert bsStyle="warning"> {this.state.error} </Alert>
             :
-            <div>{this.displayNuggetDetails(nugget)}{this.editNuggetDetails()}</div>
+            <div>
+              {this.state.editState ?
+                this.editNuggetDetails()
+              :
+                this.displayNuggetDetails(nugget)
+              }
+              </div>
           }
         </Modal.Body>
+        <Modal.Footer>
+          {this.state.editState ?
+            <ButtonToolbar className="pull-right">
+              <Button bsStyle="primary" > Spara ändringar </Button>
+              <Button bsStyle="danger" onClick={() => this.setState({ editState: false })}> Avbryt </Button>
+            </ButtonToolbar>
+          :
+            <Button
+              bsStyle="primary"
+              onClick={() => this.setState({ editState: true })} >
+              Redigera ord
+            </Button>
+          }
+        </Modal.Footer>
       </Modal>
     );
   }
