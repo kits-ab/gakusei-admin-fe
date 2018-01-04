@@ -35,6 +35,24 @@ class NuggetModal extends React.Component {
     </div>
   );
 
+  getSelected = options => (
+    Object.keys(options).filter(key => options[key].selected).reduce((acc, key) => {
+      acc.push(options[key].value);
+      return acc;
+    }, [])
+  );
+
+  onInputChange = (event) => {
+    let name = event.target.name;
+    let options = event.target.options;
+    let value = name === 'books' 
+                          ? this.props.books.filter(book => this.getSelected(options).includes(book.title)) 
+                          : event.target.value;
+    let editKanji = this.state.editKanji;
+    editKanji[name] = value;
+    this.setState({ editKanji });
+  }
+
 
   render() {
     let nugget = this.props.nugget;
