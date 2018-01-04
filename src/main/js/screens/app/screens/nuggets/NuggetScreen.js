@@ -225,6 +225,7 @@ class NuggetScreen extends React.Component {
               nugget={nugget} 
               handleDeleteNugget={this.handleDeleteNugget}
               books={this.state.books}
+              wordTypes={this.state.wordTypes}
             />
           ))}
         <Button
