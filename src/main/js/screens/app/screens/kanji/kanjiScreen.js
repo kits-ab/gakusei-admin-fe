@@ -51,7 +51,6 @@ class kanjiScreen extends React.Component {
       response.text().then((text) => {
         let data = JSON.parse(text);
         let kanjis = this.state.kanjis.concat(data.content);
-        window.console.log(kanjis);
         this.setState({ kanjis, loadMoreIsDisabled: data.last });
       });
     });

@@ -64,7 +64,14 @@ class NuggetPanel extends React.Component {
                 </ButtonToolbar>
               </Col>
             </Panel>
-            <NuggetModal nugget={nugget} closeModal={this.closeModal} viewNugget={this.state.viewNugget}/>
+            <NuggetModal 
+              nugget={nugget} 
+              closeModal={this.closeModal} 
+              viewNugget={this.state.viewNugget}
+              books={this.props.books}
+              wordTypes={this.props.wordTypes}
+              update={this.props.update}
+            />
           </div>
         )}
       </div>

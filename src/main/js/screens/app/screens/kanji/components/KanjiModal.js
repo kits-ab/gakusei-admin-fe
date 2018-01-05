@@ -123,12 +123,13 @@ class KanjiModal extends React.Component {
               Bokreferenser:
             </Col>
             <Col md={10} >
-              <FormControl 
+              <FormControl
+                style={{ height: '200px' }}
                 onChange={event => this.onInputChange(event)}
                 multiple
                 componentClass="select"
                 name="books"
-                value={kanji.books.map(book => book.title)}
+                defaultValue={kanji.books.map(book => book.title)}
               >
                 {this.props.books.map(book => <option key={book.title} value={book.title}>{book.title}</option>)}
               </FormControl>
