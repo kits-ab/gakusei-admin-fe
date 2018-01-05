@@ -13,6 +13,10 @@ npm-debug.log.*
 # Hide our secret env.json File
 env.json
 
+# Hide our secret sectret.json file
+secrets.json
+
+
 # Test reports
 reports/**
 selenium-debug.log

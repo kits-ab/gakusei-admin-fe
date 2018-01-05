@@ -2,14 +2,24 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, Switch, Route } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { anchorate } from 'anchorate';
 import { persistStore } from 'redux-persist';
 
-// import { requireAuthentication } from './shared/components/AuthenticatedComponent';
+import requireAuthentication from './shared/components/AuthenticatedComponent';
 
-import appScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
+import LoginScreen from './screens/app/screens/login';
+import LogoutScreen from './screens/app/screens/logout';
+import GakuseiAdminNav from './screens/app/components/GakuseiAdminNav';
+import AdminPanelScreen from './screens/app/screens/admin-panel';
+import userScreen from './screens/app/screens/users';
+import QuizzesScreen from './screens/app/screens/quizzes';
+import LessonsScreen from './screens/app/screens/lessons';
+import NuggetScreen from './screens/app/screens/nuggets';
+import NuggetCSV from './screens/app/screens/nuggetCsv';
+import grammarScreen from './screens/app/screens/grammar';
+import kanjiScreen from './screens/app/screens/kanji';
 
 function onUpdate() {
   anchorate(); // To have href's that can scroll to page sections
@@ -40,12 +50,22 @@ export default class AppProvider extends React.Component {
   render() {
     if (this.state.rehydrated) {
       return (<Provider store={this.props.store}>
-        <Router onUpdate={onUpdate} history={this.props.history}>
-          <Switch>
-            <Route exact path="/" component={appScreen} />
+        <BrowserRouter onUpdate={onUpdate}>
+          <div>
+            <Route component={GakuseiAdminNav}/>
             <Route path="/about" component={aboutScreen} />
-          </Switch>
-        </Router>
+            <Route path="/login" component={requireAuthentication(LoginScreen)} />
+            <Route path="/log-out" component={requireAuthentication(LogoutScreen)} />
+            <Route path="/admin-panel" component={requireAuthentication(AdminPanelScreen)} />
+            <Route path="/users" component={requireAuthentication(userScreen)} />
+            <Route path="/quizzes" component={requireAuthentication(QuizzesScreen)} />
+            <Route path="/lessons" component={requireAuthentication(LessonsScreen)} />
+            <Route path="/nuggets" component={requireAuthentication(NuggetScreen)} />
+            <Route path="/nuggetCsv" component={requireAuthentication(NuggetCSV)} />
+            <Route path="/grammar" component={requireAuthentication(grammarScreen)} />
+            <Route path="/kanji" component={requireAuthentication(kanjiScreen)} />
+          </div>
+        </BrowserRouter>
       </Provider>);
     }
     return null;
